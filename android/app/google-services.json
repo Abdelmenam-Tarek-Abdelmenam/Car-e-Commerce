@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "137787220054",
+    "firebase_url": "https://car-e-commerce-default-rtdb.firebaseio.com",
+    "project_id": "car-e-commerce",
+    "storage_bucket": "car-e-commerce.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:137787220054:android:c15d6122e668a5f99cdbf7",
+        "android_client_info": {
+          "package_name": "com.example.car_e_commerce"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "137787220054-vgesam406ldgr0ntaq742bscsburqpak.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.car_e_commerce",
+            "certificate_hash": "90cde396df0839d19a774eedcdb4c9a39b91258c"
+          }
+        },
+        {
+          "client_id": "137787220054-3b2ipojjqk13scffahpv04fivc46i7na.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKRb3NJK0yJZX-wp9cIGz-nrPsmKRnnv4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "137787220054-3b2ipojjqk13scffahpv04fivc46i7na.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

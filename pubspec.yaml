@@ -13,7 +13,21 @@ dependencies:
   flutter:
     sdk: flutter
 
+  # icons
   cupertino_icons: ^1.0.2
+
+  # bloc
+  bloc: ^8.0.3
+  flutter_bloc: ^8.0.1
+
+  # firebase
+  firebase_auth: ^3.3.11
+  firebase_core: ^1.13.1
+  cloud_firestore: ^3.1.10
+
+  # Login methods
+  google_sign_in: ^5.2.4
+
 
 dev_dependencies:
   flutter_test:

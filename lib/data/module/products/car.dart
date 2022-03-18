@@ -48,7 +48,7 @@ class Car extends Vehicle {
         price: jsonData["price"],
         imgUrl: jsonData['imageUrl'],
         properties: json.decode(jsonData['properties']),
-        video: 'video');
+        video: jsonData['video']);
   }
 
   @override

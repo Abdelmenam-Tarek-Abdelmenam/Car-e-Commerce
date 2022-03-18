@@ -46,7 +46,7 @@ class DataBaseRepository {
       VehicleType.bike: "bikes"
     }[vehicleType]!;
     List<Map<String, dynamic>> allVehiclesData =
-        await database?.query(tableName, where: "brand = $brandName") ?? [];
+        await database?.query(tableName, where: "brand = '$brandName'") ?? [];
 
     return _mapsToVehicle(allVehiclesData, vehicleType);
   }

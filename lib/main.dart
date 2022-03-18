@@ -1,13 +1,11 @@
 import 'package:car_e_commerce/ui/routes/routes.dart';
-import 'package:car_e_commerce/ui/screens/main_screen/main_screen.dart';
-import 'package:car_e_commerce/ui/screens/sign_screen/sign_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flow_builder/flow_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'bloc/bloc/auth_status_bloc.dart';
-import 'bloc/myBlocObserver.dart';
+import 'bloc/my_bloc_observer.dart';
 import 'data/repository/auth_repository.dart';
 
 Future<void> main() async {
@@ -24,11 +22,13 @@ Future<void> main() async {
   );
 }
 
+// ignore: must_be_immutable
 class MyApp extends StatelessWidget {
   AuthRepository auth;
   MyApp({
+    Key? key,
     required this.auth,
-  });
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider.value(
@@ -50,8 +50,9 @@ class AppView extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Car E-Commerce',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue, 
+        primarySwatch: Colors.blue,
       ),
       home: FlowBuilder<AuthStatus>(
         state: context.select((AuthStatusBloc bloc) => bloc.state.status),

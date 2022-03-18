@@ -1,8 +1,9 @@
 enum Type {
   car,
-  motoCycle,
+  motorCycle,
   bike,
 }
+
 abstract class Vehicle {
   late String id;
   late String name;

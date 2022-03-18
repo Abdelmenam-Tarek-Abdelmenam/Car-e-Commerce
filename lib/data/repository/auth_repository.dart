@@ -2,16 +2,14 @@ import 'package:car_e_commerce/data/module/user/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthRepository {
-  FirebaseAuth? _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth;
 
   AuthRepository({FirebaseAuth? auth}) : _auth = auth ?? FirebaseAuth.instance;
 
-  var currentUser = AppUser.empty();
-
-  // maping firebase user to appUser
+  var currentUser = const AppUser.empty();
 
   Stream<Object?> get appUser {
-    return _auth!.authStateChanges().map((userFireBase) {
+    return _auth.authStateChanges().map((userFireBase) {
       final tempUser =
           userFireBase == null ? AppUser.empty : userFireBase.toUser;
       return tempUser;
@@ -19,11 +17,11 @@ class AuthRepository {
   }
 
   // sign up method using firebase
-
   Future<User?> signUp(String email, String password) async {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
+      return userCredential.user;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         print('The password provided is too weak.');
@@ -33,6 +31,7 @@ class AuthRepository {
     } catch (e) {
       print(e);
     }
+    return null;
   }
 
   // sign in method using firebase
@@ -42,6 +41,7 @@ class AuthRepository {
           .signInWithEmailAndPassword(
               email: "barry.allen@example.com",
               password: "SuperSecretPassword!");
+      return userCredential.user;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
@@ -49,23 +49,19 @@ class AuthRepository {
         print('Wrong password provided for that user.');
       }
     }
+    return null;
   }
-
-// sign out
 
   Future<void> signOut() async {
     await FirebaseAuth.instance.signOut();
   }
 
-// get the user
   Future<User?> getUser() async {
-    return _auth!.currentUser;
+    return _auth.currentUser;
   }
 
-  // is user signed in
-
-  Future<bool> isSignedin() async {
-    return await _auth!.currentUser != null;
+  bool isSignedIn() {
+    return _auth.currentUser != null;
   }
 }
 

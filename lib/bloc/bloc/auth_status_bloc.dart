@@ -11,9 +11,10 @@ part 'auth_status_event.dart';
 part 'auth_status_state.dart';
 
 class AuthStatusBloc extends Bloc<AuthStatusEvent, AuthState> {
-  AuthRepository _authRepository;
+  final AuthRepository _authRepository;
 
-  AuthStatusBloc(this._authRepository) : super(AuthState.unauthenticated()) {
+  AuthStatusBloc(this._authRepository)
+      : super(const AuthState.unauthenticated()) {
     on<AuthLogoutEvent>(_authLogOutHandler);
     on<UserChangedState>(_userChangedState);
   }
@@ -24,7 +25,7 @@ class AuthStatusBloc extends Bloc<AuthStatusEvent, AuthState> {
   ) {
     emit(event.userApp.isEmpty
         ? AuthState.authenticated(event.userApp)
-        : AuthState.unauthenticated());
+        : const AuthState.unauthenticated());
   }
 
   void _authLogOutHandler(

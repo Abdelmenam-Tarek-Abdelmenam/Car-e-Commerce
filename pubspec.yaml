@@ -33,6 +33,13 @@ dependencies:
   # Starting
   flutter_native_splash: ^2.1.1
 
+  # widgets
+  fluttertoast: ^8.0.9
+
+  # data operations
+  shared_preferences: ^2.0.13
+  sqflite: ^2.0.2
+
 
 dev_dependencies:
   flutter_test:
@@ -54,6 +61,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
      - assets/images/Logo/
+     - assets/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

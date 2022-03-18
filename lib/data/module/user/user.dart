@@ -6,18 +6,19 @@ class AppUser extends Equatable {
   final String? photoUrl;
   final String? name;
 
-  AppUser({
+  const AppUser({
     required this.id,
     this.email,
     this.photoUrl,
     this.name,
   });
 
-  AppUser.empty() : this(id: '');
+  const AppUser.empty() : this(id: '');
 
   bool get isEmpty {
-    return AppUser == null ;
+    return id == '';
   }
+
   @override
   List<Object?> get props => [id];
 }

@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 
+// standerized user
 class AppUser extends Equatable {
   final String id;
   final String? email;
@@ -8,16 +9,14 @@ class AppUser extends Equatable {
 
   const AppUser({
     required this.id,
+    this.name,
     this.email,
     this.photoUrl,
-    this.name,
   });
 
-  const AppUser.empty() : this(id: '');
+  static const empty = AppUser(id: '');
 
-  bool get isEmpty {
-    return id == '';
-  }
+  bool get isEmpty => this == AppUser.empty;
 
   @override
   List<Object?> get props => [id];

@@ -1,63 +1,78 @@
 import 'package:car_e_commerce/data/module/user/user.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:car_e_commerce/data/repository/auth_exception.dart';
+import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthRepository {
-  final FirebaseAuth _auth;
+  final firebase_auth.FirebaseAuth _auth;
+  final GoogleSignIn _googleSignIn;
+  var currUser = AppUser.empty;
 
-  AuthRepository({FirebaseAuth? auth}) : _auth = auth ?? FirebaseAuth.instance;
+  AuthRepository({
+    firebase_auth.FirebaseAuth? auth,
+    GoogleSignIn? googleSignIn,
+  })  : _auth = auth ?? firebase_auth.FirebaseAuth.instance,
+        _googleSignIn = googleSignIn ?? GoogleSignIn.standard();
 
-  var currentUser = const AppUser.empty();
-
-  Stream<Object?> get appUser {
-    return _auth.authStateChanges().map((userFireBase) {
-      final tempUser =
-          userFireBase == null ? AppUser.empty : userFireBase.toUser;
-      return tempUser;
+  Stream<AppUser> get user {
+    return _auth.authStateChanges().map((firebaseUser) {
+      final user = firebaseUser == null ? AppUser.empty : firebaseUser.toUser;
+      currUser = user;
+      return user;
     });
   }
 
-  // sign up method using firebase
-  Future<User?> signUp(String email, String password) async {
+  Future<void> signUpWithEmailAndPassword({
+    required String email,
+    required String password,
+  }) async {
     try {
-      UserCredential userCredential = await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: email, password: password);
-      return userCredential.user;
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
-      } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
-      }
-    } catch (e) {
-      print(e);
+      await _auth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+    } on firebase_auth.FirebaseAuthException catch (e) {
+      throw SignUpWithEmailAndPasswordFailure.fromCode(e.code);
+    } catch (_) {
+      throw const SignUpWithEmailAndPasswordFailure();
     }
-    return null;
   }
 
-  // sign in method using firebase
-  Future<User?> signIn(String email, String password) async {
+  Future<void> signInWithEmailAndPassword(
+    String email,
+    String password,
+  ) async {
     try {
-      UserCredential userCredential = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(
-              email: "barry.allen@example.com",
-              password: "SuperSecretPassword!");
-      return userCredential.user;
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        print('No user found for that email.');
-      } else if (e.code == 'wrong-password') {
-        print('Wrong password provided for that user.');
-      }
+      await _auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+    } on firebase_auth.FirebaseAuthException catch (e) {
+      throw LogInWithEmailAndPasswordFailure.fromCode(e.code);
+    } catch (_) {
+      throw const LogInWithEmailAndPasswordFailure();
     }
-    return null;
+  }
+
+  Future<void> signInUsingGoogle() async {
+    try {
+      final firebase_auth.AuthCredential credential;
+      final googleUser = await _googleSignIn.signIn();
+      final googleAuth = await googleUser!.authentication;
+      credential = firebase_auth.GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+      await _auth.signInWithCredential(credential);
+    } on firebase_auth.FirebaseAuthException catch (e) {
+      throw LogInWithGoogleFailure.fromCode(e.code);
+    } catch (e) {
+      throw LogInWithGoogleFailure();
+    }
   }
 
   Future<void> signOut() async {
-    await FirebaseAuth.instance.signOut();
-  }
-
-  Future<User?> getUser() async {
-    return _auth.currentUser;
+    await firebase_auth.FirebaseAuth.instance.signOut();
   }
 
   bool isSignedIn() {
@@ -65,8 +80,7 @@ class AuthRepository {
   }
 }
 
-// copying the user from firebase to the AppUser module
-extension on User {
+extension on firebase_auth.User {
   AppUser get toUser {
     return AppUser(
         id: uid, email: email, photoUrl: photoURL, name: displayName);

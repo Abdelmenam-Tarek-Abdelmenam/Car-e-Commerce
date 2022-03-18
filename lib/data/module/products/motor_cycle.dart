@@ -3,47 +3,41 @@ import 'dart:convert';
 import 'package:car_e_commerce/data/module/products/vehicle.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Car extends Vehicle {
-  String video;
-
-  Car({
+class MotorCycle extends Vehicle {
+  MotorCycle({
     required String name,
     required String id,
     required String brand,
     required String imgUrl,
-    required this.video,
     required int price,
     required Map<String, dynamic> properties,
   }) : super(
-          name: name,
-          price: price,
-          brand: brand,
-          imgUrl: imgUrl,
-          id: id,
-          properties: properties,
-        );
+            name: name,
+            price: price,
+            brand: brand,
+            imgUrl: imgUrl,
+            id: id,
+            properties: properties);
 
-  static Car fromQueryDocument(
+  static MotorCycle fromQueryDocument(
       QueryDocumentSnapshot<Map<String, dynamic>> rowData) {
-    return Car(
+    return MotorCycle(
         id: rowData.id,
         name: rowData.get('Name'),
         brand: rowData.get("Brand"),
         price: rowData.get("Price"),
         imgUrl: rowData.get("Image"),
-        video: rowData.get("Video"),
         properties: rowData.get("Proberties"));
   }
 
-  static Car fromJson(Map<String, dynamic> jsonData) {
-    return Car(
+  static MotorCycle fromJson(Map<String, dynamic> jsonData) {
+    return MotorCycle(
         name: jsonData['name'],
         id: jsonData['id'],
         brand: jsonData['brand'],
         price: jsonData["price"],
         imgUrl: jsonData['imageUrl'],
-        properties: json.decode(jsonData['properties']),
-        video: jsonData['video']);
+        properties: json.decode(jsonData['properties']));
   }
 
   @override
@@ -54,7 +48,6 @@ class Car extends Vehicle {
       "brand": brand,
       "price": price,
       "imageUrl": imgUrl,
-      "video": video,
       "properties": json.encode(properties)
     };
   }

@@ -15,7 +15,6 @@ class AuthState extends Equatable {
   });
 
   // when the user state is  signed in (authenticated)
-
   const AuthState.authenticated(AppUser user)
       : this(
           status: AuthStatus.authed,
@@ -28,6 +27,7 @@ class AuthState extends Equatable {
           status: AuthStatus.unauthed,
           user: null,
         );
+
   // comparing the state
   @override
   List<Object?> get props => [status, user];

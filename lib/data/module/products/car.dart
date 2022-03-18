@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:car_e_commerce/data/module/products/vehicle.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -8,11 +10,13 @@ class Car extends Vehicle {
   // late String imgUrl;
   // // late Type typeVehicle;
   // late double price;
+  String video;
   Car({
     required String name,
     required String id,
     required String brand,
     required String imgUrl,
+    required this.video,
     required int price,
     required Map<String, dynamic> properties,
   }) : super(
@@ -32,6 +36,31 @@ class Car extends Vehicle {
         brand: rowData.get("Brand"),
         price: rowData.get("Price"),
         imgUrl: rowData.get("Image"),
+        video: rowData.get("Video"),
         properties: rowData.get("Proberties"));
+  }
+
+  static Car fromJson(Map<String, dynamic> jsonData) {
+    return Car(
+        name: jsonData['name'],
+        id: jsonData['id'],
+        brand: jsonData['brand'],
+        price: jsonData["price"],
+        imgUrl: jsonData['imageUrl'],
+        properties: json.decode(jsonData['properties']),
+        video: 'video');
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return {
+      "name": name,
+      "id": id,
+      "brand": brand,
+      "price": price,
+      "imageUrl": imgUrl,
+      "video": video,
+      "properties": json.encode(properties)
+    };
   }
 }

@@ -15,16 +15,7 @@ abstract class Vehicle {
       required this.imgUrl,
       required this.properties});
 
-  Map<String, dynamic> toJson() {
-    return {
-      "name": name,
-      "id": id,
-      "brand": brand,
-      "price": price,
-      "imageUrl": imgUrl,
-      "properties": properties
-    };
-  }
+  Map<String, dynamic> toJson();
 }
 
 enum VehicleType {

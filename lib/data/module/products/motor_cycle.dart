@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:car_e_commerce/data/module/products/vehicle.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -26,5 +28,27 @@ class MotorCycle extends Vehicle {
         price: rowData.get("Price"),
         imgUrl: rowData.get("Image"),
         properties: rowData.get("Proberties"));
+  }
+
+  static MotorCycle fromJson(Map<String, dynamic> jsonData) {
+    return MotorCycle(
+        name: jsonData['name'],
+        id: jsonData['id'],
+        brand: jsonData['brand'],
+        price: jsonData["price"],
+        imgUrl: jsonData['imageUrl'],
+        properties: json.decode(jsonData['properties']));
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return {
+      "name": name,
+      "id": id,
+      "brand": brand,
+      "price": price,
+      "imageUrl": imgUrl,
+      "properties": json.encode(properties)
+    };
   }
 }

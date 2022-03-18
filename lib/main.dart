@@ -1,21 +1,19 @@
+import 'package:car_e_commerce/data/local/sql_database.dart';
 import 'package:car_e_commerce/ui/routes/routes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flow_builder/flow_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'bloc/bloc/auth_status_bloc.dart';
 import 'bloc/my_bloc_observer.dart';
 import 'data/repository/auth_repository.dart';
-
-// hello from menam
-// hello from menam
 
 Future<void> main() async {
   return BlocOverrides.runZoned(
     () async {
       WidgetsFlutterBinding.ensureInitialized();
       await Firebase.initializeApp();
+      await DataBaseRepository.initializeDataBase();
       final auth = AuthRepository();
       runApp(MyApp(
         auth: auth,

@@ -1,18 +1,18 @@
-
 import 'package:flutter/material.dart';
 
-class MainScreen extends StatelessWidget {
-  // static route page
+class SignScreen extends StatelessWidget {
+  const SignScreen({ Key? key }) : super(key: key);
+
   static Page pageRoute() {
     return MaterialPage(
-      child: MainScreen(),
+      child: SignScreen(),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text('main'),
+      child: Text('Hey Sign'),
     );
   }
 }

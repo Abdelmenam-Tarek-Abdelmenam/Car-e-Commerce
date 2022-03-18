@@ -44,4 +44,20 @@ class DataHandlerCubit extends Cubit<DataHandlerState> {
     emit(GetDataDoneState());
     return needData;
   }
+
+  Future<List<Vehicle>> searchVehiclesByName(String subName,
+      {VehicleType vehicleType = VehicleType.car, String? brand}) async {
+    emit(GetDataLoadingState());
+    List<Vehicle> needData;
+    if (DataBaseRepository.database == null) {
+      await _fireStoreRepository.getAllVehicleData(vehicleType: vehicleType);
+      needData = await _dataBaseRepository.getVehicleByName(subName, brand,
+          vehicleType: vehicleType);
+    } else {
+      needData = await _dataBaseRepository.getVehicleByName(subName, brand,
+          vehicleType: vehicleType);
+    }
+    emit(GetDataDoneState());
+    return needData;
+  }
 }

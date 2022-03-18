@@ -10,11 +10,7 @@ class FireStoreRepository {
   final FirebaseFirestore _firebaseFirestoretore = FirebaseFirestore.instance;
   Future<List<Vehicle>> getAllVehicleData(
       {VehicleType vehicleType = VehicleType.car}) async {
-    String collectionName = {
-      VehicleType.car: "cars",
-      VehicleType.motorCycle: "motorCycle",
-      VehicleType.bike: "bikes"
-    }[vehicleType]!;
+    String collectionName = _getCollectionName(vehicleType);
 
     QuerySnapshot<Map<String, dynamic>> vehiclesSnapShot;
     try {
@@ -34,12 +30,7 @@ class FireStoreRepository {
 
   Future<List<Vehicle>> getAllBrandData(String brandName,
       {VehicleType vehicleType = VehicleType.car}) async {
-    String collectionName = {
-      VehicleType.car: "cars",
-      VehicleType.motorCycle: "motorCycle",
-      VehicleType.bike: "bikes"
-    }[vehicleType]!;
-
+    String collectionName = _getCollectionName(vehicleType);
     QuerySnapshot<Map<String, dynamic>> vehiclesSnapShot;
     try {
       vehiclesSnapShot = await _firebaseFirestoretore
@@ -56,6 +47,14 @@ class FireStoreRepository {
         _docsToVehicle(allVehiclesDocuments, vehicleType);
     saveDataLocal(subData: allVehicles, vehicleType: vehicleType);
     return allVehicles;
+  }
+
+  String _getCollectionName(VehicleType vehicleType) {
+    return {
+      VehicleType.car: "cars",
+      VehicleType.motorCycle: "motorCycle",
+      VehicleType.bike: "bikes"
+    }[vehicleType]!;
   }
 
   List<Vehicle> _docsToVehicle(

@@ -27,28 +27,37 @@ class DataBaseRepository {
 
   Future<List<Vehicle>> getAllVehicleData(
       {VehicleType vehicleType = VehicleType.car}) async {
-    String tableName = {
-      VehicleType.car: "cars",
-      VehicleType.motorCycle: "motorCycle",
-      VehicleType.bike: "bikes"
-    }[vehicleType]!;
+    String tableName = _getTableName(vehicleType);
     List<Map<String, dynamic>> allVehiclesData =
         await database?.query(tableName) ?? [];
-
     return _mapsToVehicle(allVehiclesData, vehicleType);
   }
 
   Future<List<Vehicle>> getAllBrandData(String brandName,
       {VehicleType vehicleType = VehicleType.car}) async {
-    String tableName = {
+    String tableName = _getTableName(vehicleType);
+    List<Map<String, dynamic>> allVehiclesData =
+        await database?.query(tableName, where: "brand = '$brandName'") ?? [];
+    return _mapsToVehicle(allVehiclesData, vehicleType);
+  }
+
+  Future<List<Vehicle>> getVehicleByName(String subName, String? brandName,
+      {VehicleType vehicleType = VehicleType.car}) async {
+    String tableName = _getTableName(vehicleType);
+    List<Map<String, dynamic>> allVehiclesData = await database?.query(
+            tableName,
+            where:
+                "name like '%$subName'% ${brandName == null ? "" : "AND brand = '$brandName'"}") ??
+        [];
+    return _mapsToVehicle(allVehiclesData, vehicleType);
+  }
+
+  String _getTableName(VehicleType vehicleType) {
+    return {
       VehicleType.car: "cars",
       VehicleType.motorCycle: "motorCycle",
       VehicleType.bike: "bikes"
     }[vehicleType]!;
-    List<Map<String, dynamic>> allVehiclesData =
-        await database?.query(tableName, where: "brand = '$brandName'") ?? [];
-
-    return _mapsToVehicle(allVehiclesData, vehicleType);
   }
 
   List<Vehicle> _mapsToVehicle(

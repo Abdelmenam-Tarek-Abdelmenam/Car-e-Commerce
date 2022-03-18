@@ -4,13 +4,8 @@ import 'package:car_e_commerce/data/module/products/vehicle.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Car extends Vehicle {
-  // late String id;
-  // late String name;
-  // late String brand;
-  // late String imgUrl;
-  // // late Type typeVehicle;
-  // late double price;
   String video;
+
   Car({
     required String name,
     required String id,

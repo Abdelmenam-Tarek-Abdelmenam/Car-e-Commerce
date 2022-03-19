@@ -25,41 +25,43 @@ class _MainLoginWidgetState extends State<MainLoginWidget> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
       child: SizedBox(
-        height: 550,
+        height: 500,
         width: MediaQuery.of(context).size.width * 0.95,
         child: AnimatedSwitcher(
           duration: const Duration(seconds: 1),
           transitionBuilder: (Widget child, Animation<double> animation) {
             return ScaleTransition(scale: animation, child: child);
           },
-          child: isLogin ? logInWidget() : signUpWidget(),
+          child: defaultMainWidget(),
         ),
       ),
     );
   }
 
-  Widget logInWidget() {
+  Widget defaultMainWidget() {
     return CustomPaint(
-        key: const Key("login"),
-        painter: LoginShadowPaint(),
+        key: isLogin ? const Key("login") : const Key("signUp"),
+        painter: isLogin ? LoginShadowPaint() : SignUpShadowPaint(),
         child: Stack(
           children: [
             GestureDetector(
               onDoubleTap: () => changeScreenMode(),
               child: ClipPath(
-                clipper: SignUpClipper(),
+                clipper: isLogin ? SignUpClipper() : LoginClipper(),
                 child: Container(
                   height: 520,
                   width: MediaQuery.of(context).size.width * 0.92,
                   color: Colors.white.withOpacity(0.6),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.end,
+                    crossAxisAlignment: isLogin
+                        ? CrossAxisAlignment.end
+                        : CrossAxisAlignment.start,
                     children: [
                       Container(
-                        margin: const EdgeInsets.fromLTRB(30, 35, 30, 0),
+                        margin: const EdgeInsets.fromLTRB(30, 40, 30, 0),
                         child: Text(
-                          "Sign Up",
+                          isLogin ? "Sign Up" : "Sign In",
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 25,
@@ -71,305 +73,275 @@ class _MainLoginWidgetState extends State<MainLoginWidget> {
                 ),
               ),
             ),
-            ClipPath(
-              clipper: LoginClipper(),
-              child: Container(
-                height: 520,
-                width: MediaQuery.of(context).size.width * 0.92,
-                color: Colors.white,
+            isLogin ? logInWidget() : signUpWidget(),
+          ],
+        ));
+  }
+
+  Widget logInWidget() {
+    return ClipPath(
+      clipper: LoginClipper(),
+      child: Container(
+        height: 520,
+        width: MediaQuery.of(context).size.width * 0.92,
+        color: Colors.white,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              margin: const EdgeInsets.only(left: 30, top: 40, bottom: 5),
+              child: const Text(
+                "Login",
+                style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 32,
+                    color: Colors.black),
+              ),
+            ),
+            blueLine(),
+            const SizedBox(
+              height: 20,
+            ),
+            Form(
+                key: loginGlobalKey,
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
-                      margin:
-                          const EdgeInsets.only(left: 30, top: 40, bottom: 5),
-                      child: const Text(
-                        "Login",
+                    DefaultFormField(
+                      prefix: Icons.mail,
+                      controller: emailController,
+                      fillHint: AutofillHints.email,
+                      title: "Email Address",
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Email cannot be empty';
+                        } else {
+                          return null;
+                        }
+                      },
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    DefaultFormField(
+                      prefix: Icons.lock,
+                      controller: passController,
+                      fillHint: AutofillHints.password,
+                      title: "Password",
+                      isPass: !showPassText,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'password cannot be empty';
+                        } else {
+                          return null;
+                        }
+                      },
+                      suffix: IconButton(
+                        icon: Icon(showPassText
+                            ? Icons.visibility
+                            : Icons.visibility_off),
+                        onPressed: () {
+                          setState(() {
+                            showPassText = !showPassText;
+                          });
+                        },
+                      ),
+                    ),
+                  ],
+                )),
+            const SizedBox(
+              height: 30,
+            ),
+            Container(
+              margin: const EdgeInsets.only(right: 30),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: const [
+                  Text(
+                    "Forgot Password ?",
+                    style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 12,
+                        color: Color(0xFF4BB8F4)),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            usedButton(
+                const Text(
+                  "Sign In",
+                  style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 12,
+                      color: Colors.white),
+                ), () {
+              if (loginGlobalKey.currentState!.validate()) {}
+            }),
+            const SizedBox(
+              height: 15,
+            ),
+            usedButton(
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Icon(
+                      FontAwesomeIcons.google,
+                      color: Colors.white,
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      "Login using Google account",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 12,
+                          color: Colors.white),
+                    )
+                  ],
+                ),
+                () {})
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget signUpWidget() {
+    return ClipPath(
+      clipper: SignUpClipper(),
+      child: Container(
+        height: 520,
+        width: MediaQuery.of(context).size.width * 0.92,
+        decoration: const BoxDecoration(color: Colors.white),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(
+              height: 20,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                const Spacer(),
+                Container(
+                  margin: const EdgeInsets.only(left: 30, top: 20, right: 20),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        "Sign Up",
                         style: TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 32,
                             color: Colors.black),
                       ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      blueLine(width: 100),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            Form(
+                key: signUpGlobalKey,
+                child: Column(
+                  children: [
+                    DefaultFormField(
+                      prefix: Icons.mail,
+                      controller: emailController,
+                      fillHint: AutofillHints.email,
+                      title: "Email Address",
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Email cannot be empty';
+                        } else {
+                          return null;
+                        }
+                      },
                     ),
-                    blueLine(),
                     const SizedBox(
                       height: 20,
                     ),
-                    Form(
-                        key: loginGlobalKey,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            DefaultFormField(
-                              prefix: Icons.mail,
-                              controller: emailController,
-                              fillHint: AutofillHints.email,
-                              title: "Email Address",
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Email cannot be empty';
-                                } else {
-                                  return null;
-                                }
-                              },
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            DefaultFormField(
-                              prefix: Icons.lock,
-                              controller: passController,
-                              fillHint: AutofillHints.password,
-                              title: "Password",
-                              isPass: !showPassText,
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'password cannot be empty';
-                                } else {
-                                  return null;
-                                }
-                              },
-                              suffix: IconButton(
-                                icon: Icon(showPassText
-                                    ? Icons.visibility
-                                    : Icons.visibility_off),
-                                onPressed: () {
-                                  setState(() {
-                                    showPassText = !showPassText;
-                                  });
-                                },
-                              ),
-                            ),
-                          ],
-                        )),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(right: 30),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: const [
-                          Text(
-                            "Forgot Password ?",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 12,
-                                color: Color(0xFF4BB8F4)),
-                          ),
-                        ],
+                    DefaultFormField(
+                      prefix: Icons.lock,
+                      controller: passController,
+                      fillHint: AutofillHints.newPassword,
+                      title: "Password",
+                      isPass: !showPassText,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'password cannot be empty';
+                        } else {
+                          return null;
+                        }
+                      },
+                      suffix: IconButton(
+                        icon: Icon(showPassText
+                            ? Icons.visibility
+                            : Icons.visibility_off),
+                        onPressed: () {
+                          setState(() {
+                            showPassText = !showPassText;
+                          });
+                        },
                       ),
                     ),
                     const SizedBox(
-                      height: 15,
+                      height: 20,
                     ),
-                    usedButton(
-                        const Text(
-                          "Login",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 12,
-                              color: Colors.white),
-                        ), () {
-                      if (loginGlobalKey.currentState!.validate()) {}
-                    }),
-                    const SizedBox(
-                      height: 15,
+                    DefaultFormField(
+                      prefix: Icons.lock,
+                      controller: passController,
+                      fillHint: AutofillHints.newPassword,
+                      title: "Password",
+                      isPass: !showPassText,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'password cannot be empty';
+                        } else if (value != passController.text) {
+                          return 'Password must be the same';
+                        } else {
+                          return null;
+                        }
+                      },
+                      suffix: IconButton(
+                        icon: Icon(showPassText
+                            ? Icons.visibility
+                            : Icons.visibility_off),
+                        onPressed: () {
+                          setState(() {
+                            showPassText = !showPassText;
+                          });
+                        },
+                      ),
                     ),
-                    usedButton(
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            Icon(
-                              FontAwesomeIcons.google,
-                              color: Colors.white,
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              "Login using Google account",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 12,
-                                  color: Colors.white),
-                            )
-                          ],
-                        ),
-                        () {})
                   ],
-                ),
-              ),
+                )),
+            const SizedBox(
+              height: 30,
             ),
+            usedButton(
+                const Text(
+                  "Sign Up",
+                  style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 12,
+                      color: Colors.white),
+                ), () {
+              if (signUpGlobalKey.currentState!.validate()) {}
+            }),
           ],
-        ));
-  }
-
-  Widget signUpWidget() {
-    return CustomPaint(
-      key: const Key("signUp"),
-      painter: SignUpShadowPaint(),
-      child: Stack(
-        children: [
-          GestureDetector(
-            onDoubleTap: () => changeScreenMode(),
-            child: ClipPath(
-              clipper: LoginClipper(),
-              child: Container(
-                height: 500,
-                width: MediaQuery.of(context).size.width * 0.92,
-                decoration: BoxDecoration(color: Colors.white.withOpacity(0.6)),
-                child: Align(
-                  alignment: Alignment.topLeft,
-                  child: Container(
-                    margin: const EdgeInsets.fromLTRB(30, 40, 30, 0),
-                    child: Text(
-                      "Login",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 25,
-                          color: Colors.grey[400]),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-          ClipPath(
-            clipper: SignUpClipper(),
-            child: Container(
-              height: 500,
-              width: MediaQuery.of(context).size.width * 0.92,
-              decoration: const BoxDecoration(color: Colors.white),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      const Spacer(),
-                      Container(
-                        margin:
-                            const EdgeInsets.only(left: 30, top: 20, right: 20),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text(
-                              "Sign up",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 32,
-                                  color: Colors.black),
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            blueLine(width: 100),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  Form(
-                      key: signUpGlobalKey,
-                      child: Column(
-                        children: [
-                          DefaultFormField(
-                            prefix: Icons.mail,
-                            controller: emailController,
-                            fillHint: AutofillHints.email,
-                            title: "Email Address",
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'Email cannot be empty';
-                              } else {
-                                return null;
-                              }
-                            },
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          DefaultFormField(
-                            prefix: Icons.lock,
-                            controller: passController,
-                            fillHint: AutofillHints.newPassword,
-                            title: "Password",
-                            isPass: !showPassText,
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'password cannot be empty';
-                              } else {
-                                return null;
-                              }
-                            },
-                            suffix: IconButton(
-                              icon: Icon(showPassText
-                                  ? Icons.visibility
-                                  : Icons.visibility_off),
-                              onPressed: () {
-                                setState(() {
-                                  showPassText = !showPassText;
-                                });
-                              },
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          DefaultFormField(
-                            prefix: Icons.lock,
-                            controller: passController,
-                            fillHint: AutofillHints.newPassword,
-                            title: "Password",
-                            isPass: !showPassText,
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'password cannot be empty';
-                              } else if (value != passController.text) {
-                                return 'Password must be the same';
-                              } else {
-                                return null;
-                              }
-                            },
-                            suffix: IconButton(
-                              icon: Icon(showPassText
-                                  ? Icons.visibility
-                                  : Icons.visibility_off),
-                              onPressed: () {
-                                setState(() {
-                                  showPassText = !showPassText;
-                                });
-                              },
-                            ),
-                          ),
-                        ],
-                      )),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  usedButton(
-                      const Text(
-                        "Sign Up",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 12,
-                            color: Colors.white),
-                      ), () {
-                    if (signUpGlobalKey.currentState!.validate()) {}
-                  }),
-                ],
-              ),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }

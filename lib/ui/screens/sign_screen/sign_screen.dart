@@ -1,5 +1,4 @@
 import 'package:car_e_commerce/bloc/cubit/login_cubit.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -8,10 +7,10 @@ import '../../../data/repository/auth_repository.dart';
 // ? can i change of the stateful to be statless without changing keyform for validation
 
 class SignScreen extends StatefulWidget {
-  SignScreen({Key? key}) : super(key: key);
+  const SignScreen({Key? key}) : super(key: key);
 
   static Page pageRoute() {
-    return MaterialPage(
+    return const MaterialPage(
       child: SignScreen(),
     );
   }
@@ -38,9 +37,9 @@ class _SignScreenState extends State<SignScreen> {
             child: Column(
               children: [
                 _EmailTextField(emailController: _emailController),
-                SizedBox(height: 40),
+                const SizedBox(height: 40),
                 _PasswordTextField(passwordController: _passwordController),
-                SizedBox(height: 40),
+                const SizedBox(height: 40),
                 _SignInBtn(
                     formKey: _formKey,
                     emailController: _emailController,
@@ -85,6 +84,7 @@ class _EmailTextField extends StatelessWidget {
             if (value!.isEmpty) {
               return 'required field';
             }
+            return null;
           },
         );
       },
@@ -115,6 +115,7 @@ class _PasswordTextField extends StatelessWidget {
             if (value!.isEmpty) {
               return 'password is required';
             }
+            return null;
           },
         );
       },
@@ -122,20 +123,18 @@ class _PasswordTextField extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class _SignInBtn extends StatelessWidget {
   _SignInBtn({
     Key? key,
-    required GlobalKey<FormState> formKey,
-    required TextEditingController emailController,
-    required TextEditingController passwordController,
-  })  : _formKey = formKey,
-        _emailController = emailController,
-        _passwordController = passwordController,
-        super(key: key);
+    required this.formKey,
+    required this.emailController,
+    required this.passwordController,
+  }) : super(key: key);
 
-  final GlobalKey<FormState> _formKey;
-  final TextEditingController _emailController;
-  final TextEditingController _passwordController;
+  final GlobalKey<FormState> formKey;
+  final TextEditingController emailController;
+  final TextEditingController passwordController;
   final AuthRepository _auth = AuthRepository();
 
   @override
@@ -179,9 +178,7 @@ class _SignInWithGoogleBtn extends StatelessWidget {
                   ),
                   primary: const Color(0xFFFFD600),
                 ),
-                onPressed: () => context
-                    .read<LoginCubit>()
-                    .signInWithGoogle(),
+                onPressed: () => context.read<LoginCubit>().signInWithGoogle(),
                 child: const Text('LOGIN USING GOOGLE'),
               );
       },

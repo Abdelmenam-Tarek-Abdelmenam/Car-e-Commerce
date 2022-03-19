@@ -67,7 +67,7 @@ class AuthRepository {
     } on firebase_auth.FirebaseAuthException catch (e) {
       throw LogInWithGoogleFailure.fromCode(e.code);
     } catch (e) {
-      throw LogInWithGoogleFailure();
+      throw const LogInWithGoogleFailure();
     }
   }
 

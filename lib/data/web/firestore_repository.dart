@@ -8,6 +8,7 @@ import '../module/products/motor_cycle.dart';
 
 class FireStoreRepository {
   final FirebaseFirestore _firebaseFirestoretore = FirebaseFirestore.instance;
+
   Future<List<Vehicle>> getAllVehicleData(
       {VehicleType vehicleType = VehicleType.car}) async {
     String collectionName = _getCollectionName(vehicleType);
@@ -77,12 +78,7 @@ class FireStoreRepository {
   Future<void> saveDataLocal(
       {required List<Vehicle> subData,
       VehicleType vehicleType = VehicleType.car}) async {
-    String tableName = {
-      VehicleType.car: "cars",
-      VehicleType.motorCycle: "motorCycle",
-      VehicleType.bike: "bikes"
-    }[vehicleType]!;
-    // deleteDatabase("data.db");
+    String tableName = _getCollectionName(vehicleType);
     Database database = await openDatabase(
       "data.db",
       version: DataBaseRepository.lastVersion,

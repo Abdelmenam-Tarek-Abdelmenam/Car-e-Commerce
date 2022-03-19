@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:car_e_commerce/data/repository/auth_exception.dart';
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
 
 import '../../data/repository/auth_repository.dart';
 
@@ -9,7 +8,7 @@ part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginStates> {
   final AuthRepository auth;
-  LoginCubit(this.auth) : super(LoginStates.intial());
+  LoginCubit(this.auth) : super(LoginStates.initial());
 
   void emailChange(String value) {
     emit(state.copyWith(email: value, status: LoginStatus.intial));

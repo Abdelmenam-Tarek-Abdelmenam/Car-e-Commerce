@@ -8,21 +8,21 @@ class LoginStates extends Equatable {
   final LoginStatus status;
   final String? errorMessage;
 
-  LoginStates({
+  const LoginStates({
     required this.email,
     required this.password,
     required this.status,
     this.errorMessage,
   });
 
-  factory LoginStates.intial() {
-    return LoginStates(
+  factory LoginStates.initial() {
+    return const LoginStates(
       email: '',
       password: '',
       status: LoginStatus.intial,
     );
   }
-  
+
   @override
   List<Object?> get props => [email, password, status];
 

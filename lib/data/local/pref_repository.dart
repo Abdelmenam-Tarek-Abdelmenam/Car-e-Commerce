@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class PreferenceHelper {
+class PreferenceRepository {
   static late SharedPreferences pref;
 
-  static init() async {
+  static initializePreference() async {
     pref = await SharedPreferences.getInstance();
   }
 

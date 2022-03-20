@@ -1,18 +1,23 @@
+import 'package:car_e_commerce/constants/colors.dart';
 import 'package:car_e_commerce/data/local/pref_repository.dart';
 import 'package:car_e_commerce/data/local/sql_database.dart';
 import 'package:car_e_commerce/ui/routes/routes.dart';
+import 'package:catcher/core/catcher.dart';
+import 'package:catcher/model/catcher_options.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flow_builder/flow_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'bloc/bloc/auth_status_bloc.dart';
 import 'bloc/my_bloc_observer.dart';
+import 'data/error_handler.dart';
 import 'data/repository/auth_repository.dart';
 
 Future<void> main() async {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarColor: Color(0xFFDFF8FE),
+    statusBarColor: backGroundBlue,
     statusBarIconBrightness: Brightness.dark,
   ));
 
@@ -20,12 +25,25 @@ Future<void> main() async {
     () async {
       WidgetsFlutterBinding.ensureInitialized();
       await Firebase.initializeApp();
+      FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
+      FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
       await DataBaseRepository.initializeDataBase();
       await PreferenceRepository.initializePreference();
       AuthRepository auth = AuthRepository();
-      runApp(MyApp(
-        auth: auth,
-      ));
+
+      Catcher(
+        rootWidget: MyApp(
+          auth: auth,
+        ),
+        releaseConfig: CatcherOptions(
+          CustomReportMode(),
+          [],
+        ),
+        debugConfig: CatcherOptions(
+          CustomReportMode(),
+          [],
+        ),
+      );
     },
     blocObserver: MyBlocObserver(),
   );

@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:car_e_commerce/data/repository/auth_exception.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../data/repository/auth_repository.dart';
+import '../../../data/repository/auth_repository.dart';
 
 part 'login_state.dart';
 

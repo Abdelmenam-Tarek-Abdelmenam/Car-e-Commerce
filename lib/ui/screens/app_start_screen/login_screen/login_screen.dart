@@ -1,7 +1,7 @@
-import 'package:car_e_commerce/ui/screens/login_screen/widgtes/main_widget.dart';
+import 'package:car_e_commerce/ui/screens/app_start_screen/login_screen/widgtes/main_widget.dart';
 import 'package:flutter/material.dart';
 
-import '../../../constants/colors.dart';
+import '../../../../constants/colors.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -35,7 +35,7 @@ class HomepageState extends State<LoginScreen> {
               children: [
                 topWidget(),
                 const SizedBox(
-                  height: 10,
+                  height: 40,
                 ),
                 const MainLoginWidget(),
               ],

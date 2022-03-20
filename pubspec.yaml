@@ -20,23 +20,29 @@ dependencies:
   # bloc
   bloc: ^8.0.3
   flutter_bloc: ^8.0.1
+
+  # for good operation
   equatable: ^2.0.3
+  flow_builder: ^0.0.6
+  catcher: ^0.6.9
 
   # firebase
   firebase_auth: ^3.3.11
   firebase_core: ^1.13.1
   cloud_firestore: ^3.1.10
   firebase_database: ^9.0.8
+  firebase_crashlytics: ^2.5.3
 
   # Login methods
   google_sign_in: ^5.2.4
-  flow_builder: ^0.0.6
 
   # Starting
   flutter_native_splash: ^2.1.1
+  liquid_swipe: ^2.1.1
 
   # widgets
   fluttertoast: ^8.0.9
+  lottie: ^1.2.2
 
   # data operations
   shared_preferences: ^2.0.13
@@ -63,6 +69,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
      - assets/images/Logo/
+     - assets/lottie/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

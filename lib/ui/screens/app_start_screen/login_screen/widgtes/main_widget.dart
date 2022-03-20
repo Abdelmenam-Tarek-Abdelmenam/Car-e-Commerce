@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'clip_pathes.dart';
-import 'form_fiel.dart';
+import 'form_field.dart';
 
 class MainLoginWidget extends StatefulWidget {
   const MainLoginWidget({Key? key}) : super(key: key);
@@ -301,7 +301,7 @@ class _MainLoginWidgetState extends State<MainLoginWidget> {
                     ),
                     DefaultFormField(
                       prefix: Icons.lock,
-                      controller: passController,
+                      controller: passCheckerController,
                       fillHint: AutofillHints.newPassword,
                       title: "Password",
                       isPass: !showPassText,

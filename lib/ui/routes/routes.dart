@@ -1,8 +1,7 @@
 import 'package:car_e_commerce/bloc/bloc/auth_status_bloc.dart';
-import 'package:car_e_commerce/ui/screens/sign_screen/sign_screen.dart';
 import 'package:flutter/material.dart';
 
-import '../screens/login_screen/login_screen.dart';
+import '../screens/app_start_screen/on_boarding/on_boarding_page.dart';
 import '../screens/main_screen/main_screen.dart';
 
 List<Page> routes(
@@ -13,6 +12,6 @@ List<Page> routes(
     case AuthStatus.authed:
       return [MainScreen.pageRoute()];
     case AuthStatus.unauthed:
-      return [SignScreen.pageRoute()];
+      return [OnBoardingScreen.pageRoute()];
   }
 }

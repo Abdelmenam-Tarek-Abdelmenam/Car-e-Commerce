@@ -60,21 +60,21 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           LiquidSwipe(
             pages: [
               pageBuilder(
-                  color: const Color(0xFFF1F9FF),
+                  color: const Color(0xFFDEECF8),
                   text: "Hi user in our Application we are happy to see ypu",
                   lottie: "car1"),
               pageBuilder(
-                  color: const Color(0xFFDEECF8),
+                  color: const Color(0xFFF1F9FF),
                   text: "Hi user in our Application we are happy to see ypu",
                   lottie: "car2"),
               pageBuilder(
-                  color: const Color(0xFFC6E6FD),
+                  color: const Color(0xFFDEECF8),
                   text: "Hi user in our Application we are happy to see ypu",
-                  lottie: "car3"),
+                  lottie: "motorcycle1"),
               pageBuilder(
-                  color: const Color(0xFF9BCEF3),
+                  color: const Color(0xFFF1F9FF),
                   text: "Hi user in our Application we are happy to see ypu",
-                  lottie: "car4"),
+                  lottie: "motorcycle2"),
             ],
             slideIconWidget: const Icon(Icons.arrow_back_ios),
             waveType: WaveType.liquidReveal,

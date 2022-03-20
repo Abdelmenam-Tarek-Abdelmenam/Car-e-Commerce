@@ -32,6 +32,8 @@ class _MainLoginWidgetState extends State<MainLoginWidget> {
           transitionBuilder: (Widget child, Animation<double> animation) {
             return ScaleTransition(scale: animation, child: child);
           },
+          switchInCurve: Curves.ease,
+          switchOutCurve: Curves.bounceOut,
           child: defaultMainWidget(),
         ),
       ),

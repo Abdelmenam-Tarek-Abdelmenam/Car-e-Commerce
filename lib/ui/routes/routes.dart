@@ -1,9 +1,8 @@
 import 'package:car_e_commerce/bloc/bloc/auth_status_bloc.dart';
-import 'package:car_e_commerce/ui/screens/sign_screen/sign_screen.dart';
 import 'package:flutter/material.dart';
 
-import '../screens/app_start_screen/on_boarding/on_boarding_page.dart';
 import '../screens/main_screen/main_screen.dart';
+import '../screens/sign_screen/sign_screen.dart';
 
 List<Page> routes(
   AuthStatus state,

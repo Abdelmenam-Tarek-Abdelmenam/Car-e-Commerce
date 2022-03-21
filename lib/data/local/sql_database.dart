@@ -60,6 +60,7 @@ class DataBaseRepository {
     }[vehicleType]!;
   }
 
+
   List<Vehicle> _mapsToVehicle(
       List<Map<String, dynamic>> allVehiclesData, VehicleType vehicleType) {
     switch (vehicleType) {

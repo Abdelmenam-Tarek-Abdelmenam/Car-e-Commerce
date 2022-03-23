@@ -9,13 +9,13 @@ LinearGradient themeGradient = LinearGradient(
   begin: Alignment.centerLeft,
   end: Alignment.centerRight,
   colors: [
-    lightYellow.withOpacity(0.8),
+    lightYellow.withOpacity(0.5),
     darkYellow,
   ],
 );
 
 ThemeData lightThemeData = ThemeData(
-    backgroundColor: darkGrayColor,
+    backgroundColor: whiteColor,
     primaryColor: darkYellow,
     iconTheme: const IconThemeData(color: darkGrayColor, size: 30),
     brightness: Brightness.light,
@@ -26,8 +26,18 @@ ThemeData lightThemeData = ThemeData(
       backgroundColor: MaterialStateProperty.all(darkGrayColor),
       foregroundColor: MaterialStateProperty.all(whiteColor),
     )),
-    textTheme:
-        TextTheme(headlineMedium: const TextStyle(fontWeight: FontWeight.w900)),
+    textTheme: const TextTheme(
+        headlineMedium: TextStyle(
+            fontWeight: FontWeight.w900,
+            color: darkGrayColor,
+            fontFamily: 'Roboto',
+            fontSize: 32),
+        bodyMedium: TextStyle(
+          fontSize: 16,
+          color: darkGrayColor,
+          fontFamily: "Roboto",
+          fontWeight: FontWeight.w500,
+        )),
     colorScheme: const ColorScheme(
       background: darkGrayColor,
       onSurface: lightYellow,

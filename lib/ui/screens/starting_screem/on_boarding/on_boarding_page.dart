@@ -19,12 +19,6 @@ class OnBoardingScreen extends StatefulWidget {
 }
 
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
-  TextStyle style = const TextStyle(
-    fontSize: 30,
-    fontFamily: "Billy",
-    fontWeight: FontWeight.w600,
-  );
-
   LiquidController liquidController = LiquidController();
   int page = 0;
 
@@ -36,20 +30,28 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           LiquidSwipe(
             pages: [
               pageBuilder(
-                text: "Hi user in our Application we are happy to see ypu",
+                text:
+                    "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley",
                 title: 'Lorem Ipsum',
+                image: 'car1',
               ),
               pageBuilder(
-                text: "Hi user in our Application we are happy to see ypu",
+                text:
+                    "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley",
                 title: 'Lorem Ipsum',
+                image: 'car1',
               ),
               pageBuilder(
-                text: "Hi user in our Application we are happy to see ypu",
+                text:
+                    "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley",
                 title: 'Lorem Ipsum',
+                image: 'car1',
               ),
               pageBuilder(
-                text: "Hi user in our Application we are happy to see ypu",
+                text:
+                    "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley",
                 title: 'Lorem Ipsum',
+                image: 'car1',
               ),
             ],
             slideIconWidget: const Icon(Icons.arrow_back_ios),
@@ -61,7 +63,6 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             },
             enableLoop: false,
             liquidController: liquidController,
-            enableSideReveal: true,
           ),
           Padding(
             padding: const EdgeInsets.all(10),
@@ -114,7 +115,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     );
   }
 
-  Widget pageBuilder({required String text, required String title}) {
+  Widget pageBuilder(
+      {required String text, required String title, required String image}) {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
@@ -126,18 +128,31 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          const FlutterLogo(
-            size: 150,
-          ),
-          Text(title),
           Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Text(
-              text,
-              style: style,
+            padding: const EdgeInsets.only(top: 50.0),
+            child: CustomPaint(
+              painter: ImageBackGround(),
+              child: Image.asset(
+                "assets/images/OnBoarding/$image.png",
+                width: 275,
+                fit: BoxFit.fill,
+              ),
             ),
           ),
-          const SizedBox()
+          Text(
+            title,
+            style: Theme.of(context).textTheme.headlineMedium,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15.0),
+            child: Text(
+              text,
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
+          ),
+          const SizedBox(
+            height: 50,
+          )
         ],
       ),
     );
@@ -150,5 +165,29 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         radius: index == page ? 10.0 : 5.0,
       ),
     );
+  }
+}
+
+class ImageBackGround extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    var paint = Paint()
+      ..color = whiteColor
+      ..strokeWidth = 5
+      ..style = PaintingStyle.fill
+      ..strokeCap = StrokeCap.round;
+
+    var path = Path();
+    path.addOval(Rect.fromCenter(
+      center: Offset(size.width / 2, size.height / 1.4),
+      height: 135,
+      width: 275,
+    ));
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return false;
   }
 }

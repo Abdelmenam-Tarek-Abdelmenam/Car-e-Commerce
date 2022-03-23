@@ -3,7 +3,6 @@ import 'package:car_e_commerce/ui/routes/navigation_functions.dart';
 import 'package:car_e_commerce/ui/screens/starting_screem/login_screen/signup_screen.dart';
 import 'package:car_e_commerce/ui/screens/starting_screem/login_screen/widgtes/back_ground.dart';
 import 'package:car_e_commerce/ui/screens/starting_screem/login_screen/widgtes/form_field.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -12,6 +11,7 @@ class LoginScreen extends StatelessWidget {
   TextEditingController emailController = TextEditingController();
   TextEditingController passController = TextEditingController();
   GlobalKey<FormState> loginGlobalKey = GlobalKey<FormState>();
+  bool showPassText = true;
 
   LoginScreen({Key? key}) : super(key: key);
 
@@ -83,8 +83,9 @@ class LoginScreen extends StatelessWidget {
                         }
                       },
                       suffix: IconButton(
-                        icon: const Icon(
-                            true ? Icons.visibility : Icons.visibility_off),
+                        icon: Icon(showPassText
+                            ? Icons.visibility
+                            : Icons.visibility_off),
                         onPressed: () {
                           // showPassText = !showPassText;
                         },

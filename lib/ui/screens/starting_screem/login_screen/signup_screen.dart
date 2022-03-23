@@ -1,5 +1,5 @@
 import 'package:car_e_commerce/constants/theme.dart';
-import 'package:car_e_commerce/shared/widgets/customButton.dart';
+import 'package:car_e_commerce/shared/widgets/custom_button.dart';
 import 'package:car_e_commerce/ui/screens/starting_screem/login_screen/widgtes/back_ground.dart';
 import 'package:car_e_commerce/ui/screens/starting_screem/login_screen/widgtes/form_field.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +11,7 @@ class SignUpScreen extends StatelessWidget {
   TextEditingController passController = TextEditingController();
   TextEditingController passCheckerController = TextEditingController();
   GlobalKey<FormState> signUpGlobalKey = GlobalKey<FormState>();
+  bool showPassText = true;
 
   SignUpScreen({Key? key}) : super(key: key);
 
@@ -83,8 +84,9 @@ class SignUpScreen extends StatelessWidget {
                         }
                       },
                       suffix: IconButton(
-                        icon: const Icon(
-                            true ? Icons.visibility : Icons.visibility_off),
+                        icon: Icon(showPassText
+                            ? Icons.visibility
+                            : Icons.visibility_off),
                         onPressed: () {
                           // showPassText = !showPassText;
                         },
@@ -109,8 +111,9 @@ class SignUpScreen extends StatelessWidget {
                         }
                       },
                       suffix: IconButton(
-                        icon: const Icon(
-                            true ? Icons.visibility : Icons.visibility_off),
+                        icon: Icon(showPassText
+                            ? Icons.visibility
+                            : Icons.visibility_off),
                         onPressed: () {
                           // showPassText = !showPassText;
                         },

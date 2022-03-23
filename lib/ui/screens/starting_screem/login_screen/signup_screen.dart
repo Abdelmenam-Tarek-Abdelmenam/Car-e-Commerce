@@ -3,6 +3,7 @@ import 'package:car_e_commerce/shared/widgets/custom_button.dart';
 import 'package:car_e_commerce/ui/screens/starting_screem/login_screen/widgtes/back_ground.dart';
 import 'package:car_e_commerce/ui/screens/starting_screem/login_screen/widgtes/form_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 // ignore: must_be_immutable
@@ -25,7 +26,7 @@ class SignUpScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return LoginBackLayout(
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
+        padding: EdgeInsets.symmetric(horizontal: 42.r),
         width: double.infinity,
         height: MediaQuery.of(context).size.height,
         child: SingleChildScrollView(
@@ -34,14 +35,14 @@ class SignUpScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 80.0),
+                padding: EdgeInsets.only(top: 118.r, bottom: 63.r),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.baseline,
                   textBaseline: TextBaseline.alphabetic,
                   children: [
                     Text(
                       "Let's ",
-                      style: Theme.of(context).textTheme.headline2,
+                      style: Theme.of(context).textTheme.headline1,
                     ),
                     Text(
                       "Sign Up",
@@ -67,8 +68,8 @@ class SignUpScreen extends StatelessWidget {
                         }
                       },
                     ),
-                    const SizedBox(
-                      height: 20,
+                    SizedBox(
+                      height: 36.r,
                     ),
                     DefaultFormField(
                       controller: passController,
@@ -92,8 +93,8 @@ class SignUpScreen extends StatelessWidget {
                         },
                       ),
                     ),
-                    const SizedBox(
-                      height: 20,
+                    SizedBox(
+                      height: 36.r,
                     ),
                     DefaultFormField(
                       controller: passCheckerController,
@@ -120,16 +121,16 @@ class SignUpScreen extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 20),
+                      padding: EdgeInsets.only(top: 45.r, bottom: 60.r),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             "Interests",
-                            style: Theme.of(context).textTheme.headline3,
+                            style: Theme.of(context).textTheme.headline2,
                           ),
-                          const SizedBox(
-                            height: 5,
+                          SizedBox(
+                            height: 10.r,
                           ),
                           Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -139,7 +140,7 @@ class SignUpScreen extends StatelessWidget {
                     ),
                     SizedBox(
                       width: double.infinity,
-                      height: 50,
+                      height: 40.r,
                       child: ElevatedButton(
                           onPressed: () {
                             if (signUpGlobalKey.currentState!.validate()) {}
@@ -182,13 +183,18 @@ class SignUpScreen extends StatelessWidget {
         4,
         (index) => CustomChooseButton(
             active: index == 1,
-            child: [
-              const Text("ALL",
-                  style: TextStyle(fontSize: 20, color: whiteColor)),
-              const Icon(FontAwesomeIcons.car, color: whiteColor),
-              const Icon(FontAwesomeIcons.motorcycle, color: whiteColor),
-              const Icon(FontAwesomeIcons.bicycle, color: whiteColor)
-            ][index],
+            child: index == 0
+                ? Text("ALL",
+                    style: TextStyle(fontSize: 15.r, color: whiteColor))
+                : Icon(
+                    [
+                      FontAwesomeIcons.car,
+                      FontAwesomeIcons.motorcycle,
+                      FontAwesomeIcons.bicycle
+                    ][index - 1],
+                    color: whiteColor,
+                    size: 24.r,
+                  ),
             onPressed: () => print("set $index")));
   }
 }

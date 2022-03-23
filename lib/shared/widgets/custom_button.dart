@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../constants/theme.dart';
 
@@ -19,11 +20,11 @@ class CustomChooseButton extends StatelessWidget {
     return InkWell(
       onTap: onPressed,
       child: Container(
-          width: 60,
-          height: 60,
+          width: 50.r,
+          height: 60.r,
           decoration: BoxDecoration(
               color: active ? darkYellow : darkGrayColor,
-              borderRadius: const BorderRadius.all(Radius.circular(10))),
+              borderRadius: BorderRadius.all(Radius.circular(13.r))),
           child: Center(
             child: child,
           )),

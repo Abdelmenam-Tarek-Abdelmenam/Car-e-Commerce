@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../constants/theme.dart';
 
@@ -11,9 +12,8 @@ class LoginBackLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double diameter = MediaQuery.of(context).size.height;
-    print(diameter);
-    print(reverse);
+    double diameter = MediaQuery.of(context).size.height.r;
+
     return GestureDetector(
       onTap: () {
         FocusScopeNode currentFocus = FocusScope.of(context);
@@ -47,15 +47,14 @@ class LoginBackLayout extends StatelessWidget {
                   child: Align(
                     alignment: Alignment.topLeft,
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: EdgeInsets.all(22.r),
                       child: CircleAvatar(
-                        radius: 20,
+                        radius: 22.5.r,
                         child: IconButton(
-                          iconSize: 20,
-                          splashRadius: 30,
+                          iconSize: 24.r,
                           color: darkGrayColor,
                           icon: const Icon(
-                            Icons.arrow_back_ios,
+                            Icons.arrow_back_rounded,
                             color: whiteColor,
                           ),
                           onPressed: () {
@@ -83,7 +82,7 @@ class MyPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     Paint paint = Paint()
       ..color = veryLightYellow
-      ..strokeWidth = 100
+      ..strokeWidth = 150
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke;
 
@@ -92,9 +91,9 @@ class MyPainter extends CustomPainter {
         center: Offset(
             size.height < 600
                 ? -size.height / 1.25
-                : (reverse ? 3 : -0.75) * size.height / 5,
+                : (reverse ? 3 : -0.75) * size.height / 4.75,
             size.height / 2),
-        height: size.height,
+        height: size.height / 1.2,
         width: size.width * 2,
       ),
       3.14 * .5,

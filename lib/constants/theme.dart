@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'fonts.dart';
+
 const Color darkYellow = Color(0xFFEC9F00);
 const lightYellow = Color(0xFFF4B301);
 const veryLightYellow = Color(0xFFFED154);
@@ -32,29 +34,7 @@ ThemeData lightThemeData = ThemeData(
                 RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20.0),
             )))),
-    textTheme: const TextTheme(
-        headline3: TextStyle(
-            fontWeight: FontWeight.w600,
-            color: darkGrayColor,
-            fontFamily: 'Roboto',
-            fontSize: 20),
-        headline2: TextStyle(
-            fontWeight: FontWeight.w900,
-            color: darkGrayColor,
-            fontFamily: 'Roboto',
-            fontSize: 32),
-        bodyText2: TextStyle(
-          fontSize: 16,
-          color: darkGrayColor,
-          fontFamily: "Roboto",
-          fontWeight: FontWeight.w500,
-        ),
-        bodyText1: TextStyle(
-          fontSize: 15,
-          color: darkGrayColor,
-          fontFamily: "Roboto",
-          fontWeight: FontWeight.w300,
-        )),
+    textTheme: textTheme,
     colorScheme: const ColorScheme(
       background: lightGrayColor,
       onSurface: lightYellow,

@@ -1,5 +1,6 @@
 import 'package:car_e_commerce/constants/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // ignore: must_be_immutable
 class DefaultFormField extends StatelessWidget {
@@ -26,19 +27,31 @@ class DefaultFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
+      height: 45.r,
+      decoration: BoxDecoration(
           color: whiteColor,
-          borderRadius: BorderRadius.all(Radius.circular(30))),
+          borderRadius: BorderRadius.all(Radius.circular(26.r))),
       child: TextFormField(
         controller: controller,
         obscureText: isPass,
         autofillHints: [fillHint],
         keyboardType: keyboardType,
         validator: validator,
+        style: const TextStyle(color: darkGrayColor, fontSize: 14),
         decoration: InputDecoration(
+          contentPadding: EdgeInsets.only(top: 4),
+          // enabledBorder: InputBorder.none,
+          border: InputBorder.none,
+          fillColor: Colors.white,
           suffixIcon: suffix,
+          errorStyle: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w300,
+            color: Colors.red[500],
+          ),
           prefixIcon: Icon(
             prefix,
+            size: 20.r,
           ),
           labelText: title,
           labelStyle: TextStyle(

@@ -1,10 +1,12 @@
+// ignore: must_be_immutable
+
 import 'package:car_e_commerce/constants/theme.dart';
 import 'package:car_e_commerce/ui/routes/navigation_functions.dart';
-import 'package:car_e_commerce/ui/screens/main_screen/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
 
-// ignore: must_be_immutable
+import '../login_screen/login_screen.dart';
+
 class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({Key? key}) : super(key: key);
 
@@ -30,28 +32,25 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           LiquidSwipe(
             pages: [
               pageBuilder(
+                color: const Color(0xFFFED154),
                 text:
                     "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley",
-                title: 'Lorem Ipsum',
+                title: 'Lorem Ipsum 1',
                 image: 'car1',
               ),
               pageBuilder(
+                color: const Color(0XFFF4B301),
                 text:
                     "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley",
-                title: 'Lorem Ipsum',
-                image: 'car1',
+                title: 'Lorem Ipsum 2',
+                image: 'car2',
               ),
               pageBuilder(
+                color: const Color(0XFFF5A302),
                 text:
                     "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley",
-                title: 'Lorem Ipsum',
-                image: 'car1',
-              ),
-              pageBuilder(
-                text:
-                    "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley",
-                title: 'Lorem Ipsum',
-                image: 'car1',
+                title: 'Lorem Ipsum 3',
+                image: 'car3',
               ),
             ],
             slideIconWidget: const Icon(Icons.arrow_back_ios),
@@ -63,6 +62,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             },
             enableLoop: false,
             liquidController: liquidController,
+            enableSideReveal: true,
           ),
           Padding(
             padding: const EdgeInsets.all(10),
@@ -71,7 +71,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               children: <Widget>[
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: List<Widget>.generate(4, _buildDot),
+                  children: List<Widget>.generate(3, _buildDot),
                 ),
               ],
             ),
@@ -84,7 +84,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 style: ButtonStyle(
                     foregroundColor: MaterialStateProperty.all(whiteColor)),
                 onPressed: () {
-                  navigateAndPush(context, const MainScreen());
+                  navigateAndPush(context, LoginScreen());
                 },
                 child: const Text("Skip"),
               ),
@@ -98,14 +98,14 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 style: ButtonStyle(
                     foregroundColor: MaterialStateProperty.all(whiteColor)),
                 onPressed: () {
-                  if (page < 3) {
+                  if (page < 2) {
                     liquidController.animateToPage(page: page + 1);
                   } else {
-                    navigateAndPush(context, const MainScreen());
+                    navigateAndPush(context, LoginScreen());
                   }
                 },
                 child: Text(
-                  page == 3 ? "Done" : "Next",
+                  page == 2 ? "Done" : "Next",
                 ),
               ),
             ),
@@ -116,38 +116,41 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   }
 
   Widget pageBuilder(
-      {required String text, required String title, required String image}) {
+      {required Color color,
+      required String text,
+      required String title,
+      required String image}) {
     return Container(
       width: double.infinity,
-      decoration: BoxDecoration(
-        borderRadius: const BorderRadius.all(Radius.circular(20)),
-        gradient: themeGradient,
-      ),
+      color: color,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(top: 50.0),
-            child: CustomPaint(
-              painter: ImageBackGround(),
-              child: Image.asset(
-                "assets/images/OnBoarding/$image.png",
-                width: 275,
-                fit: BoxFit.fill,
+          SizedBox(
+            height: 200,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 50.0),
+              child: CustomPaint(
+                painter: ImageBackGround(),
+                child: Image.asset(
+                  "assets/images/OnBoarding/$image.png",
+                  width: 275,
+                  fit: BoxFit.contain,
+                ),
               ),
             ),
           ),
           Text(
             title,
-            style: Theme.of(context).textTheme.headlineMedium,
+            style: Theme.of(context).textTheme.headline2,
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15.0),
             child: Text(
               text,
-              style: Theme.of(context).textTheme.bodyMedium,
+              style: Theme.of(context).textTheme.bodyText2,
             ),
           ),
           const SizedBox(
@@ -160,9 +163,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
   Widget _buildDot(int index) {
     return SizedBox(
-      width: 25.0,
+      width: 30.0,
       child: CircleAvatar(
-        radius: index == page ? 10.0 : 5.0,
+        radius: index == page ? 8.0 : 4.0,
       ),
     );
   }
@@ -179,8 +182,8 @@ class ImageBackGround extends CustomPainter {
 
     var path = Path();
     path.addOval(Rect.fromCenter(
-      center: Offset(size.width / 2, size.height / 1.4),
-      height: 135,
+      center: Offset(size.width / 2, size.height / 1.2),
+      height: 120,
       width: 275,
     ));
     canvas.drawPath(path, paint);

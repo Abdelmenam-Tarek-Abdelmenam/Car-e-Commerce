@@ -76,16 +76,13 @@ class AppView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: Size(375, 812),
-      builder: () => MaterialApp(
-        title: 'Car E-Commerce',
-        debugShowCheckedModeBanner: false,
-        theme: lightThemeData,
-        home: FlowBuilder<AuthStatus>(
-          state: context.select((AuthStatusBloc bloc) => bloc.state.status),
-          onGeneratePages: routes,
-        ),
+    return MaterialApp(
+      title: 'Car E-Commerce',
+      debugShowCheckedModeBanner: false,
+      theme: lightThemeData,
+      home: FlowBuilder<AuthStatus>(
+        state: context.select((AuthStatusBloc bloc) => bloc.state.status),
+        onGeneratePages: routes,
       ),
     );
   }

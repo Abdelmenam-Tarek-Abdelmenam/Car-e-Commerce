@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({Key? key}) : super(key: key);
-
-  // static route page
   static Page pageRoute() {
     return const MaterialPage(
       child: MainScreen(),
@@ -12,9 +10,6 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: const Text('main'),
-    );
+    return Container();
   }
 }

@@ -1,4 +1,4 @@
-import 'package:car_e_commerce/constants/colors.dart';
+import 'package:car_e_commerce/constants/theme.dart';
 import 'package:car_e_commerce/data/local/pref_repository.dart';
 import 'package:car_e_commerce/data/local/sql_database.dart';
 import 'package:car_e_commerce/ui/routes/routes.dart';
@@ -17,7 +17,7 @@ import 'data/repository/auth_repository.dart';
 
 Future<void> main() async {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarColor: backGroundBlue,
+    statusBarColor: lightYellow,
     statusBarIconBrightness: Brightness.dark,
   ));
 
@@ -78,9 +78,7 @@ class AppView extends StatelessWidget {
     return MaterialApp(
       title: 'Car E-Commerce',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: lightThemeData,
       home: FlowBuilder<AuthStatus>(
         state: context.select((AuthStatusBloc bloc) => bloc.state.status),
         onGeneratePages: routes,

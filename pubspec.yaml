@@ -41,10 +41,14 @@ dependencies:
 
   # widgets
   fluttertoast: ^8.0.9
+  flutter_svg: ^1.0.3
 
   # data operations
   shared_preferences: ^2.0.13
   sqflite: ^2.0.2
+
+  # on boarding
+  liquid_swipe: ^2.1.1
 
 
 dev_dependencies:

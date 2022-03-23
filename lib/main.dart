@@ -10,6 +10,7 @@ import 'package:flow_builder/flow_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'bloc/bloc/auth_status_bloc.dart';
 import 'bloc/my_bloc_observer.dart';
 import 'data/error_handler.dart';
@@ -75,13 +76,16 @@ class AppView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Car E-Commerce',
-      debugShowCheckedModeBanner: false,
-      theme: lightThemeData,
-      home: FlowBuilder<AuthStatus>(
-        state: context.select((AuthStatusBloc bloc) => bloc.state.status),
-        onGeneratePages: routes,
+    return ScreenUtilInit(
+      designSize: Size(375, 812),
+      builder: () => MaterialApp(
+        title: 'Car E-Commerce',
+        debugShowCheckedModeBanner: false,
+        theme: lightThemeData,
+        home: FlowBuilder<AuthStatus>(
+          state: context.select((AuthStatusBloc bloc) => bloc.state.status),
+          onGeneratePages: routes,
+        ),
       ),
     );
   }

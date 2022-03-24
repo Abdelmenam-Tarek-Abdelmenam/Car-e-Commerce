@@ -42,6 +42,7 @@ dependencies:
   # widgets
   fluttertoast: ^8.0.9
   flutter_svg: ^1.0.3
+  widget_mask: ^1.0.0+0
 
   # data operations
   shared_preferences: ^2.0.13
@@ -74,6 +75,7 @@ flutter:
   assets:
      - assets/images/OnBoarding/
      - assets/images/Logo/
+     - assets/images/Icons/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -7,7 +7,7 @@ import '../../../../shared/widgets/custom_button.dart';
 
 class UserScreenLayout extends StatelessWidget {
   const UserScreenLayout({Key? key}) : super(key: key);
-
+// details_mask.png
   @override
   Widget build(BuildContext context) {
     return Container(

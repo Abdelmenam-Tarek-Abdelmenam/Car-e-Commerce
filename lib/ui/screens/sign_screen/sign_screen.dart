@@ -125,7 +125,7 @@ class _PasswordTextField extends StatelessWidget {
 
 // ignore: must_be_immutable
 class _SignInBtn extends StatelessWidget {
-  _SignInBtn({
+  const _SignInBtn({
     Key? key,
     required this.formKey,
     required this.emailController,
@@ -135,14 +135,13 @@ class _SignInBtn extends StatelessWidget {
   final GlobalKey<FormState> formKey;
   final TextEditingController emailController;
   final TextEditingController passwordController;
-  final AuthRepository _auth = AuthRepository();
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LoginCubit, LoginStates>(
       buildWhen: (previous, current) => previous.status != current.status,
       builder: (context, state) {
-        return state.status == LoginStatus.submitting
+        return state.status == LoginStatus.submittingEmail
             ? const CircularProgressIndicator()
             : ElevatedButton(
                 style: ElevatedButton.styleFrom(
@@ -162,14 +161,12 @@ class _SignInBtn extends StatelessWidget {
 }
 
 class _SignInWithGoogleBtn extends StatelessWidget {
-  final AuthRepository _auth = AuthRepository();
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LoginCubit, LoginStates>(
       buildWhen: (previous, current) => previous.status != current.status,
       builder: (context, state) {
-        return state.status == LoginStatus.submitting
+        return state.status == LoginStatus.submittingGoogle
             ? const CircularProgressIndicator()
             : ElevatedButton(
                 style: ElevatedButton.styleFrom(

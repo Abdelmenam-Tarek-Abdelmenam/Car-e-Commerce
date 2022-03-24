@@ -39,13 +39,13 @@ class DefaultFormField extends StatelessWidget {
         validator: validator,
         style: const TextStyle(color: darkGrayColor, fontSize: 14),
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.only(top: 4),
+          contentPadding: const EdgeInsets.only(top: 4),
           // enabledBorder: InputBorder.none,
           border: InputBorder.none,
           fillColor: Colors.white,
           suffixIcon: suffix,
           errorStyle: TextStyle(
-            fontSize: 14,
+            fontSize: 13.sp,
             fontWeight: FontWeight.w300,
             color: Colors.red[500],
           ),
@@ -55,7 +55,7 @@ class DefaultFormField extends StatelessWidget {
           ),
           labelText: title,
           labelStyle: TextStyle(
-            fontSize: 16,
+            fontSize: 16.sp,
             fontWeight: FontWeight.w300,
             color: Colors.grey[500],
           ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../constants/theme.dart';
+import '../../../../../shared/widgets/bar_icon_button.dart';
 
 class LoginBackLayout extends StatelessWidget {
   final Widget child;
@@ -13,7 +14,7 @@ class LoginBackLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double diameter = MediaQuery.of(context).size.height.r;
-
+    print(reverse);
     return GestureDetector(
       onTap: () {
         FocusScopeNode currentFocus = FocusScope.of(context);
@@ -27,11 +28,11 @@ class LoginBackLayout extends StatelessWidget {
             width: double.infinity,
             decoration: BoxDecoration(gradient: themeGradient),
             child: Stack(
-              alignment: Alignment.center,
+              alignment: reverse ? Alignment.centerRight : Alignment.centerLeft,
               children: [
                 Positioned(
-                  left: reverse ? 0 : -diameter / 2,
-                  right: reverse ? -diameter / 2 : 0,
+                  left: reverse ? null : -diameter / 7,
+                  right: reverse ? -diameter / 7 : null,
                   child: CircleAvatar(
                     backgroundColor: veryLightYellow,
                     radius: diameter / 7,
@@ -48,20 +49,11 @@ class LoginBackLayout extends StatelessWidget {
                     alignment: Alignment.topLeft,
                     child: Padding(
                       padding: EdgeInsets.all(22.r),
-                      child: CircleAvatar(
-                        radius: 22.5.r,
-                        child: IconButton(
-                          iconSize: 24.r,
-                          color: darkGrayColor,
-                          icon: const Icon(
-                            Icons.arrow_back_rounded,
-                            color: whiteColor,
-                          ),
+                      child: BarIconButton(
+                          icon: Icons.arrow_back_rounded,
                           onPressed: () {
                             Navigator.of(context).pop();
-                          },
-                        ),
-                      ),
+                          }),
                     ),
                   ),
                 ),
@@ -82,7 +74,7 @@ class MyPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     Paint paint = Paint()
       ..color = veryLightYellow
-      ..strokeWidth = 150
+      ..strokeWidth = size.height < 600 ? 50 : 150
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke;
 
@@ -90,10 +82,10 @@ class MyPainter extends CustomPainter {
       Rect.fromCenter(
         center: Offset(
             size.height < 600
-                ? -size.height / 1.25
+                ? size.width * 1.5
                 : (reverse ? 3 : -0.75) * size.height / 4.75,
             size.height / 2),
-        height: size.height / 1.2,
+        height: size.height,
         width: size.width * 2,
       ),
       3.14 * .5,

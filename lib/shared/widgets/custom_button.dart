@@ -20,8 +20,8 @@ class CustomChooseButton extends StatelessWidget {
     return InkWell(
       onTap: onPressed,
       child: Container(
-          width: 50.r,
-          height: 60.r,
+          width: 65.r,
+          height: 65.r,
           decoration: BoxDecoration(
               color: active ? darkYellow : darkGrayColor,
               borderRadius: BorderRadius.all(Radius.circular(13.r))),

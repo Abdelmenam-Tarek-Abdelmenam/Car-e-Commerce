@@ -1,7 +1,7 @@
 import 'package:car_e_commerce/constants/theme.dart';
 import 'package:car_e_commerce/data/local/pref_repository.dart';
 import 'package:car_e_commerce/data/local/sql_database.dart';
-import 'package:car_e_commerce/ui/screens/starting_screem/login_screen/login_screen.dart';
+import 'package:car_e_commerce/ui/screens/user_screen/user_screen.dart';
 import 'package:catcher/core/catcher.dart';
 import 'package:catcher/model/catcher_options.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -81,7 +81,7 @@ class AppView extends StatelessWidget {
         title: 'Car E-Commerce',
         debugShowCheckedModeBanner: false,
         theme: lightThemeData,
-        home: LoginScreen(),
+        home: const UserScreen(),
       ),
     );
   }

@@ -62,7 +62,7 @@ class SignUpScreen extends StatelessWidget {
                       prefix: FontAwesomeIcons.user,
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return 'Email cannot be empty';
+                          return '    Email cannot be empty';
                         } else {
                           return null;
                         }
@@ -79,7 +79,7 @@ class SignUpScreen extends StatelessWidget {
                       isPass: !true,
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return 'password cannot be empty';
+                          return '    Password cannot be empty';
                         } else {
                           return null;
                         }
@@ -104,9 +104,9 @@ class SignUpScreen extends StatelessWidget {
                       isPass: !true,
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return 'password cannot be empty';
+                          return '    Password cannot be empty';
                         } else if (value != passController.text) {
-                          return "passwords must be the same";
+                          return "    Passwords must be the same";
                         } else {
                           return null;
                         }

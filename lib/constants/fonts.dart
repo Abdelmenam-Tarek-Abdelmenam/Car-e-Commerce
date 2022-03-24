@@ -16,7 +16,10 @@ final TextTheme textTheme = TextTheme(
   button:
       GoogleFonts.alegreyaSans(fontSize: 16.sp, fontWeight: FontWeight.w500),
   caption: GoogleFonts.alegreyaSans(
-      fontSize: 14, fontWeight: FontWeight.w400, letterSpacing: 0.4),
+      fontSize: 14,
+      fontWeight: FontWeight.w400,
+      letterSpacing: 0.4,
+      color: darkGrayColor),
   overline: GoogleFonts.alegreyaSans(
       fontSize: 12, fontWeight: FontWeight.w400, letterSpacing: 1.5),
 );

@@ -1,7 +1,10 @@
+import 'dart:ui';
+
 import 'package:car_e_commerce/constants/theme.dart';
 import 'package:car_e_commerce/ui/routes/navigation_functions.dart';
 import 'package:car_e_commerce/ui/screens/starting_screem/login_screen/signup_screen.dart';
 import 'package:car_e_commerce/ui/screens/starting_screem/login_screen/widgtes/back_ground.dart';
+import 'package:car_e_commerce/ui/screens/starting_screem/login_screen/widgtes/forget_password.dart';
 import 'package:car_e_commerce/ui/screens/starting_screem/login_screen/widgtes/form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,6 +15,8 @@ class LoginScreen extends StatelessWidget {
   TextEditingController emailController = TextEditingController();
   TextEditingController passController = TextEditingController();
   GlobalKey<FormState> loginGlobalKey = GlobalKey<FormState>();
+  // final AuthRepository _auth = AuthRepository();
+
   bool showPassText = true;
 
   LoginScreen({Key? key}) : super(key: key);
@@ -36,7 +41,7 @@ class LoginScreen extends StatelessWidget {
               upperText(context),
               textForms(context),
               continueWithSeparator(context),
-              googleButton(),
+              googleButton(context),
               SizedBox(
                 height: 25.r,
               ),
@@ -60,7 +65,7 @@ class LoginScreen extends StatelessWidget {
               prefix: FontAwesomeIcons.user,
               validator: (value) {
                 if (value!.isEmpty) {
-                  return 'Email cannot be empty';
+                  return '    Email cannot be empty';
                 } else {
                   return null;
                 }
@@ -77,7 +82,7 @@ class LoginScreen extends StatelessWidget {
               isPass: !true,
               validator: (value) {
                 if (value!.isEmpty) {
-                  return 'password cannot be empty';
+                  return '    Password cannot be empty';
                 } else {
                   return null;
                 }
@@ -88,7 +93,8 @@ class LoginScreen extends StatelessWidget {
                   size: 20.r,
                 ),
                 onPressed: () {
-                  // showPassText = !showPassText;
+                  showPassText = !showPassText;
+                  // context.read<LoginCubit>().changeShowPasswordState();
                 },
               ),
             ),
@@ -98,12 +104,30 @@ class LoginScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Text(
-                  "Forget your password ?",
-                  style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                        fontWeight: FontWeight.w400,
-                        decoration: TextDecoration.underline,
-                      ),
+                TextButton(
+                  onPressed: () {
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return BackdropFilter(
+                            filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                            child: Dialog(
+                              shape: const RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20))),
+                              child: ForgetPassword(),
+                              //  contentPadding: const EdgeInsets.all(0.0),
+                            ),
+                          );
+                        });
+                  },
+                  child: Text(
+                    "Forget your password ?",
+                    style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                          fontWeight: FontWeight.w400,
+                          decoration: TextDecoration.underline,
+                        ),
+                  ),
                 )
               ],
             ),
@@ -113,9 +137,17 @@ class LoginScreen extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               height: 40.r,
+              // state.status == LoginStatus.submittingEmail
+              //             ? const CircularProgressIndicator()
               child: ElevatedButton(
                   onPressed: () {
-                    if (loginGlobalKey.currentState!.validate()) {}
+                    if (loginGlobalKey.currentState!.validate()) {
+                      // context.read<LoginCubit>().emailChange(emailController.text);
+                      // context.read<LoginCubit>().passwordChange(passController.text);
+                      // context
+                      //     .read<LoginCubit>()
+                      //     .signInWithFirebaseByEmailAndPassword();
+                    }
                   },
                   child: const Text(
                     "Sign in",
@@ -126,7 +158,9 @@ class LoginScreen extends StatelessWidget {
         ),
       );
 
-  Widget googleButton() => Center(
+  //  state.status == LoginStatus.submittingGoogle
+  //             ? const CircularProgressIndicator()
+  Widget googleButton(BuildContext context) => Center(
         child: CircleAvatar(
           radius: 30.r,
           child: IconButton(
@@ -136,6 +170,7 @@ class LoginScreen extends StatelessWidget {
               size: 25.r,
             ),
             onPressed: () {
+              // context.read<LoginCubit>().signInWithGoogle()
               print("Login Using Google");
             },
           ),

@@ -1,9 +1,10 @@
 part of 'login_cubit.dart';
 
-enum LoginStatus { intial, submitting, success, error }
+enum LoginStatus { initial, submittingEmail, submittingGoogle, success, error }
 
 class LoginStates extends Equatable {
   final String email;
+  final int interestIndex;
   final String password;
   final LoginStatus status;
   final String? errorMessage;
@@ -12,6 +13,7 @@ class LoginStates extends Equatable {
     required this.email,
     required this.password,
     required this.status,
+    required this.interestIndex,
     this.errorMessage,
   });
 
@@ -19,7 +21,8 @@ class LoginStates extends Equatable {
     return const LoginStates(
       email: '',
       password: '',
-      status: LoginStatus.intial,
+      interestIndex: 0,
+      status: LoginStatus.initial,
     );
   }
 
@@ -29,6 +32,7 @@ class LoginStates extends Equatable {
   LoginStates copyWith({
     String? email,
     String? password,
+    int? index,
     LoginStatus? status,
     String? errorMessage,
   }) {
@@ -36,6 +40,7 @@ class LoginStates extends Equatable {
       email: email ?? this.email,
       password: password ?? this.password,
       status: status ?? this.status,
+      interestIndex: index ?? interestIndex,
       errorMessage: errorMessage ?? this.errorMessage,
     );
   }

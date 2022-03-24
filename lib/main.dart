@@ -1,12 +1,10 @@
 import 'package:car_e_commerce/constants/theme.dart';
 import 'package:car_e_commerce/data/local/pref_repository.dart';
 import 'package:car_e_commerce/data/local/sql_database.dart';
-import 'package:car_e_commerce/ui/routes/routes.dart';
 import 'package:catcher/core/catcher.dart';
 import 'package:catcher/model/catcher_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:flow_builder/flow_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,6 +13,7 @@ import 'bloc/bloc/auth_status_bloc.dart';
 import 'bloc/my_bloc_observer.dart';
 import 'data/error_handler.dart';
 import 'data/repository/auth_repository.dart';
+import 'ui/screens/main_screen/main_screen.dart';
 
 Future<void> main() async {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -77,15 +76,17 @@ class AppView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: Size(375, 812),
+      designSize: const Size(375, 812),
       builder: () => MaterialApp(
         title: 'Car E-Commerce',
         debugShowCheckedModeBanner: false,
         theme: lightThemeData,
-        home: FlowBuilder<AuthStatus>(
-          state: context.select((AuthStatusBloc bloc) => bloc.state.status),
-          onGeneratePages: routes,
-        ),
+        
+        home: MainScreen(),
+        // home: FlowBuilder<AuthStatus>(
+        //   state: context.select((AuthStatusBloc bloc) => bloc.state.status),
+        //   onGeneratePages: routes,
+        // ),
       ),
     );
   }

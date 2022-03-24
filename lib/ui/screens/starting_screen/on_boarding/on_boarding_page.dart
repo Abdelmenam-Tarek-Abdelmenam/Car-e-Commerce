@@ -84,7 +84,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 style: ButtonStyle(
                     foregroundColor: MaterialStateProperty.all(whiteColor)),
                 onPressed: () {
-                  navigateAndPush(context, const MainScreen());
+                  navigateAndPush(context,  MainScreen());
                 },
                 child: const Text("Skip"),
               ),
@@ -101,7 +101,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   if (page < 3) {
                     liquidController.animateToPage(page: page + 1);
                   } else {
-                    navigateAndPush(context, const MainScreen());
+                    navigateAndPush(context,  MainScreen());
                   }
                 },
                 child: Text(

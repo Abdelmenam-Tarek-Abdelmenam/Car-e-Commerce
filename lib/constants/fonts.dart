@@ -3,12 +3,20 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 final TextTheme textTheme = TextTheme(
-  headline1: GoogleFonts.poppins(fontSize: 32.sp, fontWeight: FontWeight.bold),
-  headline2: GoogleFonts.poppins(fontSize: 24.sp, fontWeight: FontWeight.w500),
-  headline3: GoogleFonts.poppins(fontSize: 14.sp, fontWeight: FontWeight.w700),
-  headline4: GoogleFonts.poppins(fontSize: 12.sp, fontWeight: FontWeight.w700),
+  headline1: GoogleFonts.poppins(
+      fontSize: 32.sp, fontWeight: FontWeight.bold, color: Colors.white),
+  headline2: GoogleFonts.poppins(
+      fontSize: 24.sp, fontWeight: FontWeight.w500, color: Colors.white),
+  headline3: GoogleFonts.poppins(
+      fontSize: 14.sp, fontWeight: FontWeight.w700, color: Colors.white),
+  headline4: GoogleFonts.roboto(
+      fontSize: 14.sp, fontWeight: FontWeight.w500, color: Colors.white),
   subtitle1:
       GoogleFonts.alegreyaSans(fontSize: 16.sp, fontWeight: FontWeight.w500),
+  subtitle2: GoogleFonts.roboto(
+      fontSize: 12.sp,
+      fontWeight: FontWeight.w300,
+      color: Colors.white),
   button:
       GoogleFonts.alegreyaSans(fontSize: 16.sp, fontWeight: FontWeight.w500),
   caption: GoogleFonts.alegreyaSans(

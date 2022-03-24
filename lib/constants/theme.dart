@@ -1,3 +1,4 @@
+import 'package:car_e_commerce/constants/fonts.dart';
 import 'package:flutter/material.dart';
 
 const Color darkYellow = Color(0xFFEC9F00);
@@ -15,39 +16,29 @@ LinearGradient themeGradient = LinearGradient(
 );
 
 ThemeData lightThemeData = ThemeData(
-    backgroundColor: whiteColor,
-    primaryColor: darkYellow,
-    iconTheme: const IconThemeData(color: darkGrayColor, size: 30),
+  backgroundColor: whiteColor,
+  primaryColor: darkYellow,
+  iconTheme: const IconThemeData(color: darkGrayColor, size: 30),
+  brightness: Brightness.light,
+  primaryColorDark: darkGrayColor,
+  primaryColorLight: darkGrayColor,
+  elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ButtonStyle(
+    backgroundColor: MaterialStateProperty.all(darkGrayColor),
+    foregroundColor: MaterialStateProperty.all(whiteColor),
+  )),
+  textTheme: textTheme,
+  colorScheme: const ColorScheme(
+    background: darkGrayColor,
+    onSurface: lightYellow,
+    onPrimary: darkGrayColor,
+    secondary: lightYellow,
+    primary: darkGrayColor,
+    surface: darkGrayColor,
+    error: whiteColor,
+    onBackground: darkGrayColor,
+    onError: whiteColor,
     brightness: Brightness.light,
-    primaryColorDark: darkGrayColor,
-    primaryColorLight: darkGrayColor,
-    elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ButtonStyle(
-      backgroundColor: MaterialStateProperty.all(darkGrayColor),
-      foregroundColor: MaterialStateProperty.all(whiteColor),
-    )),
-    textTheme: const TextTheme(
-        headlineMedium: TextStyle(
-            fontWeight: FontWeight.w900,
-            color: darkGrayColor,
-            fontFamily: 'Roboto',
-            fontSize: 32),
-        bodyMedium: TextStyle(
-          fontSize: 16,
-          color: darkGrayColor,
-          fontFamily: "Roboto",
-          fontWeight: FontWeight.w500,
-        )),
-    colorScheme: const ColorScheme(
-      background: darkGrayColor,
-      onSurface: lightYellow,
-      onPrimary: darkGrayColor,
-      secondary: lightYellow,
-      primary: darkGrayColor,
-      surface: darkGrayColor,
-      error: whiteColor,
-      onBackground: darkGrayColor,
-      onError: whiteColor,
-      brightness: Brightness.light,
-      onSecondary: darkGrayColor,
-    ));
+    onSecondary: darkGrayColor,
+  ),
+);

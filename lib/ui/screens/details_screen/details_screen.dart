@@ -91,32 +91,32 @@ class DetailsScreen extends StatelessWidget {
                 ],
               ),
               GridView.count(
-                  shrinkWrap: true,
-                  primary: false,
-                  padding: const EdgeInsets.all(20),
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                  crossAxisCount: 3,
-                  children: List.generate(
-                      18,
-                      (index) => Column(
-                            children: [
-                              SvgPicture.asset(
-                                "assets/images/Icons/5670420.svg",
-                                width: 35,
-                                placeholderBuilder: (BuildContext context) =>
-                                    Container(
-                                        padding: const EdgeInsets.all(30.0),
-                                        child:
-                                            const CircularProgressIndicator()),
-                                //      color: Colors.red,
-                              ),
-                              Text(
-                                "automatic",
-                                style: Theme.of(context).textTheme.caption,
-                              )
-                            ],
-                          )))
+                shrinkWrap: true,
+                primary: false,
+                padding: const EdgeInsets.all(20),
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+                crossAxisCount: 3,
+                children: List.generate(
+                  18,
+                  (index) => Column(
+                    children: [
+                      SvgPicture.asset(
+                        "assets/images/Icons/5670420.svg",
+                        width: 35,
+                        placeholderBuilder: (BuildContext context) => Container(
+                            padding: const EdgeInsets.all(30.0),
+                            child: const CircularProgressIndicator()),
+                        //      color: Colors.red,
+                      ),
+                      Text(
+                        "automatic",
+                        style: Theme.of(context).textTheme.caption,
+                      )
+                    ],
+                  ),
+                ),
+              )
             ]),
           ),
         ),

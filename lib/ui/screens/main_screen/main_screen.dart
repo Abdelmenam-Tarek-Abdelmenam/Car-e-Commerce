@@ -34,6 +34,7 @@ class MainScreen extends StatelessWidget {
                 height: 20.h,
               ),
               Expanded(child: CardGridViewer(carList: dummyCarList)),
+                
             ],
           ),
         ),

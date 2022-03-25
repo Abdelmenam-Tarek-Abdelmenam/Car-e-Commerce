@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:car_e_commerce/constants/theme.dart';
 import 'package:car_e_commerce/ui/routes/navigation_functions.dart';
 import 'package:car_e_commerce/ui/screens/starting_screem/login_screen/signup_screen.dart';

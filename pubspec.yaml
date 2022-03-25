@@ -53,7 +53,6 @@ dependencies:
   google_fonts: ^2.3.1
   flutter_screenutil: ^5.3.1
   material_floating_search_bar: ^0.3.7
-  widget_mask: ^1.0.0+0
 
 
 dev_dependencies:

@@ -27,7 +27,7 @@ class DefaultFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 45.r,
+      height: 45.h,
       decoration: BoxDecoration(
           color: whiteColor,
           borderRadius: BorderRadius.all(Radius.circular(26.r))),
@@ -37,7 +37,7 @@ class DefaultFormField extends StatelessWidget {
         autofillHints: [fillHint],
         keyboardType: keyboardType,
         validator: validator,
-        style: const TextStyle(color: darkGrayColor, fontSize: 14),
+        style: TextStyle(color: darkGrayColor, fontSize: 14.sp),
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.only(top: 4),
           // enabledBorder: InputBorder.none,

@@ -1,18 +1,23 @@
 import 'package:car_e_commerce/constants/countries_list.dart';
 import 'package:car_e_commerce/constants/fonts.dart';
+import 'package:car_e_commerce/ui/routes/navigation_functions.dart';
+import 'package:car_e_commerce/ui/screens/user_screen/user_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class HomeAppBar extends StatelessWidget {
+  const HomeAppBar({Key? key}) : super(key: key);
+
   Function? treu() {
     print('object');
+    return null;
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       height: 65.h,
       child: Row(
@@ -30,11 +35,11 @@ class HomeAppBar extends StatelessWidget {
                     ),
                     isDismissible: true,
                     builder: (BuildContext context) {
-                      return Filter();
+                      return const Filter();
                     });
               }),
           ProfileIcon(
-            profileHandeler: () => treu(),
+            profileHandler: () => navigateAndPush(context, const UserScreen()),
           ),
         ],
       ),
@@ -43,11 +48,12 @@ class HomeAppBar extends StatelessWidget {
 }
 
 class ProfileIcon extends StatelessWidget {
-  final Function profileHandeler;
+  final Function() profileHandler;
 
-  ProfileIcon({
-    required this.profileHandeler,
-  });
+  const ProfileIcon({
+    Key? key,
+    required this.profileHandler,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -55,12 +61,13 @@ class ProfileIcon extends StatelessWidget {
       backgroundColor: Colors.white,
       radius: 20.r,
       child: IconButton(
-        icon: Icon(
+        iconSize: 20.r,
+        color: Colors.white,
+        icon: const Icon(
           Icons.person_outline_rounded,
-          size: 20.w,
           color: Colors.black,
         ),
-        onPressed: () => profileHandeler,
+        onPressed: profileHandler,
       ),
     );
   }
@@ -85,23 +92,23 @@ class Filter extends StatelessWidget {
             children: [
               Text('Manufacture country',
                   style: textTheme.headline3?.copyWith(color: Colors.black)),
-              ManfactureCountriesDropDownMenu(),
+              const ManfactureCountriesDropDownMenu(),
             ],
           ),
           Text('Price',
               style: textTheme.headline3?.copyWith(color: Colors.black)),
           SizedBox(height: 8.h),
-          Slider(division: 20, max: 300, min: 0, defaultValues: []),
+          const Slider(division: 20, max: 300, min: 0, defaultValues: []),
           SizedBox(height: 18.h),
           Text('Production year',
               style: textTheme.headline3?.copyWith(color: Colors.black)),
           SizedBox(height: 8.h),
-          Slider(division: 20, max: 300, min: 0, defaultValues: []),
+          const Slider(division: 20, max: 300, min: 0, defaultValues: []),
           SizedBox(height: 18.h),
           Text('Engine Capacity',
               style: textTheme.headline3?.copyWith(color: Colors.black)),
           SizedBox(height: 8.h),
-          Slider(division: 20, max: 300, min: 0, defaultValues: []),
+          const Slider(division: 20, max: 300, min: 0, defaultValues: []),
           SizedBox(height: 16.h),
           Text('Transmission Type',
               style: textTheme.headline3?.copyWith(color: Colors.black)),
@@ -123,7 +130,7 @@ class FliterShowBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 250.w,
       height: 40.h,
       child: ElevatedButton(
@@ -167,17 +174,19 @@ class Slider extends StatefulWidget {
   final int max;
   final int division;
   final List<int> defaultValues;
-  Slider(
-      {required this.min,
+  const Slider(
+      {Key? key,
+      required this.min,
       required this.max,
       required this.division,
-      required this.defaultValues});
+      required this.defaultValues})
+      : super(key: key);
   @override
   State<Slider> createState() => _SliderState();
 }
 
 class _SliderState extends State<Slider> {
-  RangeValues value = RangeValues(10, 200);
+  RangeValues value = const RangeValues(10, 200);
 
   @override
   Widget build(BuildContext context) {
@@ -206,6 +215,8 @@ class _SliderState extends State<Slider> {
 
 // todo:: change the style
 class ManfactureCountriesDropDownMenu extends StatefulWidget {
+  const ManfactureCountriesDropDownMenu({Key? key}) : super(key: key);
+
   @override
   State<ManfactureCountriesDropDownMenu> createState() =>
       _ManfactureCountriesDropDownMenuState();
@@ -219,7 +230,7 @@ class _ManfactureCountriesDropDownMenuState
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 120.w,
       child: DropdownButton(
         isExpanded: true,

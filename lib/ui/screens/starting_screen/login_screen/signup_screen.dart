@@ -1,7 +1,7 @@
 import 'package:car_e_commerce/constants/theme.dart';
 import 'package:car_e_commerce/shared/widgets/custom_button.dart';
-import 'package:car_e_commerce/ui/screens/starting_screem/login_screen/widgtes/back_ground.dart';
-import 'package:car_e_commerce/ui/screens/starting_screem/login_screen/widgtes/form_field.dart';
+import 'package:car_e_commerce/ui/screens/starting_screen/login_screen/widgtes/back_ground.dart';
+import 'package:car_e_commerce/ui/screens/starting_screen/login_screen/widgtes/form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -35,7 +35,7 @@ class SignUpScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: EdgeInsets.only(top: 118.r, bottom: 63.r),
+                padding: EdgeInsets.only(top: 118.h, bottom: 63.h),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.baseline,
                   textBaseline: TextBaseline.alphabetic,
@@ -69,7 +69,7 @@ class SignUpScreen extends StatelessWidget {
                       },
                     ),
                     SizedBox(
-                      height: 36.r,
+                      height: 36.h,
                     ),
                     DefaultFormField(
                       controller: passController,
@@ -94,7 +94,7 @@ class SignUpScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: 36.r,
+                      height: 36.h,
                     ),
                     DefaultFormField(
                       controller: passCheckerController,
@@ -121,7 +121,7 @@ class SignUpScreen extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(top: 45.r, bottom: 60.r),
+                      padding: EdgeInsets.only(top: 45.h, bottom: 60.h),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -140,21 +140,21 @@ class SignUpScreen extends StatelessWidget {
                     ),
                     SizedBox(
                       width: double.infinity,
-                      height: 40.r,
+                      height: 40.h,
                       child: ElevatedButton(
                           onPressed: () {
                             if (signUpGlobalKey.currentState!.validate()) {}
                           },
-                          child: const Text(
+                          child: Text(
                             "Sign up",
-                            style: TextStyle(fontSize: 20),
+                            style: TextStyle(fontSize: 20.sp),
                           )),
                     )
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 30,
+              SizedBox(
+                height: 30.h,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -185,7 +185,7 @@ class SignUpScreen extends StatelessWidget {
             active: index == 1,
             child: index == 0
                 ? Text("ALL",
-                    style: TextStyle(fontSize: 15.r, color: whiteColor))
+                    style: TextStyle(fontSize: 15.sp, color: whiteColor))
                 : Icon(
                     [
                       FontAwesomeIcons.car,

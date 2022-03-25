@@ -3,6 +3,7 @@
 import 'package:car_e_commerce/constants/theme.dart';
 import 'package:car_e_commerce/ui/routes/navigation_functions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
 
 import '../login_screen/login_screen.dart';
@@ -65,7 +66,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             enableSideReveal: true,
           ),
           Padding(
-            padding: const EdgeInsets.all(10),
+            padding: EdgeInsets.all(10.r),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
@@ -79,7 +80,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           Align(
             alignment: Alignment.bottomLeft,
             child: Padding(
-              padding: const EdgeInsets.all(25.0),
+              padding: EdgeInsets.all(25.r),
               child: ElevatedButton(
                 style: ButtonStyle(
                     foregroundColor: MaterialStateProperty.all(whiteColor)),
@@ -93,7 +94,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           Align(
             alignment: Alignment.bottomRight,
             child: Padding(
-              padding: const EdgeInsets.all(25.0),
+              padding: EdgeInsets.all(25.r),
               child: ElevatedButton(
                 style: ButtonStyle(
                     foregroundColor: MaterialStateProperty.all(whiteColor)),
@@ -129,14 +130,14 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           SizedBox(
-            height: 200,
+            height: 200.h,
             child: Padding(
-              padding: const EdgeInsets.only(top: 50.0),
+              padding: EdgeInsets.only(top: 50.h),
               child: CustomPaint(
                 painter: ImageBackGround(),
                 child: Image.asset(
                   "assets/images/OnBoarding/$image.png",
-                  width: 275,
+                  width: 275.w,
                   fit: BoxFit.contain,
                 ),
               ),
@@ -144,17 +145,20 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           ),
           Text(
             title,
-            style: Theme.of(context).textTheme.headline2,
+            style: Theme.of(context)
+                .textTheme
+                .headline2!
+                .copyWith(color: darkGrayColor),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15.0),
+            padding: EdgeInsets.symmetric(horizontal: 15.w),
             child: Text(
               text,
               style: Theme.of(context).textTheme.bodyText2,
             ),
           ),
-          const SizedBox(
-            height: 50,
+          SizedBox(
+            height: 50.h,
           )
         ],
       ),
@@ -163,9 +167,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
   Widget _buildDot(int index) {
     return SizedBox(
-      width: 30.0,
+      width: 30.w,
       child: CircleAvatar(
-        radius: index == page ? 8.0 : 4.0,
+        radius: index == page ? 8.r : 4.r,
       ),
     );
   }
@@ -183,8 +187,8 @@ class ImageBackGround extends CustomPainter {
     var path = Path();
     path.addOval(Rect.fromCenter(
       center: Offset(size.width / 2, size.height / 1.2),
-      height: 120,
-      width: 275,
+      height: 120.h,
+      width: 275.w,
     ));
     canvas.drawPath(path, paint);
   }

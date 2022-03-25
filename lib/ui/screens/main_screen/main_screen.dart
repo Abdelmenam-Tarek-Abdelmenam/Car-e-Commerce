@@ -6,7 +6,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../data/dummydata/dummy_data.dart';
 import '../../../data/module/products/car.dart';
 import 'widgets/card_grid_view.dart';
-import 'widgets/product_card.dart';
 
 class MainScreen extends StatelessWidget {
   final List<Car> dummyCarList = carList;
@@ -26,15 +25,16 @@ class MainScreen extends StatelessWidget {
         body: Container(
           width: double.infinity,
           decoration: BoxDecoration(gradient: themeGradient),
-          padding: EdgeInsets.symmetric(horizontal: 15.w,),
+          padding: EdgeInsets.symmetric(
+            horizontal: 15.w,
+          ),
           child: Column(
             children: [
-              HomeAppBar(),
+              const HomeAppBar(),
               SizedBox(
                 height: 20.h,
               ),
               Expanded(child: CardGridViewer(carList: dummyCarList)),
-                
             ],
           ),
         ),

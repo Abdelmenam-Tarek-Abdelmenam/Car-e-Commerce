@@ -1,7 +1,7 @@
 import 'package:car_e_commerce/constants/theme.dart';
 import 'package:car_e_commerce/data/local/pref_repository.dart';
 import 'package:car_e_commerce/data/local/sql_database.dart';
-import 'package:car_e_commerce/ui/screens/details_screen/details_screen.dart';
+import 'package:car_e_commerce/ui/screens/starting_screen/on_boarding/on_boarding_page.dart';
 import 'package:catcher/core/catcher.dart';
 import 'package:catcher/model/catcher_options.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -14,7 +14,6 @@ import 'bloc/bloc/auth_status_bloc.dart';
 import 'bloc/my_bloc_observer.dart';
 import 'data/error_handler.dart';
 import 'data/repository/auth_repository.dart';
-import 'ui/screens/main_screen/main_screen.dart';
 
 Future<void> main() async {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -82,8 +81,8 @@ class AppView extends StatelessWidget {
         title: 'Car E-Commerce',
         debugShowCheckedModeBanner: false,
         theme: lightThemeData,
-        
-        home: MainScreen(),
+
+        home: const OnBoardingScreen(),
         // home: FlowBuilder<AuthStatus>(
         //   state: context.select((AuthStatusBloc bloc) => bloc.state.status),
         //   onGeneratePages: routes,

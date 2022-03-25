@@ -1,5 +1,7 @@
 import 'package:car_e_commerce/constants/fonts.dart';
 import 'package:car_e_commerce/data/module/products/car.dart';
+import 'package:car_e_commerce/ui/routes/navigation_functions.dart';
+import 'package:car_e_commerce/ui/screens/details_screen/details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:widget_mask/widget_mask.dart';
@@ -7,14 +9,17 @@ import 'package:widget_mask/widget_mask.dart';
 class ProductCard extends StatelessWidget {
   final Car car;
 
-  ProductCard({
+  const ProductCard({
+    Key? key,
     required this.car,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){},
+      onTap: () {
+        navigateAndPush(context, const DetailsScreen());
+      },
       child: Stack(
         clipBehavior: Clip.none,
         children: [
@@ -29,7 +34,7 @@ class ProductCard extends StatelessWidget {
           // image
           // todo: mask of the card product
           Positioned(
-            left: 160.w,
+            left: 170.w,
             bottom: 60.h,
             child: WidgetMask(
               blendMode: BlendMode.srcIn,
@@ -42,10 +47,17 @@ class ProductCard extends StatelessWidget {
                 'https://media.hatla2eestatic.com/uploads/ncarteraz/31169/big-up_d705f613aeb9407103b75734a747efb5.jpg',
                 width: 175.w,
                 fit: BoxFit.cover,
+                errorBuilder: (_, __, ___) {
+                  return const Icon(
+                    Icons.image_not_supported_outlined,
+                    size: 50,
+                    color: Colors.grey,
+                  );
+                },
               ),
             ),
           ),
-    
+
           // price of the product
           Positioned(
             top: -25.h,
@@ -75,7 +87,7 @@ class ProductCard extends StatelessWidget {
               ),
             ),
           ),
-    
+
           // show the specs of the product
           Positioned(
             bottom: 12.h,
@@ -88,12 +100,14 @@ class ProductCard extends StatelessWidget {
                     children: [
                       Text(
                         "Brand",
-                        style: textTheme.headline3?.copyWith(color: Colors.black),
+                        style:
+                            textTheme.headline3?.copyWith(color: Colors.black),
                       ),
                       SizedBox(height: 12.h),
                       Text(
                         car.name.split(' ')[0],
-                        style: textTheme.subtitle2?.copyWith(color: Colors.black),
+                        style:
+                            textTheme.subtitle2?.copyWith(color: Colors.black),
                       ),
                     ],
                   ),
@@ -103,12 +117,14 @@ class ProductCard extends StatelessWidget {
                     children: [
                       Text(
                         "Model",
-                        style: textTheme.headline3?.copyWith(color: Colors.black),
+                        style:
+                            textTheme.headline3?.copyWith(color: Colors.black),
                       ),
                       SizedBox(height: 12.h),
                       Text(
                         car.name.split(' ')[1],
-                        style: textTheme.subtitle2?.copyWith(color: Colors.black),
+                        style:
+                            textTheme.subtitle2?.copyWith(color: Colors.black),
                       ),
                     ],
                   ),
@@ -118,12 +134,14 @@ class ProductCard extends StatelessWidget {
                     children: [
                       Text(
                         "Engine",
-                        style: textTheme.headline3?.copyWith(color: Colors.black),
+                        style:
+                            textTheme.headline3?.copyWith(color: Colors.black),
                       ),
                       SizedBox(height: 12.h),
                       Text(
                         car.properties['engineCapacity'],
-                        style: textTheme.subtitle2?.copyWith(color: Colors.black),
+                        style:
+                            textTheme.subtitle2?.copyWith(color: Colors.black),
                       ),
                     ],
                   ),
@@ -133,12 +151,14 @@ class ProductCard extends StatelessWidget {
                     children: [
                       Text(
                         "Year",
-                        style: textTheme.headline3?.copyWith(color: Colors.black),
+                        style:
+                            textTheme.headline3?.copyWith(color: Colors.black),
                       ),
                       SizedBox(height: 12.h),
                       Text(
                         car.properties['year'],
-                        style: textTheme.subtitle2?.copyWith(color: Colors.black),
+                        style:
+                            textTheme.subtitle2?.copyWith(color: Colors.black),
                       ),
                     ],
                   ),

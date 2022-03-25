@@ -1,9 +1,12 @@
+import 'dart:ui';
+
 import 'package:car_e_commerce/constants/theme.dart';
 import 'package:car_e_commerce/ui/routes/navigation_functions.dart';
-import 'package:car_e_commerce/ui/screens/starting_screem/login_screen/signup_screen.dart';
-import 'package:car_e_commerce/ui/screens/starting_screem/login_screen/widgtes/back_ground.dart';
-import 'package:car_e_commerce/ui/screens/starting_screem/login_screen/widgtes/forget_password.dart';
-import 'package:car_e_commerce/ui/screens/starting_screem/login_screen/widgtes/form_field.dart';
+import 'package:car_e_commerce/ui/screens/main_screen/main_screen.dart';
+import 'package:car_e_commerce/ui/screens/starting_screen/login_screen/signup_screen.dart';
+import 'package:car_e_commerce/ui/screens/starting_screen/login_screen/widgtes/back_ground.dart';
+import 'package:car_e_commerce/ui/screens/starting_screen/login_screen/widgtes/forget_password.dart';
+import 'package:car_e_commerce/ui/screens/starting_screen/login_screen/widgtes/form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -29,7 +32,7 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return LoginBackLayout(
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 42.r),
+        padding: EdgeInsets.symmetric(horizontal: 42.w),
         width: double.infinity,
         height: MediaQuery.of(context).size.height,
         child: SingleChildScrollView(
@@ -41,7 +44,7 @@ class LoginScreen extends StatelessWidget {
               continueWithSeparator(context),
               googleButton(context),
               SizedBox(
-                height: 25.r,
+                height: 25.h,
               ),
               signUpText(context)
             ],
@@ -70,7 +73,7 @@ class LoginScreen extends StatelessWidget {
               },
             ),
             SizedBox(
-              height: 36.r,
+              height: 36.h,
             ),
             DefaultFormField(
               controller: passController,
@@ -97,7 +100,7 @@ class LoginScreen extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 25.r,
+              height: 25.h,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -110,9 +113,9 @@ class LoginScreen extends StatelessWidget {
                           return BackdropFilter(
                             filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
                             child: Dialog(
-                              shape: const RoundedRectangleBorder(
+                              shape: RoundedRectangleBorder(
                                   borderRadius:
-                                      BorderRadius.all(Radius.circular(20))),
+                                      BorderRadius.all(Radius.circular(20.r))),
                               child: ForgetPassword(),
                               //  contentPadding: const EdgeInsets.all(0.0),
                             ),
@@ -130,11 +133,11 @@ class LoginScreen extends StatelessWidget {
               ],
             ),
             SizedBox(
-              height: 50.r,
+              height: 50.h,
             ),
             SizedBox(
               width: double.infinity,
-              height: 40.r,
+              height: 40.h,
               // state.status == LoginStatus.submittingEmail
               //             ? const CircularProgressIndicator()
               child: ElevatedButton(
@@ -147,9 +150,9 @@ class LoginScreen extends StatelessWidget {
                       //     .signInWithFirebaseByEmailAndPassword();
                     }
                   },
-                  child: const Text(
+                  child: Text(
                     "Sign in",
-                    style: TextStyle(fontSize: 20),
+                    style: TextStyle(fontSize: 20.sp),
                   )),
             )
           ],
@@ -168,6 +171,7 @@ class LoginScreen extends StatelessWidget {
               size: 25.r,
             ),
             onPressed: () {
+              navigateAndPush(context, MainScreen());
               // context.read<LoginCubit>().signInWithGoogle()
               print("Login Using Google");
             },
@@ -190,7 +194,7 @@ class LoginScreen extends StatelessWidget {
       );
 
   Widget upperText(BuildContext context) => Padding(
-        padding: EdgeInsets.only(top: 132.r, bottom: 85.r),
+        padding: EdgeInsets.only(top: 132.h, bottom: 85.h),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -210,7 +214,7 @@ class LoginScreen extends StatelessWidget {
         children: [
           line(),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 18.r, vertical: 25.r),
+            padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 25.h),
             child: Text("or continue with",
                 style: Theme.of(context).textTheme.bodyText2),
           ),

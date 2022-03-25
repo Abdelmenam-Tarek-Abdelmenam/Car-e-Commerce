@@ -15,11 +15,11 @@ class ForgetPassword extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 250.r,
+      height: 250.h,
       decoration: BoxDecoration(
           gradient: themeGradient,
           borderRadius: const BorderRadius.all(Radius.circular(20))),
-      padding: EdgeInsets.symmetric(horizontal: 30.r, vertical: 25.r),
+      padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 25.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -32,7 +32,7 @@ class ForgetPassword extends StatelessWidget {
             style: Theme.of(context).textTheme.headline4,
           ),
           SizedBox(
-            height: 28.r,
+            height: 28.h,
           ),
           Form(
             key: formKey,
@@ -51,11 +51,11 @@ class ForgetPassword extends StatelessWidget {
             ),
           ),
           SizedBox(
-            height: 28.r,
+            height: 28.h,
           ),
           SizedBox(
             width: double.infinity,
-            height: 40.r,
+            height: 40.h,
             // state.status == LoginStatus.submittingEmail
             //             ? const CircularProgressIndicator()
             child: ElevatedButton(
@@ -68,9 +68,9 @@ class ForgetPassword extends StatelessWidget {
                     //     .signInWithFirebaseByEmailAndPassword();
                   }
                 },
-                child: const Text(
+                child: Text(
                   "Send mail",
-                  style: TextStyle(fontSize: 20),
+                  style: TextStyle(fontSize: 20.sp),
                 )),
           )
         ],

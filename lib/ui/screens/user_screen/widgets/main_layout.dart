@@ -11,7 +11,7 @@ class UserScreenLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16.r),
+      padding: EdgeInsets.symmetric(horizontal: 16.w),
       width: double.infinity,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -36,12 +36,12 @@ class UserScreenLayout extends StatelessWidget {
               Theme.of(context).textTheme.headline1!.copyWith(fontSize: 16.sp),
         ),
         SizedBox(
-          height: 10.r,
+          height: 10.h,
         ),
         Center(
           child: Container(
-            width: 300.r,
-            height: 60.r,
+            width: 300.w,
+            height: 60.h,
             decoration: BoxDecoration(
                 color: darkYellow,
                 borderRadius: BorderRadius.all(Radius.circular(15.r))),
@@ -102,11 +102,11 @@ class UserScreenLayout extends StatelessWidget {
           ],
         ),
         SizedBox(
-          height: 5.r,
+          height: 5.h,
         ),
         Container(
-          width: 350.r,
-          height: 200.r,
+          width: 350.w,
+          height: 200.h,
           decoration: BoxDecoration(
               color: darkYellow,
               borderRadius: BorderRadius.all(Radius.circular(15.r))),
@@ -119,7 +119,7 @@ class UserScreenLayout extends StatelessWidget {
                 size: 50.r,
               ),
               SizedBox(
-                height: 10.r,
+                height: 10.h,
               ),
               Text("No favorites yet",
                   style: Theme.of(context)
@@ -143,7 +143,7 @@ class UserScreenLayout extends StatelessWidget {
               Theme.of(context).textTheme.headline1!.copyWith(fontSize: 16.sp),
         ),
         SizedBox(
-          height: 10.r,
+          height: 10.h,
         ),
         Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,

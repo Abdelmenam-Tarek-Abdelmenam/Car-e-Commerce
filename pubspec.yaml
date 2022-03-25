@@ -25,6 +25,9 @@ dependencies:
   equatable: ^2.0.3
   flow_builder: ^0.0.6
   catcher: ^0.6.9
+  url_launcher: ^6.0.20
+  google_fonts: ^2.3.1
+  flutter_screenutil: ^5.3.1
 
   # firebase
   firebase_auth: ^3.3.11
@@ -35,24 +38,20 @@ dependencies:
 
   # Login methods
   google_sign_in: ^5.2.4
-
   # Starting
   flutter_native_splash: ^2.1.1
-
+  liquid_swipe: ^2.1.1
   # widgets
   fluttertoast: ^8.0.9
+  material_floating_search_bar: ^0.3.7
+  # extend images
   flutter_svg: ^1.0.3
   widget_mask: ^1.0.0+0
-
+  photo_view: ^0.13.0
   # data operations
   shared_preferences: ^2.0.13
   sqflite: ^2.0.2
 
-  # on boarding
-  liquid_swipe: ^2.1.1
-  google_fonts: ^2.3.1
-  flutter_screenutil: ^5.3.1
-  material_floating_search_bar: ^0.3.7
 
 
 dev_dependencies:

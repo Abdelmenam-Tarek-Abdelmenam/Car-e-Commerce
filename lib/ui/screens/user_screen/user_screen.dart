@@ -18,7 +18,7 @@ class UserScreen extends StatelessWidget {
             Align(
               alignment: Alignment.topCenter,
               child: Container(
-                height: 160.r,
+                height: 160.h,
                 width: double.infinity,
                 decoration: BoxDecoration(gradient: themeGradient),
               ),
@@ -26,7 +26,7 @@ class UserScreen extends StatelessWidget {
             Align(
               alignment: Alignment.topRight,
               child: Padding(
-                padding: EdgeInsets.only(top: 85.r, right: 20.r),
+                padding: EdgeInsets.only(top: 85.h, right: 20.w),
                 child: CircleAvatar(
                   radius: 55.r,
                   backgroundColor: whiteColor,
@@ -35,20 +35,20 @@ class UserScreen extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(left: 20.0.r, top: 125.r),
+              padding: EdgeInsets.only(left: 20.0.w, top: 125.h),
               child: SizedBox(
-                width: 205.r,
+                width: 205.w,
                 child: Text("Abdelmenam Tarek Abdelmenam Elbahy",
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context)
                         .textTheme
                         .headline2!
-                        .copyWith(color: whiteColor, fontSize: 18)),
+                        .copyWith(color: whiteColor, fontSize: 18.sp)),
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(left: 20.0.r, top: 160.r),
+              padding: EdgeInsets.only(left: 20.w, top: 160.h),
               child: SizedBox(
                 width: 205.r,
                 child: Text("moneam.elbahy@gmail.com",
@@ -58,7 +58,7 @@ class UserScreen extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(top: 180.r),
+              padding: EdgeInsets.only(top: 180.h),
               child: const UserScreenLayout(),
             ),
             Align(
@@ -95,7 +95,7 @@ class UserScreen extends StatelessWidget {
       child: FadeInImage.assetNetwork(
         fit: BoxFit.fill,
         fadeInDuration: const Duration(milliseconds: 100),
-        width: 100.r,
+        width: 100.w,
         placeholder: 'assets/images/Logo/avatar.png',
         imageErrorBuilder: (
           context,
@@ -104,7 +104,7 @@ class UserScreen extends StatelessWidget {
         ) {
           return Image.asset(
             'assets/images/Logo/avatar.png',
-            width: 100.r,
+            width: 100.w,
             fit: BoxFit.fill,
           );
         },

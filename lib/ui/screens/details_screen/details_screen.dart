@@ -1,9 +1,9 @@
+import 'package:car_e_commerce/ui/screens/details_screen/widgets/car_spec.dart';
+import 'package:car_e_commerce/ui/screens/details_screen/widgets/details_photo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:widget_mask/widget_mask.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../constants/theme.dart';
 import '../../../shared/widgets/bar_icon_button.dart';
@@ -22,57 +22,19 @@ class DetailsScreen extends StatelessWidget {
           child: SingleChildScrollView(
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  BarIconButton(
-                      icon: Icons.arrow_back_rounded,
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      }),
-                  BarIconButton(
-                      icon: Icons.logout,
-                      onPressed: () {
-                        print("logout");
-                      }),
-                ],
-              ),
+              appBar(context),
               SizedBox(
-                height: 35.r,
+                height: 35.h,
               ),
-              Text("Mercedes E 300 2020 A/T / AMG",
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline1!
-                      .copyWith(fontSize: 20.sp)),
+              nameAndPrice(context),
               SizedBox(
-                height: 4.r,
+                height: 30.h,
               ),
-              Text("200,000 EGP",
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.subtitle1),
+              // ViewPhoto
+              const DetailsPhoto(
+                  "https://media.hatla2eestatic.com/uploads/ncarteraz/28651/big-up_d060d0807ed204a1fc18516a11257c87.jpg"),
               SizedBox(
-                height: 30.r,
-              ),
-              Center(
-                child: WidgetMask(
-                  blendMode: BlendMode.srcIn,
-                  childSaveLayer: true,
-                  child: Image.asset(
-                    "assets/images/Logo/details_mask.png",
-                    width: 200.r,
-                  ),
-                  mask: Image.network(
-                    "https://media.hatla2eestatic.com/uploads/ncarteraz/28651/big-up_d060d0807ed204a1fc18516a11257c87.jpg",
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 20.r,
+                height: 20.h,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -82,45 +44,60 @@ class DetailsScreen extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.subtitle1),
                   IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
+                      onPressed: () {
+                        launch(
+                            'https://youtu.be/QN-6MNc39Dg'); //or any link you want
+                      },
+                      icon: Icon(
                         FontAwesomeIcons.youtube,
-                        color: Colors.red,
-                        size: 40,
-                      ))
+                        color: HSLColor.fromColor(Colors.red)
+                            .withLightness(0.5)
+                            .toColor(),
+                        size: 40.r,
+                      )),
                 ],
               ),
-              GridView.count(
-                shrinkWrap: true,
-                primary: false,
-                padding: const EdgeInsets.all(20),
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-                crossAxisCount: 3,
-                children: List.generate(
-                  18,
-                  (index) => Column(
-                    children: [
-                      SvgPicture.asset(
-                        "assets/images/Icons/5670420.svg",
-                        width: 35,
-                        placeholderBuilder: (BuildContext context) => Container(
-                            padding: const EdgeInsets.all(30.0),
-                            child: const CircularProgressIndicator()),
-                        //      color: Colors.red,
-                      ),
-                      Text(
-                        "automatic",
-                        style: Theme.of(context).textTheme.caption,
-                      )
-                    ],
-                  ),
-                ),
-              )
+              const CarSpec()
             ]),
           ),
         ),
       ),
     );
   }
+
+  Widget nameAndPrice(BuildContext context) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("Mercedes E 300 2020 A/T / AMG",
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(context)
+                  .textTheme
+                  .headline1!
+                  .copyWith(fontSize: 20.sp)),
+          SizedBox(
+            height: 4.r,
+          ),
+          Text("200,000 EGP",
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(context).textTheme.subtitle1),
+        ],
+      );
+
+  Widget appBar(BuildContext context) => Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          BarIconButton(
+              icon: Icons.arrow_back_rounded,
+              onPressed: () {
+                Navigator.of(context).pop();
+              }),
+          BarIconButton(
+              icon: FontAwesomeIcons.heart,
+              onPressed: () {
+                print("logout");
+              }),
+        ],
+      );
 }

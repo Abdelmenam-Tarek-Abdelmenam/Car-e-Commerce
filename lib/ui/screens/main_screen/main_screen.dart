@@ -32,7 +32,7 @@ class MainScreen extends StatelessWidget {
             children: [
               const HomeAppBar(),
               SizedBox(
-                height: 20.h,
+                height: 40.h,
               ),
               Expanded(child: CardGridViewer(carList: dummyCarList)),
             ],

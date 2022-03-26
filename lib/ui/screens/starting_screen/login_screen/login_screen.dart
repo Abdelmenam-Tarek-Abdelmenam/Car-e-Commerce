@@ -171,7 +171,7 @@ class LoginScreen extends StatelessWidget {
               size: 25.r,
             ),
             onPressed: () {
-              navigateAndPush(context, MainScreen());
+              navigateAndPush(context, const MainScreen());
               // context.read<LoginCubit>().signInWithGoogle()
               print("Login Using Google");
             },

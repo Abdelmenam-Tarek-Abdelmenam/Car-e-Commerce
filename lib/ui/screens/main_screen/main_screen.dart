@@ -1,18 +1,16 @@
 import 'package:car_e_commerce/constants/theme.dart';
+import 'package:car_e_commerce/data/module/products/vehicle.dart';
 import 'package:car_e_commerce/ui/screens/main_screen/widgets/home_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../../data/dummydata/dummy_data.dart';
-import '../../../data/module/products/car.dart';
+import '../../../bloc/cubit/data_handler/data_handler_cubit.dart';
 import 'widgets/card_grid_view.dart';
 
 class MainScreen extends StatelessWidget {
-  final List<Car> dummyCarList = carList;
-  MainScreen({Key? key}) : super(key: key);
+  const MainScreen({Key? key}) : super(key: key);
 
   static Page pageRoute() {
-    return MaterialPage(
+    return const MaterialPage(
       child: MainScreen(),
     );
   }
@@ -34,7 +32,19 @@ class MainScreen extends StatelessWidget {
               SizedBox(
                 height: 40.h,
               ),
-              Expanded(child: CardGridViewer(carList: dummyCarList)),
+              FutureBuilder<List<Vehicle>>(
+
+                  /// for seeing real data only
+                  future: DataHandlerCubit().getAllData(),
+                  builder: (_, snapshot) {
+                    if (snapshot.hasData) {
+                      return Expanded(
+                          child:
+                              CardGridViewer(carList: snapshot.data!.cast()));
+                    } else {
+                      return const CircularProgressIndicator();
+                    }
+                  })
             ],
           ),
         ),

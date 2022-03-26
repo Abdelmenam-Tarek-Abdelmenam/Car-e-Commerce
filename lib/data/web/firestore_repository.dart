@@ -97,7 +97,6 @@ class FireStoreRepository {
     DataBaseRepository.database = database;
     for (Vehicle vehicle in subData) {
       database.insert(tableName, vehicle.toJson()).onError((err, stack) {
-        print("item exist before");
         return 0;
       });
     }

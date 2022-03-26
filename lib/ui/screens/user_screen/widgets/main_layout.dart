@@ -13,15 +13,17 @@ class UserScreenLayout extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16.w),
       width: double.infinity,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          recentlyViewedWidget(context),
-          favoritesWidget(context),
-          interestsWidget(context),
-          const SizedBox()
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            recentlyViewedWidget(context),
+            favoritesWidget(context),
+            interestsWidget(context),
+            const SizedBox()
+          ],
+        ),
       ),
     );
   }
@@ -32,8 +34,10 @@ class UserScreenLayout extends StatelessWidget {
       children: [
         Text(
           "Recently viewed",
-          style:
-              Theme.of(context).textTheme.headline1!.copyWith(fontSize: 16.sp),
+          style: Theme.of(context)
+              .textTheme
+              .headline1!
+              .copyWith(fontSize: 16.sp, color: darkGrayColor),
         ),
         SizedBox(
           height: 10.h,
@@ -87,7 +91,7 @@ class UserScreenLayout extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .headline1!
-                  .copyWith(fontSize: 16.sp),
+                  .copyWith(fontSize: 16.sp, color: darkGrayColor),
             ),
             TextButton(
               onPressed: () {},
@@ -139,8 +143,10 @@ class UserScreenLayout extends StatelessWidget {
       children: [
         Text(
           "Interests",
-          style:
-              Theme.of(context).textTheme.headline1!.copyWith(fontSize: 16.sp),
+          style: Theme.of(context)
+              .textTheme
+              .headline1!
+              .copyWith(fontSize: 16.sp, color: darkGrayColor),
         ),
         SizedBox(
           height: 10.h,

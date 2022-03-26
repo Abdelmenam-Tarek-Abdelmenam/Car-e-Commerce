@@ -1,5 +1,3 @@
-import 'package:car_e_commerce/constants/countries_list.dart';
-import 'package:car_e_commerce/constants/fonts.dart';
 import 'package:car_e_commerce/ui/routes/navigation_functions.dart';
 import 'package:car_e_commerce/ui/screens/main_screen/widgets/bottom_sheet.dart';
 import 'package:car_e_commerce/ui/screens/user_screen/user_screen.dart';

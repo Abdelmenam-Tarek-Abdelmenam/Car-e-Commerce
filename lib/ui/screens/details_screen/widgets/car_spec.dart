@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CarSpec extends StatelessWidget {
-  const CarSpec({Key? key}) : super(key: key);
+  final Map<String, dynamic> properties;
+
+  const CarSpec(this.properties, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -10,11 +13,11 @@ class CarSpec extends StatelessWidget {
       shrinkWrap: true,
       primary: false,
       padding: const EdgeInsets.all(20),
-      crossAxisSpacing: 10,
-      mainAxisSpacing: 10,
+      mainAxisSpacing: 2.h,
+      crossAxisSpacing: 10.w,
       crossAxisCount: 3,
       children: List.generate(
-        18,
+        properties.length,
         (index) => specBuilder(index, context),
       ),
     );
@@ -22,16 +25,23 @@ class CarSpec extends StatelessWidget {
 
   Widget specBuilder(int index, BuildContext context) => Column(
         children: [
-          SvgPicture.asset(
-            "assets/images/Icons/5670420.svg",
-            width: 35,
-            placeholderBuilder: (BuildContext context) => Container(
-                padding: const EdgeInsets.all(30.0),
-                child: const CircularProgressIndicator()),
-            //      color: Colors.red,
+          Tooltip(
+            message: properties.keys.toList()[index],
+            preferBelow: false,
+            child: SvgPicture.asset(
+              "assets/images/Icons/${properties.keys.toList()[index].replaceAll("/", "")}.svg",
+              width: 35.w,
+              placeholderBuilder: (BuildContext context) => Container(
+                  padding: EdgeInsets.all(30.r),
+                  child: const Icon(Icons.car_repair)),
+              //      color: Colors.red,
+            ),
+          ),
+          SizedBox(
+            height: 5.h,
           ),
           Text(
-            "automatic",
+            properties.values.toList()[index].trim(),
             style: Theme.of(context).textTheme.caption,
           )
         ],

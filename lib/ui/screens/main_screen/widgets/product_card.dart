@@ -18,7 +18,7 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        navigateAndPush(context, const DetailsScreen());
+        navigateAndPush(context, DetailsScreen(car));
       },
       child: Stack(
         clipBehavior: Clip.none,
@@ -44,7 +44,7 @@ class ProductCard extends StatelessWidget {
                 width: 175.w,
               ),
               mask: Image.network(
-                'https://media.hatla2eestatic.com/uploads/ncarteraz/31169/big-up_d705f613aeb9407103b75734a747efb5.jpg',
+                car.imgUrl,
                 width: 175.w,
                 fit: BoxFit.cover,
                 errorBuilder: (_, __, ___) {
@@ -57,7 +57,6 @@ class ProductCard extends StatelessWidget {
               ),
             ),
           ),
-
           // price of the product
           Positioned(
             top: -25.h,
@@ -139,7 +138,10 @@ class ProductCard extends StatelessWidget {
                       ),
                       SizedBox(height: 12.h),
                       Text(
-                        car.properties['engineCapacity'],
+                        car.properties['Engine capacity']
+                                ?.split("-")[0]
+                                .trim() ??
+                            "--",
                         style:
                             textTheme.subtitle2?.copyWith(color: Colors.black),
                       ),
@@ -156,7 +158,7 @@ class ProductCard extends StatelessWidget {
                       ),
                       SizedBox(height: 12.h),
                       Text(
-                        car.properties['year'],
+                        car.properties['Year'] ?? "--",
                         style:
                             textTheme.subtitle2?.copyWith(color: Colors.black),
                       ),

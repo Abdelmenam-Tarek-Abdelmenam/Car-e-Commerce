@@ -36,7 +36,8 @@ class DetailsPhoto extends StatelessWidget {
               ),
               mask: Image.network(
                 photoUrl,
-                fit: BoxFit.cover,
+                fit: BoxFit.fill,
+                width: 200.w,
                 errorBuilder: (_, __, ___) {
                   return Center(
                     child: Icon(

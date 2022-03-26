@@ -1,7 +1,8 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:car_e_commerce/constants/countries_list.dart';
 import 'package:car_e_commerce/constants/fonts.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Filter extends StatelessWidget {
@@ -43,7 +44,7 @@ class Filter extends StatelessWidget {
           SizedBox(height: 16.h),
           Text('Transmission Type',
               style: textTheme.headline3?.copyWith(color: Colors.black)),
-          chooseTransmissionTypeBtnsView(),
+          const ChooseTransmissionTypeBtnsView(),
 
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -170,7 +171,9 @@ class _ManfactureCountriesDropDownMenuState
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15.0),
           border: Border.all(
-              color: Theme.of(context).primaryColor, style: BorderStyle.solid, width: 0.80),
+              color: Theme.of(context).primaryColor,
+              style: BorderStyle.solid,
+              width: 0.80),
         ),
         child: DropdownButton(
           underline: const SizedBox(),
@@ -198,20 +201,22 @@ class _ManfactureCountriesDropDownMenuState
   }
 }
 
-class chooseTransmissionTypeBtn extends StatefulWidget {
+class ChooseTransmissionTypeBtn extends StatefulWidget {
   final String text;
   final int indexBtn;
   int selectedBtn;
 
-  chooseTransmissionTypeBtn(this.text, this.indexBtn, this.selectedBtn);
+  ChooseTransmissionTypeBtn(this.text, this.indexBtn, this.selectedBtn,
+      {Key? key})
+      : super(key: key);
   bool get _selected => indexBtn == selectedBtn;
 
   @override
-  State<chooseTransmissionTypeBtn> createState() =>
-      _chooseTransmissionTypeBtnState();
+  State<ChooseTransmissionTypeBtn> createState() =>
+      _ChooseTransmissionTypeBtnState();
 }
 
-class _chooseTransmissionTypeBtnState extends State<chooseTransmissionTypeBtn> {
+class _ChooseTransmissionTypeBtnState extends State<ChooseTransmissionTypeBtn> {
   bool _selected = false;
   @override
   Widget build(BuildContext context) {
@@ -238,24 +243,24 @@ class _chooseTransmissionTypeBtnState extends State<chooseTransmissionTypeBtn> {
   }
 }
 
-class chooseTransmissionTypeBtnsView extends StatefulWidget {
-  const chooseTransmissionTypeBtnsView({Key? key}) : super(key: key);
+class ChooseTransmissionTypeBtnsView extends StatefulWidget {
+  const ChooseTransmissionTypeBtnsView({Key? key}) : super(key: key);
 
   @override
-  State<chooseTransmissionTypeBtnsView> createState() =>
-      _chooseTransmissionTypeBtnsViewState();
+  State<ChooseTransmissionTypeBtnsView> createState() =>
+      _ChooseTransmissionTypeBtnsViewState();
 }
 
-class _chooseTransmissionTypeBtnsViewState
-    extends State<chooseTransmissionTypeBtnsView> {
+class _ChooseTransmissionTypeBtnsViewState
+    extends State<ChooseTransmissionTypeBtnsView> {
   late int selectedBtn = 2;
 
   @override
   Widget build(BuildContext context) {
-    List<chooseTransmissionTypeBtn> btns = [
-      chooseTransmissionTypeBtn('All', 0, selectedBtn),
-      chooseTransmissionTypeBtn('Manual', 1, selectedBtn),
-      chooseTransmissionTypeBtn('Automatic', 2, selectedBtn),
+    List<ChooseTransmissionTypeBtn> btns = [
+      ChooseTransmissionTypeBtn('All', 0, selectedBtn),
+      ChooseTransmissionTypeBtn('Manual', 1, selectedBtn),
+      ChooseTransmissionTypeBtn('Automatic', 2, selectedBtn),
     ];
     print('$selectedBtn in Radio State');
     return Row(

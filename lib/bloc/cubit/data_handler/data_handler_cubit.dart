@@ -51,12 +51,9 @@ class DataHandlerCubit extends Cubit<DataHandlerState> {
     List<Vehicle> needData;
     if (DataBaseRepository.database == null) {
       await _fireStoreRepository.getAllVehicleData(vehicleType: vehicleType);
-      needData = await _dataBaseRepository.getVehicleByName(subName, brand,
-          vehicleType: vehicleType);
-    } else {
-      needData = await _dataBaseRepository.getVehicleByName(subName, brand,
-          vehicleType: vehicleType);
     }
+    needData = await _dataBaseRepository.getVehicleByName(subName, brand,
+        vehicleType: vehicleType);
     emit(GetDataDoneState());
     return needData;
   }

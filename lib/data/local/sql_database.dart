@@ -47,7 +47,7 @@ class DataBaseRepository {
     List<Map<String, dynamic>> allVehiclesData = await database?.query(
             tableName,
             where:
-                "name like '%$subName'% ${brandName == null ? "" : "AND brand = '$brandName'"}") ??
+                "name like '%$subName%' ${brandName == null ? "" : "AND brand = '$brandName'"}") ??
         [];
     return _mapsToVehicle(allVehiclesData, vehicleType);
   }
@@ -59,7 +59,6 @@ class DataBaseRepository {
       VehicleType.bike: "bikes"
     }[vehicleType]!;
   }
-
 
   List<Vehicle> _mapsToVehicle(
       List<Map<String, dynamic>> allVehiclesData, VehicleType vehicleType) {

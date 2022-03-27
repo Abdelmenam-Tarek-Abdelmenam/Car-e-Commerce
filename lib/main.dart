@@ -10,7 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'bloc/bloc/auth_status_bloc.dart';
+import 'bloc/bloc/auth_bloc/auth_status_bloc.dart';
+import 'bloc/bloc/data_bloc/data_status_bloc.dart';
 import 'bloc/my_bloc_observer.dart';
 import 'data/error_handler.dart';
 import 'data/repository/auth_repository.dart';
@@ -60,10 +61,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return RepositoryProvider.value(
       value: auth,
-      child: BlocProvider(
-        create: (_) => AuthStatusBloc(
-          auth,
-        ),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+              create: (context) =>
+                  DataStatusBloc()..add(const LoadAllVehicleData())),
+          BlocProvider(create: (context) => AuthStatusBloc(auth)),
+        ],
         child: const AppView(),
       ),
     );

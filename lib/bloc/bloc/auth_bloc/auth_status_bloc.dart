@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
 
-import '../../data/repository/auth_repository.dart';
 import 'package:car_e_commerce/data/module/user/user.dart';
+
+import '../../../data/repository/auth_repository.dart';
 
 part 'auth_status_event.dart';
 part 'auth_status_state.dart';

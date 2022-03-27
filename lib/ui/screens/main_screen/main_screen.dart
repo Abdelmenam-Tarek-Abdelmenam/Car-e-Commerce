@@ -1,9 +1,9 @@
+import 'package:car_e_commerce/bloc/bloc/data_bloc/data_status_bloc.dart';
 import 'package:car_e_commerce/constants/theme.dart';
-import 'package:car_e_commerce/data/module/products/vehicle.dart';
 import 'package:car_e_commerce/ui/screens/main_screen/widgets/home_app_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../bloc/cubit/data_handler/data_handler_cubit.dart';
 import 'widgets/card_grid_view.dart';
 
 class MainScreen extends StatelessWidget {
@@ -32,19 +32,17 @@ class MainScreen extends StatelessWidget {
               SizedBox(
                 height: 40.h,
               ),
-              FutureBuilder<List<Vehicle>>(
-
-                  /// for seeing real data only
-                  future: DataHandlerCubit().getAllData(),
-                  builder: (_, snapshot) {
-                    if (snapshot.hasData) {
-                      return Expanded(
-                          child:
-                              CardGridViewer(carList: snapshot.data!.cast()));
-                    } else {
-                      return const CircularProgressIndicator();
-                    }
-                  })
+              BlocBuilder<DataStatusBloc, VehicleDataState>(
+                  builder: (context, state) {
+                if (state is VehicleDataLoading) {
+                  return const CircularProgressIndicator();
+                } else if (state is VehicleDataLoaded) {
+                  return Expanded(
+                      child: CardGridViewer(carList: state.vehicleData.cast()));
+                } else {
+                  return const Text("undefined state");
+                }
+              })
             ],
           ),
         ),

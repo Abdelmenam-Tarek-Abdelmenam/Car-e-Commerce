@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-void showToast(
-  String message,
-  ToastType type,
-) {
+void showToast(String message, {ToastType type = ToastType.info}) {
   Fluttertoast.showToast(
       msg: "This is Center Short Toast",
       toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.CENTER,
+      gravity: ToastGravity.BOTTOM,
       timeInSecForIosWeb: 1,
       backgroundColor: {
         ToastType.error: Colors.red,

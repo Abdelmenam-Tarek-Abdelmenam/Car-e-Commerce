@@ -1,19 +1,26 @@
 import 'package:bloc/bloc.dart';
-
+import 'package:car_e_commerce/shared/widgets/toast_helper.dart';
 import '../../../data/local/sql_database.dart';
 import '../../../data/module/products/vehicle.dart';
 import '../../../data/web/firestore_repository.dart';
-import 'data_handler_state.dart';
 
-class DataHandlerCubit extends Cubit<DataHandlerState> {
-  DataHandlerCubit() : super(DataHandlerInitial());
+part 'data_status_event.dart';
+part 'data_status_state.dart';
+
+class DataStatusBloc extends Bloc<VehicleDataEvent, VehicleDataState> {
+  DataStatusBloc() : super(VehicleDataLoading()) {
+    on<LoadAllVehicleData>(_getAllData);
+    on<LoadBrandVehicleData>(_getAllBrandData);
+  }
 
   final DataBaseRepository _dataBaseRepository = DataBaseRepository();
   final FireStoreRepository _fireStoreRepository = FireStoreRepository();
 
-  Future<List<Vehicle>> getAllData(
-      {VehicleType vehicleType = VehicleType.car}) async {
-    emit(GetDataLoadingState());
+  void _getAllData(
+      LoadAllVehicleData event, Emitter<VehicleDataState> emit) async {
+    showToast("getting all data");
+    emit(VehicleDataLoading());
+    VehicleType vehicleType = event.type;
     List<Vehicle> needData;
     if (DataBaseRepository.database == null) {
       needData = await _fireStoreRepository.getAllVehicleData(
@@ -22,13 +29,14 @@ class DataHandlerCubit extends Cubit<DataHandlerState> {
       needData =
           await _dataBaseRepository.getAllVehicleData(vehicleType: vehicleType);
     }
-    emit(GetDataDoneState());
-    return needData;
+    emit(VehicleDataLoaded(vehicleData: needData));
   }
 
-  Future<List<Vehicle>> getAllBrandData(String brand,
-      {VehicleType vehicleType = VehicleType.car}) async {
-    emit(GetDataLoadingState());
+  Future<void> _getAllBrandData(
+      LoadBrandVehicleData event, Emitter<VehicleDataState> emit) async {
+    emit(VehicleDataLoading());
+    String brand = event.brandName;
+    VehicleType vehicleType = event.type;
     List<Vehicle> needData;
     if (DataBaseRepository.database == null) {
       needData = await _fireStoreRepository.getAllBrandData(brand,
@@ -41,20 +49,17 @@ class DataHandlerCubit extends Cubit<DataHandlerState> {
             vehicleType: vehicleType);
       }
     }
-    emit(GetDataDoneState());
-    return needData;
+    emit(VehicleDataLoaded(vehicleData: needData));
   }
 
   Future<List<Vehicle>> searchVehiclesByName(String subName,
       {VehicleType vehicleType = VehicleType.car, String? brand}) async {
-    emit(GetDataLoadingState());
     List<Vehicle> needData;
     if (DataBaseRepository.database == null) {
       await _fireStoreRepository.getAllVehicleData(vehicleType: vehicleType);
     }
     needData = await _dataBaseRepository.getVehicleByName(subName, brand,
         vehicleType: vehicleType);
-    emit(GetDataDoneState());
     return needData;
   }
 }

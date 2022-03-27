@@ -1,6 +1,5 @@
-part of 'auth_status_bloc.dart';
+part of "auth_status_bloc.dart";
 
-@immutable
 abstract class AuthStatusEvent {
   const AuthStatusEvent();
 }

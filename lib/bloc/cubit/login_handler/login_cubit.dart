@@ -16,7 +16,7 @@ class LoginCubit extends Cubit<LoginStates> {
   }
 
   void changeInterestsIndex(int newIndex) {
-    emit(state.copyWith(index: newIndex));
+    emit(state.copyWith(index: newIndex, status: LoginStatus.initial));
   }
 
   void passwordChange(String value) {

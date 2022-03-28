@@ -1,9 +1,12 @@
 import 'package:car_e_commerce/bloc/bloc/data_bloc/data_status_bloc.dart';
 import 'package:car_e_commerce/constants/theme.dart';
 import 'package:car_e_commerce/ui/screens/main_screen/widgets/home_app_bar.dart';
+import 'package:car_e_commerce/ui/screens/main_screen/widgets/loading_card.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shimmer/shimmer.dart';
 import 'widgets/card_grid_view.dart';
 
 class MainScreen extends StatelessWidget {
@@ -29,15 +32,19 @@ class MainScreen extends StatelessWidget {
           child: Column(
             children: [
               const HomeAppBar(),
-              SizedBox(
-                height: 40.h,
-              ),
+              // SizedBox(
+              //   height: 40.h,
+              // ),
               BlocBuilder<DataStatusBloc, VehicleDataState>(
                   buildWhen: (prev, next) =>
-                      prev.vehicleData != next.vehicleData,
+                      !listEquals(prev.vehicleData, next.vehicleData),
                   builder: (context, state) {
                     if (state.status == VehicleDataStatus.loadingData) {
-                      return const CircularProgressIndicator();
+                      return Expanded(
+                          child: Shimmer.fromColors(
+                              baseColor: Colors.grey,
+                              highlightColor: Colors.white,
+                              child: const LoadingView()));
                     } else {
                       return Expanded(
                           child: CardGridViewer(

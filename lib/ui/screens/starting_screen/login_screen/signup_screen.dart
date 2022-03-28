@@ -1,5 +1,6 @@
 import 'package:car_e_commerce/constants/theme.dart';
 import 'package:car_e_commerce/shared/widgets/custom_button.dart';
+import 'package:car_e_commerce/shared/widgets/toast_helper.dart';
 import 'package:car_e_commerce/ui/screens/starting_screen/login_screen/widgtes/back_ground.dart';
 import 'package:car_e_commerce/ui/screens/starting_screen/login_screen/widgtes/form_field.dart';
 import 'package:flutter/material.dart';
@@ -228,9 +229,13 @@ class SignUpScreen extends StatelessWidget {
                             color: whiteColor,
                             size: 24.r,
                           ),
-                    onPressed: () => context
-                        .read<LoginCubit>()
-                        .changeInterestsIndex(index))));
+                    onPressed: () {
+                      if (index == 3) {
+                        showToast("wait the next update", type: ToastType.info);
+                      } else {
+                        context.read<LoginCubit>().changeInterestsIndex(index);
+                      }
+                    })));
       },
     );
   }

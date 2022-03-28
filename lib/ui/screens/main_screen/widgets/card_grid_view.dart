@@ -6,22 +6,24 @@ import '../../../../data/module/products/car.dart';
 
 class CardGridViewer extends StatelessWidget {
   final List<Car> carList;
+  final bool fromMain;
 
-  const CardGridViewer({Key? key, required this.carList}) : super(key: key);
+  const CardGridViewer({Key? key, required this.carList, this.fromMain = true})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       physics: const BouncingScrollPhysics(),
       shrinkWrap: true,
-      padding: EdgeInsets.only(top: 60.h),
+      padding: EdgeInsets.only(top: 20.h),
       itemCount: carList.length,
       itemBuilder: (BuildContext context, int index) {
         return Padding(
           padding: EdgeInsets.symmetric(vertical: 40.h),
           child: ProductCard(
             car: carList[index],
-            index: index,
+            index: fromMain ? index : -1,
           ),
         );
       },

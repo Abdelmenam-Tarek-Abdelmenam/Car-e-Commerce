@@ -16,6 +16,15 @@ class LoadAllVehicleData extends VehicleDataEvent {
   List<Object?> get props => [type];
 }
 
+class LoadAllFavData extends VehicleDataEvent {
+  final VehicleType type;
+
+  const LoadAllFavData({this.type = VehicleType.car});
+
+  @override
+  List<Object?> get props => [type];
+}
+
 class LoadBrandVehicleData extends VehicleDataEvent {
   final String brandName;
   final VehicleType type;

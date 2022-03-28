@@ -10,6 +10,7 @@ part 'data_status_state.dart';
 class DataStatusBloc extends Bloc<VehicleDataEvent, VehicleDataState> {
   DataStatusBloc() : super(VehicleDataState.initial()) {
     on<LoadAllVehicleData>(_getAllData);
+    on<LoadAllFavData>(_getFavData);
     on<LoadBrandVehicleData>(_getAllBrandData);
     on<EditVehicleData>(_editVehicleData);
     on<EditVehicleType>(_editVehiclesType);
@@ -62,6 +63,15 @@ class DataStatusBloc extends Bloc<VehicleDataEvent, VehicleDataState> {
       EditVehicleType event, Emitter<VehicleDataState> emit) async {
     emit(state.copyWith(
         type: event.newType, status: VehicleDataStatus.changeSomeData));
+  }
+
+  void _getFavData(LoadAllFavData event, Emitter<VehicleDataState> emit) async {
+    emit(state.copyWith(status: VehicleDataStatus.loadingFav, favData: []));
+    List<Vehicle> needData;
+    needData =
+        await _dataBaseRepository.changeAllFavorite(vehicleType: event.type);
+    emit(
+        state.copyWith(status: VehicleDataStatus.loadedFav, favData: needData));
   }
 
   Future<List<Vehicle>> searchVehiclesByName(String subName,

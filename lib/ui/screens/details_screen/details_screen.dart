@@ -106,7 +106,6 @@ class DetailsScreen extends StatelessWidget {
               buildWhen: (prev, next) =>
                   next.status == VehicleDataStatus.changeSomeData,
               builder: (context, state) {
-                print(state);
                 return BarIconButton(
                     icon: car.isFav
                         ? FontAwesomeIcons.heartCircleCheck

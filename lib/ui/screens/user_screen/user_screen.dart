@@ -61,7 +61,7 @@ class UserScreen extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.only(top: 180.h),
-              child: const UserScreenLayout(),
+              child: UserScreenLayout(),
             ),
             Align(
               alignment: Alignment.topCenter,

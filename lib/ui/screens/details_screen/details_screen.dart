@@ -1,18 +1,23 @@
 import 'package:car_e_commerce/ui/screens/details_screen/widgets/car_spec.dart';
 import 'package:car_e_commerce/ui/screens/details_screen/widgets/details_photo.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../bloc/bloc/data_bloc/data_status_bloc.dart';
 import '../../../constants/theme.dart';
 import '../../../data/module/products/car.dart';
 import '../../../shared/widgets/bar_icon_button.dart';
 
 class DetailsScreen extends StatelessWidget {
-  const DetailsScreen(this.car, {Key? key}) : super(key: key);
+  DetailsScreen(this.car, this.index, {Key? key}) : super(key: key);
 
+  final NumberFormat formatter = NumberFormat.decimalPattern();
   final Car car;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +87,7 @@ class DetailsScreen extends StatelessWidget {
           SizedBox(
             height: 4.r,
           ),
-          Text("${car.price} EGP",
+          Text("${formatter.format(car.price)} EGP",
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: Theme.of(context).textTheme.subtitle1),
@@ -97,11 +102,21 @@ class DetailsScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).pop();
               }),
-          BarIconButton(
-              icon: FontAwesomeIcons.heart,
-              onPressed: () {
-                print("fav");
-              }),
+          BlocBuilder<DataStatusBloc, VehicleDataState>(
+              buildWhen: (prev, next) =>
+                  next.status == VehicleDataStatus.changeSomeData,
+              builder: (context, state) {
+                print(state);
+                return BarIconButton(
+                    icon: car.isFav
+                        ? FontAwesomeIcons.heartCircleCheck
+                        : FontAwesomeIcons.heart,
+                    onPressed: () {
+                      car.isFav = !car.isFav;
+                      context.read<DataStatusBloc>().add(
+                          EditVehicleData(indexInList: index, vehicle: car));
+                    });
+              })
         ],
       );
 }

@@ -52,6 +52,22 @@ class DataBaseRepository {
     return _mapsToVehicle(allVehiclesData, vehicleType);
   }
 
+  Future<List<Vehicle>> changeAllFavorite(
+      {VehicleType vehicleType = VehicleType.car}) async {
+    String tableName = _getTableName(vehicleType);
+    List<Map<String, dynamic>> allVehiclesData =
+        await database?.query(tableName, where: "fave = 1") ?? [];
+
+    return _mapsToVehicle(allVehiclesData, vehicleType);
+  }
+
+  Future<void> changeVehicleData(Vehicle vehicle,
+      {VehicleType vehicleType = VehicleType.car}) async {
+    String tableName = _getTableName(vehicleType);
+    await database?.update(tableName, vehicle.toJson(),
+        where: "id = '${vehicle.id}'");
+  }
+
   String _getTableName(VehicleType vehicleType) {
     return {
       VehicleType.car: "cars",
@@ -67,7 +83,7 @@ class DataBaseRepository {
         return allVehiclesData.map((e) => Car.fromJson(e)).toList();
       case VehicleType.motorCycle:
         return allVehiclesData.map((e) => MotorCycle.fromJson(e)).toList();
-      case VehicleType.bike:
+      default:
         return [];
     }
   }

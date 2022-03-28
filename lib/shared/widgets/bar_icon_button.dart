@@ -4,10 +4,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../constants/theme.dart';
 
 class BarIconButton extends StatelessWidget {
-  const BarIconButton({required this.icon, required this.onPressed, Key? key})
+  const BarIconButton(
+      {required this.icon,
+      required this.onPressed,
+      this.color = whiteColor,
+      Key? key})
       : super(key: key);
 
   final IconData icon;
+  final Color color;
   final Function() onPressed;
 
   @override
@@ -19,7 +24,7 @@ class BarIconButton extends StatelessWidget {
         color: darkGrayColor,
         icon: Icon(
           icon,
-          color: whiteColor,
+          color: color,
         ),
         onPressed: onPressed,
       ),

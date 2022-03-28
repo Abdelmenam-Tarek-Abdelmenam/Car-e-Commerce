@@ -3,8 +3,11 @@ import 'package:car_e_commerce/shared/widgets/custom_button.dart';
 import 'package:car_e_commerce/ui/screens/starting_screen/login_screen/widgtes/back_ground.dart';
 import 'package:car_e_commerce/ui/screens/starting_screen/login_screen/widgtes/form_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '../../../../bloc/cubit/login_handler/login_cubit.dart';
 
 // ignore: must_be_immutable
 class SignUpScreen extends StatelessWidget {
@@ -12,7 +15,8 @@ class SignUpScreen extends StatelessWidget {
   TextEditingController passController = TextEditingController();
   TextEditingController passCheckerController = TextEditingController();
   GlobalKey<FormState> signUpGlobalKey = GlobalKey<FormState>();
-  bool showPassText = true;
+  bool showPassText1 = true;
+  bool showPassText2 = true;
 
   SignUpScreen({Key? key}) : super(key: key);
 
@@ -53,104 +57,126 @@ class SignUpScreen extends StatelessWidget {
               ),
               Form(
                 key: signUpGlobalKey,
-                child: Column(
-                  children: [
-                    DefaultFormField(
-                      controller: emailController,
-                      fillHint: AutofillHints.email,
-                      title: "Email",
-                      prefix: FontAwesomeIcons.user,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return '    Email cannot be empty';
-                        } else {
-                          return null;
-                        }
-                      },
-                    ),
-                    SizedBox(
-                      height: 36.h,
-                    ),
-                    DefaultFormField(
-                      controller: passController,
-                      fillHint: AutofillHints.password,
-                      title: "Password",
-                      prefix: Icons.lock_open,
-                      isPass: !true,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return '    Password cannot be empty';
-                        } else {
-                          return null;
-                        }
-                      },
-                      suffix: IconButton(
-                        icon: Icon(showPassText
-                            ? Icons.visibility
-                            : Icons.visibility_off),
-                        onPressed: () {
-                          // showPassText = !showPassText;
-                        },
-                      ),
-                    ),
-                    SizedBox(
-                      height: 36.h,
-                    ),
-                    DefaultFormField(
-                      controller: passCheckerController,
-                      fillHint: AutofillHints.password,
-                      title: "Confirm password",
-                      prefix: Icons.lock_open,
-                      isPass: !true,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return '    Password cannot be empty';
-                        } else if (value != passController.text) {
-                          return "    Passwords must be the same";
-                        } else {
-                          return null;
-                        }
-                      },
-                      suffix: IconButton(
-                        icon: Icon(showPassText
-                            ? Icons.visibility
-                            : Icons.visibility_off),
-                        onPressed: () {
-                          // showPassText = !showPassText;
-                        },
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 45.h, bottom: 60.h),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Interests",
-                            style: Theme.of(context).textTheme.headline2,
-                          ),
-                          SizedBox(
-                            height: 10.r,
-                          ),
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: interestsList()),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      width: double.infinity,
-                      height: 40.h,
-                      child: ElevatedButton(
-                          onPressed: () {
-                            if (signUpGlobalKey.currentState!.validate()) {}
+                child: BlocBuilder<LoginCubit, LoginStates>(
+                  builder: (context, state) {
+                    return Column(
+                      children: [
+                        DefaultFormField(
+                          controller: emailController,
+                          fillHint: AutofillHints.email,
+                          title: "Email",
+                          prefix: FontAwesomeIcons.user,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return '    Email cannot be empty';
+                            } else {
+                              return null;
+                            }
                           },
-                          child: Text(
-                            "Sign up",
-                            style: TextStyle(fontSize: 20.sp),
-                          )),
-                    )
-                  ],
+                        ),
+                        SizedBox(
+                          height: 36.h,
+                        ),
+                        DefaultFormField(
+                          controller: passController,
+                          fillHint: AutofillHints.password,
+                          title: "Password",
+                          prefix: Icons.lock_open,
+                          isPass: showPassText1,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return '    Password cannot be empty';
+                            } else {
+                              return null;
+                            }
+                          },
+                          suffix: IconButton(
+                            icon: Icon(showPassText1
+                                ? Icons.visibility
+                                : Icons.visibility_off),
+                            onPressed: () {
+                              showPassText1 = !showPassText1;
+                              context
+                                  .read<LoginCubit>()
+                                  .changeShowPasswordState();
+                            },
+                          ),
+                        ),
+                        SizedBox(
+                          height: 36.h,
+                        ),
+                        DefaultFormField(
+                          controller: passCheckerController,
+                          fillHint: AutofillHints.password,
+                          title: "Confirm password",
+                          prefix: Icons.lock_open,
+                          isPass: showPassText2,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return '    Password cannot be empty';
+                            } else if (value != passController.text) {
+                              return "    Passwords must be the same";
+                            } else {
+                              return null;
+                            }
+                          },
+                          suffix: IconButton(
+                            icon: Icon(showPassText2
+                                ? Icons.visibility
+                                : Icons.visibility_off),
+                            onPressed: () {
+                              showPassText2 = !showPassText2;
+                              context
+                                  .read<LoginCubit>()
+                                  .changeShowPasswordState();
+                            },
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: 45.h, bottom: 60.h),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Interests",
+                                style: Theme.of(context).textTheme.headline2,
+                              ),
+                              SizedBox(
+                                height: 10.r,
+                              ),
+                              interestsList(),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          width: double.infinity,
+                          height: 40.h,
+                          child: ElevatedButton(
+                              onPressed: () {
+                                if (signUpGlobalKey.currentState!.validate()) {
+                                  context
+                                      .read<LoginCubit>()
+                                      .emailChange(emailController.text);
+                                  context
+                                      .read<LoginCubit>()
+                                      .passwordChange(passController.text);
+                                  context
+                                      .read<LoginCubit>()
+                                      .signUpWithFirebaseByEmailAndPassword();
+                                }
+                              },
+                              child: state.status == LoginStatus.submittingEmail
+                                  ? const LinearProgressIndicator(
+                                      color: whiteColor,
+                                    )
+                                  : Text(
+                                      "Sign up",
+                                      style: TextStyle(fontSize: 20.sp),
+                                    )),
+                        )
+                      ],
+                    );
+                  },
                 ),
               ),
               SizedBox(
@@ -178,24 +204,35 @@ class SignUpScreen extends StatelessWidget {
     );
   }
 
-  List<Widget> interestsList() {
-    return List.generate(
-        4,
-        (index) => CustomChooseButton(
-            active: index == 1,
-            child: index == 0
-                ? Text("ALL",
-                    style: TextStyle(fontSize: 15.sp, color: whiteColor))
-                : Icon(
-                    [
-                      FontAwesomeIcons.car,
-                      FontAwesomeIcons.motorcycle,
-                      FontAwesomeIcons.bicycle
-                    ][index - 1],
-                    color: whiteColor,
-                    size: 24.r,
-                  ),
-            onPressed: () => print("set $index")));
+  Widget interestsList() {
+    return BlocBuilder<LoginCubit, LoginStates>(
+      buildWhen: (previous, current) =>
+          previous.interestIndex != current.interestIndex,
+      builder: (context, state) {
+        return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: List.generate(
+                4,
+                (index) => CustomChooseButton(
+                    active: index == state.interestIndex,
+                    child: index == 0
+                        ? Text("ALL",
+                            style:
+                                TextStyle(fontSize: 15.sp, color: whiteColor))
+                        : Icon(
+                            [
+                              FontAwesomeIcons.car,
+                              FontAwesomeIcons.motorcycle,
+                              FontAwesomeIcons.bicycle
+                            ][index - 1],
+                            color: whiteColor,
+                            size: 24.r,
+                          ),
+                    onPressed: () => context
+                        .read<LoginCubit>()
+                        .changeInterestsIndex(index))));
+      },
+    );
   }
 }
 

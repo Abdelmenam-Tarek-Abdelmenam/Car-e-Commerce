@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'dart:convert';
 
 import 'package:car_e_commerce/data/module/products/vehicle.dart';
@@ -12,12 +14,14 @@ class Car extends Vehicle {
     required String brand,
     required String imgUrl,
     required this.video,
+    required bool isFav,
     required int price,
     required Map<String, dynamic> properties,
   }) : super(
           name: name,
           price: price,
           brand: brand,
+          isFav: isFav,
           imgUrl: imgUrl,
           id: id,
           properties: properties,
@@ -30,6 +34,7 @@ class Car extends Vehicle {
         name: rowData.get('Name'),
         brand: rowData.get("Brand"),
         price: rowData.get("Price"),
+        isFav: false,
         imgUrl: rowData.get("Image"),
         video: rowData.get("Video"),
         properties: rowData.get("Proberties"));
@@ -41,6 +46,7 @@ class Car extends Vehicle {
         id: jsonData['id'],
         brand: jsonData['brand'],
         price: jsonData["price"],
+        isFav: jsonData['fave'] == 1,
         imgUrl: jsonData['imageUrl'],
         properties: json.decode(jsonData['properties']),
         video: jsonData['video']);
@@ -54,6 +60,7 @@ class Car extends Vehicle {
       "brand": brand,
       "price": price,
       "imageUrl": imgUrl,
+      "fave": isFav ? 1 : 0,
       "video": video,
       "properties": json.encode(properties)
     };

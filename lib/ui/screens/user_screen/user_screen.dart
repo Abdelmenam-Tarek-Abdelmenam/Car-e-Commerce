@@ -1,4 +1,6 @@
 import 'package:car_e_commerce/shared/widgets/bar_icon_button.dart';
+import 'package:car_e_commerce/ui/routes/navigation_functions.dart';
+import 'package:car_e_commerce/ui/screens/starting_screen/login_screen/login_screen.dart';
 import 'package:car_e_commerce/ui/screens/user_screen/widgets/main_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -76,7 +78,7 @@ class UserScreen extends StatelessWidget {
                     BarIconButton(
                         icon: Icons.logout,
                         onPressed: () {
-                          print("logout");
+                          navigateAndReplace(context, LoginScreen());
                         }),
                   ],
                 ),

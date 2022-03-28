@@ -4,21 +4,26 @@ import 'package:car_e_commerce/ui/routes/navigation_functions.dart';
 import 'package:car_e_commerce/ui/screens/details_screen/details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:widget_mask/widget_mask.dart';
 
+// ignore: must_be_immutable
 class ProductCard extends StatelessWidget {
   final Car car;
+  final int index;
+  NumberFormat formatter = NumberFormat.decimalPattern();
 
-  const ProductCard({
+  ProductCard({
     Key? key,
     required this.car,
+    required this.index,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        navigateAndPush(context, DetailsScreen(car));
+        navigateAndPush(context, DetailsScreen(car, index));
       },
       child: Stack(
         clipBehavior: Clip.none,
@@ -72,7 +77,7 @@ class ProductCard extends StatelessWidget {
               child: Column(
                 children: [
                   Text(
-                    car.price.toString(),
+                    formatter.format(car.price),
                     style: textTheme.headline3,
                   ),
                   SizedBox(

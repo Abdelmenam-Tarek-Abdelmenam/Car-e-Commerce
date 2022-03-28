@@ -19,7 +19,10 @@ class CardGridViewer extends StatelessWidget {
       itemBuilder: (BuildContext context, int index) {
         return Padding(
           padding: EdgeInsets.symmetric(vertical: 40.h),
-          child: ProductCard(car: carList[index]),
+          child: ProductCard(
+            car: carList[index],
+            index: index,
+          ),
         );
       },
     );

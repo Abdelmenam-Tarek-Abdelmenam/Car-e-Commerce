@@ -1,7 +1,10 @@
+import 'package:car_e_commerce/data/module/products/vehicle.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../../../../bloc/bloc/data_bloc/data_status_bloc.dart';
 import '../../../../constants/theme.dart';
 import '../../../../shared/widgets/custom_button.dart';
 
@@ -18,10 +21,18 @@ class UserScreenLayout extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
+            SizedBox(
+              height: 40.h,
+            ),
             recentlyViewedWidget(context),
+            SizedBox(
+              height: 10.h,
+            ),
             favoritesWidget(context),
+            SizedBox(
+              height: 20.h,
+            ),
             interestsWidget(context),
-            const SizedBox()
           ],
         ),
       ),
@@ -151,30 +162,38 @@ class UserScreenLayout extends StatelessWidget {
         SizedBox(
           height: 10.h,
         ),
-        Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: _interestsList()),
+        interestsList()
       ],
     );
   }
 
-  List<Widget> _interestsList() {
-    return List.generate(
-        4,
-        (index) => CustomChooseButton(
-            active: index == 1,
-            child: index == 0
-                ? Text("ALL",
-                    style: TextStyle(fontSize: 15.sp, color: whiteColor))
-                : Icon(
-                    [
-                      FontAwesomeIcons.car,
-                      FontAwesomeIcons.motorcycle,
-                      FontAwesomeIcons.bicycle
-                    ][index - 1],
-                    color: whiteColor,
-                    size: 24.r,
-                  ),
-            onPressed: () => print("set $index")));
+  Widget interestsList() {
+    return BlocBuilder<DataStatusBloc, VehicleDataState>(
+      buildWhen: (prev, next) =>
+          next.status == VehicleDataStatus.changeSomeData,
+      builder: (context, state) {
+        return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: List.generate(
+                4,
+                (index) => CustomChooseButton(
+                    active: index == state.type.index,
+                    child: index == 0
+                        ? Text("ALL",
+                            style:
+                                TextStyle(fontSize: 15.sp, color: whiteColor))
+                        : Icon(
+                            [
+                              FontAwesomeIcons.car,
+                              FontAwesomeIcons.motorcycle,
+                              FontAwesomeIcons.bicycle
+                            ][index - 1],
+                            color: whiteColor,
+                            size: 24.r,
+                          ),
+                    onPressed: () => context.read<DataStatusBloc>().add(
+                        EditVehicleType(newType: VehicleType.values[index])))));
+      },
+    );
   }
 }

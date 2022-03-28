@@ -33,16 +33,21 @@ class MainScreen extends StatelessWidget {
                 height: 40.h,
               ),
               BlocBuilder<DataStatusBloc, VehicleDataState>(
+                  buildWhen: (prev, next) => [
+                        VehicleDataStatus.loadingData,
+                        VehicleDataStatus.loadedData
+                      ].contains(next.status),
                   builder: (context, state) {
-                if (state is VehicleDataLoading) {
-                  return const CircularProgressIndicator();
-                } else if (state is VehicleDataLoaded) {
-                  return Expanded(
-                      child: CardGridViewer(carList: state.vehicleData.cast()));
-                } else {
-                  return const Text("undefined state");
-                }
-              })
+                    if (state.status == VehicleDataStatus.loadingData) {
+                      return const CircularProgressIndicator();
+                    } else if (state.status == VehicleDataStatus.loadedData) {
+                      return Expanded(
+                          child: CardGridViewer(
+                              carList: state.vehicleData.cast()));
+                    } else {
+                      return const Text("undefined state");
+                    }
+                  })
             ],
           ),
         ),

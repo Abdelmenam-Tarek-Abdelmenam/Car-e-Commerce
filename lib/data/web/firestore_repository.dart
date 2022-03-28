@@ -70,7 +70,7 @@ class FireStoreRepository {
         return allVehiclesDocuments
             .map((e) => MotorCycle.fromQueryDocument(e))
             .toList();
-      case VehicleType.bike:
+      default:
         return [];
     }
   }
@@ -89,6 +89,8 @@ class FireStoreRepository {
                       "name"	TEXT,
                       "brand"	TEXT,
                       "video"	TEXT,
+                      "fave"	INTEGER,
+                      "viewed"	INTEGER,
                       "imageUrl"	TEXT,
                       "properties"	TEXT
                 );''');

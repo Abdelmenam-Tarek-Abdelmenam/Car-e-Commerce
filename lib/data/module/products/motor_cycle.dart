@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:car_e_commerce/data/module/products/vehicle.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+// ignore: must_be_immutable
 class MotorCycle extends Vehicle {
   MotorCycle({
     required String name,
@@ -10,6 +11,7 @@ class MotorCycle extends Vehicle {
     required String brand,
     required String imgUrl,
     required int price,
+    required bool isFav,
     required Map<String, dynamic> properties,
   }) : super(
             name: name,
@@ -17,6 +19,7 @@ class MotorCycle extends Vehicle {
             brand: brand,
             imgUrl: imgUrl,
             id: id,
+            isFav: isFav,
             properties: properties);
 
   static MotorCycle fromQueryDocument(
@@ -27,6 +30,7 @@ class MotorCycle extends Vehicle {
         brand: rowData.get("Brand"),
         price: rowData.get("Price"),
         imgUrl: rowData.get("Image"),
+        isFav: false,
         properties: rowData.get("Proberties"));
   }
 
@@ -36,6 +40,7 @@ class MotorCycle extends Vehicle {
         id: jsonData['id'],
         brand: jsonData['brand'],
         price: jsonData["price"],
+        isFav: jsonData['fave'],
         imgUrl: jsonData['imageUrl'],
         properties: json.decode(jsonData['properties']));
   }
@@ -47,6 +52,7 @@ class MotorCycle extends Vehicle {
       "id": id,
       "brand": brand,
       "price": price,
+      "fave": isFav ? 1 : 0,
       "imageUrl": imgUrl,
       "properties": json.encode(properties)
     };

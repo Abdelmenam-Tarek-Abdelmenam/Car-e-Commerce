@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:car_e_commerce/shared/widgets/toast_helper.dart';
+import 'package:equatable/equatable.dart';
 import '../../../data/local/sql_database.dart';
 import '../../../data/module/products/vehicle.dart';
 import '../../../data/web/firestore_repository.dart';
@@ -8,9 +8,11 @@ part 'data_status_event.dart';
 part 'data_status_state.dart';
 
 class DataStatusBloc extends Bloc<VehicleDataEvent, VehicleDataState> {
-  DataStatusBloc() : super(VehicleDataLoading()) {
+  DataStatusBloc() : super(VehicleDataState.initial()) {
     on<LoadAllVehicleData>(_getAllData);
     on<LoadBrandVehicleData>(_getAllBrandData);
+    on<EditVehicleData>(_editVehicleData);
+    on<EditVehicleType>(_editVehiclesType);
   }
 
   final DataBaseRepository _dataBaseRepository = DataBaseRepository();
@@ -18,38 +20,48 @@ class DataStatusBloc extends Bloc<VehicleDataEvent, VehicleDataState> {
 
   void _getAllData(
       LoadAllVehicleData event, Emitter<VehicleDataState> emit) async {
-    showToast("getting all data");
-    emit(VehicleDataLoading());
-    VehicleType vehicleType = event.type;
+    emit(state.copyWith(status: VehicleDataStatus.loadingData));
     List<Vehicle> needData;
     if (DataBaseRepository.database == null) {
-      needData = await _fireStoreRepository.getAllVehicleData(
-          vehicleType: vehicleType);
+      needData =
+          await _fireStoreRepository.getAllVehicleData(vehicleType: event.type);
     } else {
       needData =
-          await _dataBaseRepository.getAllVehicleData(vehicleType: vehicleType);
+          await _dataBaseRepository.getAllVehicleData(vehicleType: event.type);
     }
-    emit(VehicleDataLoaded(vehicleData: needData));
+    emit(state.copyWith(
+        status: VehicleDataStatus.loadedData, vehicleData: needData));
   }
 
   Future<void> _getAllBrandData(
       LoadBrandVehicleData event, Emitter<VehicleDataState> emit) async {
-    emit(VehicleDataLoading());
-    String brand = event.brandName;
-    VehicleType vehicleType = event.type;
+    emit(state.copyWith(status: VehicleDataStatus.loadingData));
     List<Vehicle> needData;
     if (DataBaseRepository.database == null) {
-      needData = await _fireStoreRepository.getAllBrandData(brand,
-          vehicleType: vehicleType);
+      needData = await _fireStoreRepository.getAllBrandData(event.brandName,
+          vehicleType: event.type);
     } else {
-      needData = await _dataBaseRepository.getAllBrandData(brand,
-          vehicleType: vehicleType);
+      needData = await _dataBaseRepository.getAllBrandData(event.brandName,
+          vehicleType: event.type);
       if (needData.isEmpty) {
-        needData = await _fireStoreRepository.getAllBrandData(brand,
-            vehicleType: vehicleType);
+        needData = await _fireStoreRepository.getAllBrandData(event.brandName,
+            vehicleType: event.type);
       }
     }
-    emit(VehicleDataLoaded(vehicleData: needData));
+    emit(state.copyWith(
+        status: VehicleDataStatus.loadedData, vehicleData: needData));
+  }
+
+  Future<void> _editVehicleData(
+      EditVehicleData event, Emitter<VehicleDataState> emit) async {
+    await _dataBaseRepository.changeVehicleData(event.vehicle);
+    emit(state.editEntry(vehicle: event.vehicle, index: event.indexInList));
+  }
+
+  Future<void> _editVehiclesType(
+      EditVehicleType event, Emitter<VehicleDataState> emit) async {
+    emit(state.copyWith(
+        type: event.newType, status: VehicleDataStatus.changeSomeData));
   }
 
   Future<List<Vehicle>> searchVehiclesByName(String subName,

@@ -15,12 +15,16 @@ class LoginCubit extends Cubit<LoginStates> {
     emit(state.copyWith(email: value, status: LoginStatus.initial));
   }
 
+  void changeInterestsIndex(int newIndex) {
+    emit(state.copyWith(index: newIndex));
+  }
+
   void passwordChange(String value) {
-    emit(state.copyWith(password: value, status: LoginStatus.initial));
+    emit(state.copyWith(password: value));
   }
 
   void changeShowPasswordState() {
-    emit(state.copyWith());
+    emit(state.copyWith(passwordState: !state.passwordState));
   }
 
   Future<void> signInWithGoogle() async {
@@ -53,6 +57,25 @@ class LoginCubit extends Cubit<LoginStates> {
 
     try {
       await auth.signInWithEmailAndPassword(state.email, state.password);
+      emit(state.copyWith(status: LoginStatus.success));
+    } on LogInWithEmailAndPasswordFailure catch (e) {
+      showToast(e.message, type: ToastType.error);
+      emit(state.copyWith(status: LoginStatus.error, errorMessage: e.message));
+    } catch (_) {
+      emit(state.copyWith(status: LoginStatus.error));
+    }
+  }
+
+  Future<void> signUpWithFirebaseByEmailAndPassword() async {
+    if ([LoginStatus.submittingEmail, LoginStatus.submittingGoogle]
+        .contains(state.status)) {
+      return;
+    }
+    emit(state.copyWith(status: LoginStatus.submittingEmail));
+
+    try {
+      await auth.signUpWithEmailAndPassword(
+          email: state.email, password: state.password);
       emit(state.copyWith(status: LoginStatus.success));
     } on LogInWithEmailAndPasswordFailure catch (e) {
       showToast(e.message, type: ToastType.error);

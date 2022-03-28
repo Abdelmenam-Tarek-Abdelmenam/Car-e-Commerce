@@ -1,7 +1,7 @@
 import 'package:car_e_commerce/constants/theme.dart';
 import 'package:car_e_commerce/data/local/pref_repository.dart';
 import 'package:car_e_commerce/data/local/sql_database.dart';
-import 'package:car_e_commerce/ui/screens/starting_screen/login_screen/login_screen.dart';
+import 'package:car_e_commerce/ui/screens/main_screen/main_screen.dart';
 import 'package:catcher/core/catcher.dart';
 import 'package:catcher/model/catcher_options.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -12,6 +12,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'bloc/bloc/auth_bloc/auth_status_bloc.dart';
 import 'bloc/bloc/data_bloc/data_status_bloc.dart';
+import 'bloc/cubit/login_handler/login_cubit.dart';
 import 'bloc/my_bloc_observer.dart';
 import 'data/error_handler.dart';
 import 'data/repository/auth_repository.dart';
@@ -53,6 +54,7 @@ Future<void> main() async {
 // ignore: must_be_immutable
 class MyApp extends StatelessWidget {
   AuthRepository auth;
+
   MyApp({
     Key? key,
     required this.auth,
@@ -64,9 +66,9 @@ class MyApp extends StatelessWidget {
       child: MultiBlocProvider(
         providers: [
           BlocProvider(
-              create: (context) =>
-                  DataStatusBloc()..add(const LoadAllVehicleData())),
-          BlocProvider(create: (context) => AuthStatusBloc(auth)),
+              create: (_) => DataStatusBloc()..add(const LoadAllVehicleData())),
+          BlocProvider(create: (_) => AuthStatusBloc(auth)),
+          BlocProvider(create: (_) => LoginCubit(auth))
         ],
         child: const AppView(),
       ),
@@ -86,7 +88,7 @@ class AppView extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: lightThemeData,
 
-        home: LoginScreen(),
+        home: const MainScreen(),
         // home: FlowBuilder<AuthStatus>(
         //   state: context.select((AuthStatusBloc bloc) => bloc.state.status),
         //   onGeneratePages: routes,

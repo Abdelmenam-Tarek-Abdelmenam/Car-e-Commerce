@@ -57,39 +57,39 @@ class LoadingView extends StatelessWidget {
                   child: Row(
                     children: [
                       Container(
-                        width: 50,
-                        height: 50,
-                        decoration: const BoxDecoration(
+                        width: 50.w,
+                        height: 50.h,
+                        decoration: BoxDecoration(
                             color: Colors.grey,
                             borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
+                                BorderRadius.all(Radius.circular(10.r))),
+                      ),
+                      SizedBox(width: 35.w),
+                      Container(
+                        width: 50.w,
+                        height: 50.h,
+                        decoration: BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.r))),
                       ),
                       SizedBox(width: 35.w),
                       Container(
                         width: 50,
                         height: 50,
-                        decoration: const BoxDecoration(
+                        decoration: BoxDecoration(
                             color: Colors.grey,
                             borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
+                                BorderRadius.all(Radius.circular(10.r))),
                       ),
                       SizedBox(width: 35.w),
                       Container(
-                        width: 50,
-                        height: 50,
-                        decoration: const BoxDecoration(
+                        width: 50.w,
+                        height: 50.h,
+                        decoration: BoxDecoration(
                             color: Colors.grey,
                             borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
-                      ),
-                      SizedBox(width: 35.w),
-                      Container(
-                        width: 50,
-                        height: 50,
-                        decoration: const BoxDecoration(
-                            color: Colors.grey,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
+                                BorderRadius.all(Radius.circular(10.w))),
                       ),
                     ],
                   ),

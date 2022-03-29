@@ -67,7 +67,10 @@ class MyApp extends StatelessWidget {
       child: MultiBlocProvider(
         providers: [
           BlocProvider(
-              create: (_) => DataStatusBloc(VehicleType.motorCycle)
+              create: (_) => DataStatusBloc(VehicleType.values[
+                  PreferenceRepository.getDataFromSharedPreference(
+                          key: "type") ??
+                      1])
                 ..add(const LoadAllVehicleData())),
           BlocProvider(create: (_) => AuthStatusBloc(auth)),
           BlocProvider(create: (_) => LoginCubit(auth))

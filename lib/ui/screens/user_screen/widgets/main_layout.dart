@@ -283,9 +283,9 @@ class UserScreenLayout extends StatelessWidget {
                         controller: controller, // PageController
                         count:
                             state.favData.length > 5 ? 5 : state.favData.length,
-                        effect: const WormEffect(
-                            dotHeight: 8,
-                            dotWidth: 8,
+                        effect: WormEffect(
+                            dotHeight: 8.r,
+                            dotWidth: 8.r,
                             dotColor: whiteColor,
                             activeDotColor:
                                 darkGrayColor), // your preferred effect
@@ -349,6 +349,8 @@ class UserScreenLayout extends StatelessWidget {
                         context
                             .read<DataStatusBloc>()
                             .add(EditVehicleType(VehicleType.values[index]));
+                        PreferenceRepository.putDataInSharedPreference(
+                            value: index, key: "type");
                       } else {
                         showToast("not yet");
                       }

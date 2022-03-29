@@ -34,12 +34,24 @@ class HomeAppBar extends StatelessWidget {
               }),
           Expanded(
             child: Container(
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(4.0))),
-              margin:
-                  const EdgeInsets.symmetric(horizontal: 10.0, vertical: 15),
+                  borderRadius: BorderRadius.all(Radius.circular(4.w))),
+              margin: EdgeInsets.symmetric(horizontal: 10.w, vertical: 15.h),
               child: TypeAheadField<Vehicle>(
+                  textFieldConfiguration: TextFieldConfiguration(
+                    decoration: InputDecoration(
+                        labelText: 'Search for vehicle',
+                        labelStyle: TextStyle(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w300,
+                          color: Colors.grey[500],
+                        ),
+                        prefixIcon: Icon(
+                          Icons.search,
+                          size: 20.r,
+                        )),
+                  ),
                   hideOnError: true,
                   suggestionsCallback: (pattern) async {
                     if (pattern.isEmpty) {

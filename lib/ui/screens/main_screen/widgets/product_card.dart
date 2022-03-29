@@ -37,7 +37,6 @@ class ProductCard extends StatelessWidget {
             ),
           ),
           // image
-          // todo: mask of the card product
           Positioned(
             left: 170.w,
             bottom: 60.h,

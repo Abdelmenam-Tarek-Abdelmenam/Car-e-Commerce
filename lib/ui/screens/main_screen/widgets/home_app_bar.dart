@@ -8,6 +8,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import 'search_bar.dart';
+
 class HomeAppBar extends StatelessWidget {
   const HomeAppBar({Key? key}) : super(key: key);
 
@@ -24,11 +26,10 @@ class HomeAppBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          FloatingSearchBarAction.icon(
-              icon: SvgPicture.asset('assets/icons/filter.svg'),
-              onTap: () {
-                showBottomSheet(context);
-              }),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            child: SearchBar(),
+          ),
           ProfileIcon(
             profileHandler: () {
               context.read<DataStatusBloc>().add(const LoadAllFavData());
@@ -40,18 +41,7 @@ class HomeAppBar extends StatelessWidget {
     );
   }
 
-  Future<dynamic> showBottomSheet(BuildContext context) {
-    return showModalBottomSheet(
-        context: context,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30.r), topRight: Radius.circular(30.r)),
-        ),
-        isDismissible: true,
-        builder: (BuildContext context) {
-          return const Filter();
-        });
-  }
+  
 }
 
 class ProfileIcon extends StatelessWidget {

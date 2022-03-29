@@ -16,11 +16,11 @@ class CardGridViewer extends StatelessWidget {
     return ListView.builder(
       physics: const BouncingScrollPhysics(),
       shrinkWrap: true,
-      padding: EdgeInsets.only(top: 20.h),
+      padding: EdgeInsets.only(top: 30.h),
       itemCount: carList.length,
       itemBuilder: (BuildContext context, int index) {
         return Padding(
-          padding: EdgeInsets.symmetric(vertical: 40.h),
+          padding: EdgeInsets.symmetric(vertical: 50.h),
           child: ProductCard(
             car: carList[index],
             index: fromMain ? index : -1,

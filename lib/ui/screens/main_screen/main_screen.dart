@@ -32,9 +32,6 @@ class MainScreen extends StatelessWidget {
           child: Column(
             children: [
               const HomeAppBar(),
-              // SizedBox(
-              //   height: 40.h,
-              // ),
               BlocBuilder<DataStatusBloc, VehicleDataState>(
                   buildWhen: (prev, next) =>
                       !listEquals(prev.vehicleData, next.vehicleData),

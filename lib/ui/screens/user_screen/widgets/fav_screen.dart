@@ -38,7 +38,7 @@ class FavScreen extends StatelessWidget {
                     ),
                   ),
                   CardGridViewer(
-                    carList:
+                    vehicleList:
                         context.watch<DataStatusBloc>().state.favData.cast(),
                     fromMain: false,
                   ),

@@ -1,5 +1,6 @@
 import 'package:car_e_commerce/constants/fonts.dart';
-import 'package:car_e_commerce/data/module/products/car.dart';
+import 'package:car_e_commerce/data/local/pref_repository.dart';
+import 'package:car_e_commerce/data/module/products/vehicle.dart';
 import 'package:car_e_commerce/ui/routes/navigation_functions.dart';
 import 'package:car_e_commerce/ui/screens/details_screen/details_screen.dart';
 import 'package:flutter/material.dart';
@@ -9,13 +10,13 @@ import 'package:widget_mask/widget_mask.dart';
 
 // ignore: must_be_immutable
 class ProductCard extends StatelessWidget {
-  final Car car;
+  final Vehicle vehicle;
   final int index;
   NumberFormat formatter = NumberFormat.decimalPattern();
 
   ProductCard({
     Key? key,
-    required this.car,
+    required this.vehicle,
     required this.index,
   }) : super(key: key);
 
@@ -23,7 +24,15 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        navigateAndPush(context, DetailsScreen(car, index));
+        navigateAndPush(context, DetailsScreen(vehicle, index));
+        List<String> viewedCars =
+            (PreferenceRepository.getDataFromSharedPreference(
+                    key: vehicle.typeVehicle.name) ??
+                []);
+        viewedCars.add(vehicle.id);
+        viewedCars = viewedCars.toSet().toList();
+        PreferenceRepository.putDataInSharedPreference(
+            value: viewedCars, key: vehicle.typeVehicle.name);
       },
       child: Stack(
         clipBehavior: Clip.none,
@@ -45,11 +54,11 @@ class ProductCard extends StatelessWidget {
               blendMode: BlendMode.srcIn,
               childSaveLayer: true,
               child: Image.asset(
-                'assets/mask/mask.png',
+                'assets/mask/mask2.png',
                 width: 175.w,
               ),
               mask: Image.network(
-                car.imgUrl,
+                vehicle.imgUrl,
                 width: 175.w,
                 fit: BoxFit.cover,
                 errorBuilder: (_, __, ___) {
@@ -77,7 +86,7 @@ class ProductCard extends StatelessWidget {
               child: Column(
                 children: [
                   Text(
-                    formatter.format(car.price),
+                    formatter.format(vehicle.price),
                     style: textTheme.headline3,
                   ),
                   SizedBox(
@@ -109,7 +118,7 @@ class ProductCard extends StatelessWidget {
                       ),
                       SizedBox(height: 12.h),
                       Text(
-                        car.name.split(' ')[0],
+                        vehicle.name.split(' ')[0],
                         style:
                             textTheme.subtitle2?.copyWith(color: Colors.black),
                       ),
@@ -126,7 +135,7 @@ class ProductCard extends StatelessWidget {
                       ),
                       SizedBox(height: 12.h),
                       Text(
-                        car.name.split(' ')[1],
+                        vehicle.name.split(' ')[1],
                         style:
                             textTheme.subtitle2?.copyWith(color: Colors.black),
                       ),
@@ -143,7 +152,7 @@ class ProductCard extends StatelessWidget {
                       ),
                       SizedBox(height: 12.h),
                       Text(
-                        car.properties['Engine capacity']
+                        vehicle.properties['Engine capacity']
                                 ?.split("-")[0]
                                 .trim() ??
                             "--",
@@ -163,7 +172,8 @@ class ProductCard extends StatelessWidget {
                       ),
                       SizedBox(height: 12.h),
                       Text(
-                        car.properties['Year'] ?? "--",
+                        vehicle.properties['Year']?.replaceAll("Year", "") ??
+                            "--",
                         style:
                             textTheme.subtitle2?.copyWith(color: Colors.black),
                       ),

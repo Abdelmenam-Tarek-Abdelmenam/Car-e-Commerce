@@ -1,3 +1,4 @@
+import 'package:car_e_commerce/data/module/products/vehicle.dart';
 import 'package:car_e_commerce/ui/screens/details_screen/widgets/car_spec.dart';
 import 'package:car_e_commerce/ui/screens/details_screen/widgets/details_photo.dart';
 import 'package:flutter/material.dart';
@@ -9,19 +10,19 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../../bloc/bloc/data_bloc/data_status_bloc.dart';
 import '../../../constants/theme.dart';
-import '../../../data/module/products/car.dart';
 import '../../../shared/widgets/bar_icon_button.dart';
 
 class DetailsScreen extends StatelessWidget {
-  DetailsScreen(this.car, this.index, {Key? key}) : super(key: key);
+  DetailsScreen(this.vehicle, this.index, {Key? key}) : super(key: key);
 
   final NumberFormat formatter = NumberFormat.decimalPattern();
-  final Car car;
+  final Vehicle vehicle;
   final int index;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: lightYellow,
       body: SafeArea(
         child: Container(
           width: double.infinity,
@@ -39,7 +40,7 @@ class DetailsScreen extends StatelessWidget {
                 height: 30.h,
               ),
               // ViewPhoto
-              DetailsPhoto(car.imgUrl),
+              DetailsPhoto(vehicle.imgUrl),
               SizedBox(
                 height: 20.h,
               ),
@@ -51,10 +52,10 @@ class DetailsScreen extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.subtitle1),
                   Visibility(
-                    visible: car.video != "noVideo",
+                    visible: vehicle.video != "noVideo",
                     child: IconButton(
                         onPressed: () {
-                          launch(car.video); //or any link you want
+                          launch(vehicle.video); //or any link you want
                         },
                         icon: Icon(
                           FontAwesomeIcons.youtube,
@@ -66,7 +67,7 @@ class DetailsScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              CarSpec(car.properties)
+              CarSpec(vehicle.properties)
             ]),
           ),
         ),
@@ -77,7 +78,7 @@ class DetailsScreen extends StatelessWidget {
   Widget nameAndPrice(BuildContext context) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(car.name,
+          Text(vehicle.name,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: Theme.of(context)
@@ -87,7 +88,7 @@ class DetailsScreen extends StatelessWidget {
           SizedBox(
             height: 4.r,
           ),
-          Text("${formatter.format(car.price)} EGP",
+          Text("${formatter.format(vehicle.price)} EGP",
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: Theme.of(context).textTheme.subtitle1),
@@ -107,13 +108,13 @@ class DetailsScreen extends StatelessWidget {
                   next.status == VehicleDataStatus.changeSomeData,
               builder: (context, state) {
                 return BarIconButton(
-                    icon: car.isFav
+                    icon: vehicle.isFav
                         ? FontAwesomeIcons.heartCircleCheck
                         : FontAwesomeIcons.heart,
                     onPressed: () {
-                      car.isFav = !car.isFav;
-                      context.read<DataStatusBloc>().add(
-                          EditVehicleData(indexInList: index, vehicle: car));
+                      vehicle.isFav = !vehicle.isFav;
+                      context.read<DataStatusBloc>().add(EditVehicleData(
+                          indexInList: index, vehicle: vehicle));
                     });
               })
         ],

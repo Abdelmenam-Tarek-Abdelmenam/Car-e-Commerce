@@ -8,7 +8,7 @@ part 'data_status_event.dart';
 part 'data_status_state.dart';
 
 class DataStatusBloc extends Bloc<VehicleDataEvent, VehicleDataState> {
-  DataStatusBloc() : super(VehicleDataState.initial()) {
+  DataStatusBloc(VehicleType type) : super(VehicleDataState.initial(type)) {
     on<LoadAllVehicleData>(_getAllData);
     on<LoadAllFavData>(_getFavData);
     on<LoadBrandVehicleData>(_getAllBrandData);
@@ -19,16 +19,22 @@ class DataStatusBloc extends Bloc<VehicleDataEvent, VehicleDataState> {
   final DataBaseRepository _dataBaseRepository = DataBaseRepository();
   final FireStoreRepository _fireStoreRepository = FireStoreRepository();
 
-  void _getAllData(
+  Future<void> _getAllData(
       LoadAllVehicleData event, Emitter<VehicleDataState> emit) async {
+    print(state.type);
     emit(state.copyWith(status: VehicleDataStatus.loadingData));
     List<Vehicle> needData;
     if (DataBaseRepository.database == null) {
       needData =
-          await _fireStoreRepository.getAllVehicleData(vehicleType: event.type);
+          await _fireStoreRepository.getAllVehicleData(vehicleType: state.type);
     } else {
       needData =
-          await _dataBaseRepository.getAllVehicleData(vehicleType: event.type);
+          await _dataBaseRepository.getAllVehicleData(vehicleType: state.type);
+      if (needData.isEmpty) {
+        print("get from firebase");
+        needData = await _fireStoreRepository.getAllVehicleData(
+            vehicleType: state.type);
+      }
     }
     emit(state.copyWith(
         status: VehicleDataStatus.loadedData, vehicleData: needData));
@@ -40,13 +46,13 @@ class DataStatusBloc extends Bloc<VehicleDataEvent, VehicleDataState> {
     List<Vehicle> needData;
     if (DataBaseRepository.database == null) {
       needData = await _fireStoreRepository.getAllBrandData(event.brandName,
-          vehicleType: event.type);
+          vehicleType: state.type);
     } else {
       needData = await _dataBaseRepository.getAllBrandData(event.brandName,
-          vehicleType: event.type);
+          vehicleType: state.type);
       if (needData.isEmpty) {
         needData = await _fireStoreRepository.getAllBrandData(event.brandName,
-            vehicleType: event.type);
+            vehicleType: state.type);
       }
     }
     emit(state.copyWith(
@@ -55,33 +61,37 @@ class DataStatusBloc extends Bloc<VehicleDataEvent, VehicleDataState> {
 
   Future<void> _editVehicleData(
       EditVehicleData event, Emitter<VehicleDataState> emit) async {
-    await _dataBaseRepository.changeVehicleData(event.vehicle);
+    await _dataBaseRepository.changeVehicleData(event.vehicle,
+        vehicleType: state.type);
     emit(state.editEntry(vehicle: event.vehicle, index: event.indexInList));
   }
 
   Future<void> _editVehiclesType(
       EditVehicleType event, Emitter<VehicleDataState> emit) async {
     emit(state.copyWith(
-        type: event.newType, status: VehicleDataStatus.changeSomeData));
+        type: event.type, status: VehicleDataStatus.changeSomeData));
+    await _getAllData(const LoadAllVehicleData(), emit);
+    await _getFavData(const LoadAllFavData(), emit);
   }
 
-  void _getFavData(LoadAllFavData event, Emitter<VehicleDataState> emit) async {
+  Future<void> _getFavData(
+      LoadAllFavData event, Emitter<VehicleDataState> emit) async {
     emit(state.copyWith(status: VehicleDataStatus.loadingFav, favData: []));
     List<Vehicle> needData;
     needData =
-        await _dataBaseRepository.changeAllFavorite(vehicleType: event.type);
+        await _dataBaseRepository.changeAllFavorite(vehicleType: state.type);
     emit(
         state.copyWith(status: VehicleDataStatus.loadedFav, favData: needData));
   }
 
   Future<List<Vehicle>> searchVehiclesByName(String subName,
-      {VehicleType vehicleType = VehicleType.car, String? brand}) async {
+      {String? brand}) async {
     List<Vehicle> needData;
     if (DataBaseRepository.database == null) {
-      await _fireStoreRepository.getAllVehicleData(vehicleType: vehicleType);
+      await _fireStoreRepository.getAllVehicleData(vehicleType: state.type);
     }
     needData = await _dataBaseRepository.getVehicleByName(subName, brand,
-        vehicleType: vehicleType);
+        vehicleType: state.type);
     return needData;
   }
 }

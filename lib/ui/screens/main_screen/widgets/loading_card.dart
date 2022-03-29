@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../constants/fonts.dart';
-
 class LoadingView extends StatelessWidget {
   const LoadingView({this.count = 12, Key? key}) : super(key: key);
   final int count;
@@ -50,27 +48,8 @@ class LoadingView extends StatelessWidget {
                     borderRadius: BorderRadius.circular(15.r),
                     color: Theme.of(context).primaryColor,
                   ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Container(
-                        width: 100,
-                        height: 10,
-                        decoration: const BoxDecoration(
-                            color: Colors.white,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
-                      ),
-                      Text(
-                        'Price',
-                        style: textTheme.headline3,
-                      )
-                    ],
-                  ),
                 ),
               ),
-
-              // show the specs of the product
               Positioned(
                 bottom: 12.h,
                 child: Padding(

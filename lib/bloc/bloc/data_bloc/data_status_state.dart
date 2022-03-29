@@ -21,12 +21,12 @@ class VehicleDataState {
     required this.type,
   });
 
-  factory VehicleDataState.initial() {
-    return const VehicleDataState(
+  factory VehicleDataState.initial(VehicleType type) {
+    return VehicleDataState(
         vehicleData: [],
         favData: [],
         status: VehicleDataStatus.loadingData,
-        type: VehicleType.car);
+        type: type);
   }
 
   VehicleDataState copyWith(
@@ -42,9 +42,9 @@ class VehicleDataState {
   }
 
   VehicleDataState editEntry({required Vehicle vehicle, required int index}) {
-    if (index != -1) {
+    if (index > -1) {
       vehicleData[index] = vehicle;
-    } else {
+    } else if (index == -1) {
       if (favData.indexWhere((element) => element.id == vehicle.id) == -1) {
         favData.add(vehicle);
       } else {

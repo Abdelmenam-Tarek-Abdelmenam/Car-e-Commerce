@@ -11,14 +11,27 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../../../bloc/bloc/data_bloc/data_status_bloc.dart';
 import '../../../../constants/theme.dart';
-import '../../../../data/module/products/car.dart';
+import '../../../../data/local/pref_repository.dart';
 import '../../../../shared/widgets/custom_button.dart';
 import '../../main_screen/widgets/loading_card.dart';
 import '../../main_screen/widgets/product_card.dart';
 
+// ignore: must_be_immutable
 class UserScreenLayout extends StatelessWidget {
-  UserScreenLayout({Key? key}) : super(key: key);
+  UserScreenLayout({Key? key}) : super(key: key) {
+    viewedCars = (PreferenceRepository.getDataFromSharedPreference(
+                key: VehicleType.car.name) ??
+            [])
+        .length;
+    viewedMotorCycle = (PreferenceRepository.getDataFromSharedPreference(
+                key: VehicleType.motorCycle.name) ??
+            [])
+        .length;
+    print(viewedMotorCycle);
+  }
 
+  late int viewedCars;
+  late int viewedMotorCycle;
   final PageController controller = PageController();
 
   @override
@@ -82,7 +95,9 @@ class UserScreenLayout extends StatelessWidget {
                       : Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text([200, 0, "--"][index ~/ 2].toString(),
+                            Text(
+                                [viewedCars, viewedMotorCycle, "--"][index ~/ 2]
+                                    .toString(),
                                 style: Theme.of(context)
                                     .textTheme
                                     .headline3!
@@ -254,7 +269,7 @@ class UserScreenLayout extends StatelessWidget {
                           itemBuilder: (_, index) => Padding(
                                 padding: EdgeInsets.only(top: 40.h),
                                 child: ProductCard(
-                                  car: state.favData[index] as Car,
+                                  vehicle: state.favData[index],
                                   index: -1,
                                 ),
                               ),
@@ -329,8 +344,15 @@ class UserScreenLayout extends StatelessWidget {
                             color: whiteColor,
                             size: 24.r,
                           ),
-                    onPressed: () => context.read<DataStatusBloc>().add(
-                        EditVehicleType(newType: VehicleType.values[index])))));
+                    onPressed: () {
+                      if ([1, 2].contains(index)) {
+                        context
+                            .read<DataStatusBloc>()
+                            .add(EditVehicleType(VehicleType.values[index]));
+                      } else {
+                        showToast("not yet");
+                      }
+                    })));
       },
     );
   }

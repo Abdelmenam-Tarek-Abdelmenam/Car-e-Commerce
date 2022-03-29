@@ -1,6 +1,7 @@
 import 'package:car_e_commerce/constants/theme.dart';
 import 'package:car_e_commerce/data/local/pref_repository.dart';
 import 'package:car_e_commerce/data/local/sql_database.dart';
+import 'package:car_e_commerce/data/module/products/vehicle.dart';
 import 'package:car_e_commerce/ui/screens/main_screen/main_screen.dart';
 import 'package:catcher/core/catcher.dart';
 import 'package:catcher/model/catcher_options.dart';
@@ -66,7 +67,11 @@ class MyApp extends StatelessWidget {
       child: MultiBlocProvider(
         providers: [
           BlocProvider(
-              create: (_) => DataStatusBloc()..add(const LoadAllVehicleData())),
+              create: (_) => DataStatusBloc(VehicleType.values[
+                  PreferenceRepository.getDataFromSharedPreference(
+                          key: "type") ??
+                      1])
+                ..add(const LoadAllVehicleData())),
           BlocProvider(create: (_) => AuthStatusBloc(auth)),
           BlocProvider(create: (_) => LoginCubit(auth))
         ],

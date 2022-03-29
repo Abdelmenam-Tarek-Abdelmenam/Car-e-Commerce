@@ -20,35 +20,46 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        primary: true,
-        body: Container(
-          width: double.infinity,
-          decoration: BoxDecoration(gradient: themeGradient),
-          padding: EdgeInsets.symmetric(
-            horizontal: 15.w,
-          ),
-          child: Column(
-            children: [
-              const HomeAppBar(),
-              BlocBuilder<DataStatusBloc, VehicleDataState>(
-                  buildWhen: (prev, next) =>
-                      !listEquals(prev.vehicleData, next.vehicleData),
-                  builder: (context, state) {
-                    if (state.status == VehicleDataStatus.loadingData) {
-                      return Expanded(
-                          child: Shimmer.fromColors(
-                              baseColor: Colors.grey,
-                              highlightColor: Colors.white,
-                              child: const LoadingView()));
-                    } else {
-                      return Expanded(
-                          child: CardGridViewer(
-                              carList: state.vehicleData.cast()));
-                    }
-                  })
-            ],
+    return GestureDetector(
+      onTap: () {
+        FocusScopeNode currentFocus = FocusScope.of(context);
+        if (!currentFocus.hasPrimaryFocus) {
+          currentFocus.unfocus();
+        }
+      },
+      child: SafeArea(
+        child: Scaffold(
+          primary: true,
+          body: Container(
+            width: double.infinity,
+            decoration: BoxDecoration(gradient: themeGradient),
+            padding: EdgeInsets.symmetric(
+              horizontal: 15.w,
+            ),
+            child: Column(
+              children: [
+                const HomeAppBar(),
+                // SizedBox(
+                //   height: 40.h,
+                // ),
+                BlocBuilder<DataStatusBloc, VehicleDataState>(
+                    buildWhen: (prev, next) =>
+                        !listEquals(prev.vehicleData, next.vehicleData),
+                    builder: (context, state) {
+                      if (state.status == VehicleDataStatus.loadingData) {
+                        return Expanded(
+                            child: Shimmer.fromColors(
+                                baseColor: Colors.grey.withOpacity(0.5),
+                                highlightColor: Colors.white,
+                                child: const LoadingView()));
+                      } else {
+                        return Expanded(
+                            child: CardGridViewer(
+                                vehicleList: state.vehicleData.cast()));
+                      }
+                    })
+              ],
+            ),
           ),
         ),
       ),

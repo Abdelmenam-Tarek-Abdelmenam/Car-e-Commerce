@@ -1,16 +1,14 @@
-import 'package:car_e_commerce/data/module/products/car.dart';
 import 'package:car_e_commerce/data/module/products/vehicle.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../local/sql_database.dart';
-import '../module/products/motor_cycle.dart';
 
 class FireStoreRepository {
   final FirebaseFirestore _firebaseFirestoretore = FirebaseFirestore.instance;
 
   Future<List<Vehicle>> getAllVehicleData(
-      {VehicleType vehicleType = VehicleType.car}) async {
+      {required VehicleType vehicleType}) async {
     String collectionName = _getCollectionName(vehicleType);
 
     QuerySnapshot<Map<String, dynamic>> vehiclesSnapShot;
@@ -30,7 +28,7 @@ class FireStoreRepository {
   }
 
   Future<List<Vehicle>> getAllBrandData(String brandName,
-      {VehicleType vehicleType = VehicleType.car}) async {
+      {required VehicleType vehicleType}) async {
     String collectionName = _getCollectionName(vehicleType);
     QuerySnapshot<Map<String, dynamic>> vehiclesSnapShot;
     try {
@@ -61,18 +59,9 @@ class FireStoreRepository {
   List<Vehicle> _docsToVehicle(
       List<QueryDocumentSnapshot<Map<String, dynamic>>> allVehiclesDocuments,
       VehicleType vehicleType) {
-    switch (vehicleType) {
-      case VehicleType.car:
-        return allVehiclesDocuments
-            .map((e) => Car.fromQueryDocument(e))
-            .toList();
-      case VehicleType.motorCycle:
-        return allVehiclesDocuments
-            .map((e) => MotorCycle.fromQueryDocument(e))
-            .toList();
-      default:
-        return [];
-    }
+    return allVehiclesDocuments
+        .map((e) => Vehicle.fromQueryDocument(e, vehicleType))
+        .toList();
   }
 
   Future<void> saveDataLocal(
@@ -83,17 +72,19 @@ class FireStoreRepository {
       "data.db",
       version: DataBaseRepository.lastVersion,
       onCreate: (Database db, int version) async {
-        await db.execute('''CREATE TABLE "$tableName" (
+        String columnNames = '''(
                       "id"	TEXT NOT NULL UNIQUE,
                       "price"	INTEGER,
                       "name"	TEXT,
                       "brand"	TEXT,
                       "video"	TEXT,
                       "fave"	INTEGER,
-                      "viewed"	INTEGER,
                       "imageUrl"	TEXT,
                       "properties"	TEXT
-                );''');
+                );''';
+        await db.execute('''CREATE TABLE "cars" $columnNames''');
+        await db.execute('''CREATE TABLE "motorCycle" $columnNames''');
+        await db.execute('''CREATE TABLE "bikes" $columnNames''');
       },
     );
     DataBaseRepository.database = database;

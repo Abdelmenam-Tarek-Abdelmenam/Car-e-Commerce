@@ -1,8 +1,6 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:sqflite/sqflite.dart';
 
-import '../module/products/car.dart';
-import '../module/products/motor_cycle.dart';
 import '../module/products/vehicle.dart';
 
 class DataBaseRepository {
@@ -28,13 +26,17 @@ class DataBaseRepository {
   Future<List<Vehicle>> getAllVehicleData(
       {VehicleType vehicleType = VehicleType.car}) async {
     String tableName = _getTableName(vehicleType);
-    List<Map<String, dynamic>> allVehiclesData =
-        await database?.query(tableName) ?? [];
-    return _mapsToVehicle(allVehiclesData, vehicleType);
+    try {
+      List<Map<String, dynamic>> allVehiclesData =
+          await database?.query(tableName) ?? [];
+      return _mapsToVehicle(allVehiclesData, vehicleType);
+    } catch (err) {
+      return [];
+    }
   }
 
   Future<List<Vehicle>> getAllBrandData(String brandName,
-      {VehicleType vehicleType = VehicleType.car}) async {
+      {required VehicleType vehicleType}) async {
     String tableName = _getTableName(vehicleType);
     List<Map<String, dynamic>> allVehiclesData =
         await database?.query(tableName, where: "brand = '$brandName'") ?? [];
@@ -42,7 +44,7 @@ class DataBaseRepository {
   }
 
   Future<List<Vehicle>> getVehicleByName(String subName, String? brandName,
-      {VehicleType vehicleType = VehicleType.car}) async {
+      {required VehicleType vehicleType}) async {
     String tableName = _getTableName(vehicleType);
     List<Map<String, dynamic>> allVehiclesData = await database?.query(
             tableName,
@@ -53,7 +55,7 @@ class DataBaseRepository {
   }
 
   Future<List<Vehicle>> changeAllFavorite(
-      {VehicleType vehicleType = VehicleType.car}) async {
+      {required VehicleType vehicleType}) async {
     String tableName = _getTableName(vehicleType);
     List<Map<String, dynamic>> allVehiclesData =
         await database?.query(tableName, where: "fave = 1") ?? [];
@@ -62,7 +64,7 @@ class DataBaseRepository {
   }
 
   Future<void> changeVehicleData(Vehicle vehicle,
-      {VehicleType vehicleType = VehicleType.car}) async {
+      {required VehicleType vehicleType}) async {
     String tableName = _getTableName(vehicleType);
     await database?.update(tableName, vehicle.toJson(),
         where: "id = '${vehicle.id}'");
@@ -78,13 +80,8 @@ class DataBaseRepository {
 
   List<Vehicle> _mapsToVehicle(
       List<Map<String, dynamic>> allVehiclesData, VehicleType vehicleType) {
-    switch (vehicleType) {
-      case VehicleType.car:
-        return allVehiclesData.map((e) => Car.fromJson(e)).toList();
-      case VehicleType.motorCycle:
-        return allVehiclesData.map((e) => MotorCycle.fromJson(e)).toList();
-      default:
-        return [];
-    }
+    return allVehiclesData
+        .map((e) => Vehicle.fromJson(e, vehicleType))
+        .toList();
   }
 }

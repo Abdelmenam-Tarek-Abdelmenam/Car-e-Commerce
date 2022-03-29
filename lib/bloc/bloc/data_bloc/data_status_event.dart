@@ -8,32 +8,26 @@ abstract class VehicleDataEvent extends Equatable {
 }
 
 class LoadAllVehicleData extends VehicleDataEvent {
-  final VehicleType type;
-
-  const LoadAllVehicleData({this.type = VehicleType.car});
+  const LoadAllVehicleData();
 
   @override
-  List<Object?> get props => [type];
+  List<Object?> get props => [];
 }
 
 class LoadAllFavData extends VehicleDataEvent {
-  final VehicleType type;
-
-  const LoadAllFavData({this.type = VehicleType.car});
+  const LoadAllFavData();
 
   @override
-  List<Object?> get props => [type];
+  List<Object?> get props => [];
 }
 
 class LoadBrandVehicleData extends VehicleDataEvent {
   final String brandName;
-  final VehicleType type;
 
-  const LoadBrandVehicleData(
-      {required this.brandName, this.type = VehicleType.car});
+  const LoadBrandVehicleData({required this.brandName});
 
   @override
-  List<Object?> get props => [type, brandName];
+  List<Object?> get props => [brandName];
 }
 
 class EditVehicleData extends VehicleDataEvent {
@@ -47,10 +41,9 @@ class EditVehicleData extends VehicleDataEvent {
 }
 
 class EditVehicleType extends VehicleDataEvent {
-  final VehicleType newType;
-
-  const EditVehicleType({required this.newType});
+  final VehicleType type;
+  const EditVehicleType(this.type);
 
   @override
-  List<Object?> get props => [newType];
+  List<Object?> get props => [type];
 }

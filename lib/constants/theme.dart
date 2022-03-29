@@ -11,8 +11,8 @@ const Color darkGrayColor = Color(0xFF3b4046);
 const Color lightGrayColor = Color(0xFFE5E5E5);
 
 LinearGradient themeGradient = LinearGradient(
-  begin: Alignment.centerLeft,
-  end: Alignment.centerRight,
+  begin: Alignment.topCenter,
+  end: Alignment.bottomRight,
   colors: [
     lightYellow.withOpacity(0.8),
     darkYellow,

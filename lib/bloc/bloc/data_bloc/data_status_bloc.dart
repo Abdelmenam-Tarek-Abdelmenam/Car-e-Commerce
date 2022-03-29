@@ -14,6 +14,7 @@ class DataStatusBloc extends Bloc<VehicleDataEvent, VehicleDataState> {
     on<LoadBrandVehicleData>(_getAllBrandData);
     on<EditVehicleData>(_editVehicleData);
     on<EditVehicleType>(_editVehiclesType);
+    on<SearchByName>(_searchVehiclesByName);
   }
 
   final DataBaseRepository _dataBaseRepository = DataBaseRepository();
@@ -84,14 +85,17 @@ class DataStatusBloc extends Bloc<VehicleDataEvent, VehicleDataState> {
         state.copyWith(status: VehicleDataStatus.loadedFav, favData: needData));
   }
 
-  Future<List<Vehicle>> searchVehiclesByName(String subName,
-      {String? brand}) async {
+  Future<void> _searchVehiclesByName(
+      SearchByName event, Emitter<VehicleDataState> emit) async {
+    emit(
+        state.copyWith(status: VehicleDataStatus.loadingData, vehicleData: []));
     List<Vehicle> needData;
     if (DataBaseRepository.database == null) {
       await _fireStoreRepository.getAllVehicleData(vehicleType: state.type);
     }
-    needData = await _dataBaseRepository.getVehicleByName(subName, brand,
+    needData = await _dataBaseRepository.getVehicleByName(event.subName, null,
         vehicleType: state.type);
-    return needData;
+    emit(state.copyWith(
+        status: VehicleDataStatus.loadedData, vehicleData: needData));
   }
 }

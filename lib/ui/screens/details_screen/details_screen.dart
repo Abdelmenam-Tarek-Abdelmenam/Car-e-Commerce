@@ -22,54 +22,61 @@ class DetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: lightYellow,
       body: SafeArea(
-        child: Container(
-          width: double.infinity,
-          decoration: BoxDecoration(gradient: themeGradient),
-          padding: EdgeInsets.all(20.r),
-          child: SingleChildScrollView(
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              appBar(context),
-              SizedBox(
-                height: 35.h,
+        child: Column(
+          children: [
+            Expanded(
+              child: Container(
+                width: double.infinity,
+                decoration: BoxDecoration(gradient: themeGradient),
+                padding: EdgeInsets.all(20.r),
+                child: SingleChildScrollView(
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        appBar(context),
+                        SizedBox(
+                          height: 35.h,
+                        ),
+                        nameAndPrice(context),
+                        SizedBox(
+                          height: 30.h,
+                        ),
+                        // ViewPhoto
+                        DetailsPhoto(vehicle.imgUrl),
+                        SizedBox(
+                          height: 20.h,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Car Specifications ",
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: Theme.of(context).textTheme.subtitle1),
+                            Visibility(
+                              visible: vehicle.video != "noVideo",
+                              child: IconButton(
+                                  onPressed: () {
+                                    launch(
+                                        vehicle.video); //or any link you want
+                                  },
+                                  icon: Icon(
+                                    FontAwesomeIcons.youtube,
+                                    color: HSLColor.fromColor(Colors.red)
+                                        .withLightness(0.5)
+                                        .toColor(),
+                                    size: 40.r,
+                                  )),
+                            ),
+                          ],
+                        ),
+                        CarSpec(vehicle.properties)
+                      ]),
+                ),
               ),
-              nameAndPrice(context),
-              SizedBox(
-                height: 30.h,
-              ),
-              // ViewPhoto
-              DetailsPhoto(vehicle.imgUrl),
-              SizedBox(
-                height: 20.h,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("Car Specifications ",
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context).textTheme.subtitle1),
-                  Visibility(
-                    visible: vehicle.video != "noVideo",
-                    child: IconButton(
-                        onPressed: () {
-                          launch(vehicle.video); //or any link you want
-                        },
-                        icon: Icon(
-                          FontAwesomeIcons.youtube,
-                          color: HSLColor.fromColor(Colors.red)
-                              .withLightness(0.5)
-                              .toColor(),
-                          size: 40.r,
-                        )),
-                  ),
-                ],
-              ),
-              CarSpec(vehicle.properties)
-            ]),
-          ),
+            ),
+          ],
         ),
       ),
     );

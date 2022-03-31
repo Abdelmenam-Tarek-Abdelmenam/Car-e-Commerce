@@ -94,4 +94,33 @@ class FireStoreRepository {
       });
     }
   }
+
+  Future<List<Vehicle>> getFilteredVehicles(
+      List<int> price,
+      // List<int> productionYear,
+      // List<int> engineCapacity,
+      String country,
+      VehicleType vehicleType) async {
+    String collectionName = _getCollectionName(vehicleType);
+
+    QuerySnapshot<Map<String, dynamic>> vehiclesSnapShot;
+    try {
+      vehiclesSnapShot = await _firebaseFirestoretore
+          .collection(collectionName)
+          .where("Price", isGreaterThanOrEqualTo: price[0])
+          .where("Price", isLessThanOrEqualTo: price[1])
+          .where("Proberties.Origin Country", isEqualTo: country )
+          // .where("Proberties.Year",  )
+          .get();
+    } catch (err) {
+      return [];
+    }
+
+    List<QueryDocumentSnapshot<Map<String, dynamic>>> allVehiclesDocuments =
+        vehiclesSnapShot.docs;
+    List<Vehicle> allVehicles =
+        _docsToVehicle(allVehiclesDocuments, vehicleType);
+    saveDataLocal(subData: allVehicles, vehicleType: vehicleType);
+    return allVehicles;
+  }
 }

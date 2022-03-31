@@ -2,14 +2,28 @@
 
 import 'package:car_e_commerce/constants/countries_list.dart';
 import 'package:car_e_commerce/constants/fonts.dart';
+import 'package:car_e_commerce/data/module/products/vehicle.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../bloc/bloc/filter/filter_bloc.dart';
+import '../../../../data/web/firestore_repository.dart';
+
 class Filter extends StatelessWidget {
-  const Filter({Key? key}) : super(key: key);
+  FireStoreRepository firebaseRep = FireStoreRepository();
+  Future<void> test() async {
+    var vehicle = await firebaseRep.getFilteredVehicles(
+        [0, 10000000000], "Germany", VehicleType.car);
+    print('testBefore');
+    print(vehicle.map((e) => e.name).toList());
+    print('testAfter');
+
+  }
 
   @override
   Widget build(BuildContext context) {
+    test();
     return Container(
       height: 550.h,
       decoration: BoxDecoration(

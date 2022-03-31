@@ -21,7 +21,7 @@ class _SearchBarState extends State<SearchBar> {
         },
         controller: _searchedText,
         decoration: InputDecoration(
-          // ! we need here to remove the padding of the suffix icon 
+          // ! we need here to remove the padding of the suffix icon
           suffixIcon: InkWell(
             onTap: () => showBottomSheet(context),
             child: SvgPicture.asset(
@@ -31,6 +31,7 @@ class _SearchBarState extends State<SearchBar> {
               width: 5,
             ),
           ),
+          suffixIconConstraints: BoxConstraints.tight(const Size(40, 30)),
           filled: true,
           isDense: true,
           contentPadding: EdgeInsets.symmetric(vertical: 6.h, horizontal: 15.w),
@@ -62,7 +63,7 @@ class _SearchBarState extends State<SearchBar> {
         ),
         isDismissible: true,
         builder: (BuildContext context) {
-          return const Filter();
+          return  Filter();
         });
   }
 }

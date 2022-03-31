@@ -13,6 +13,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'bloc/bloc/auth_bloc/auth_status_bloc.dart';
 import 'bloc/bloc/data_bloc/data_status_bloc.dart';
+import 'bloc/bloc/filter/filter_bloc.dart';
 import 'bloc/cubit/login_handler/login_cubit.dart';
 import 'bloc/my_bloc_observer.dart';
 import 'data/error_handler.dart';
@@ -73,7 +74,8 @@ class MyApp extends StatelessWidget {
                       1])
                 ..add(const LoadAllVehicleData())),
           BlocProvider(create: (_) => AuthStatusBloc(auth)),
-          BlocProvider(create: (_) => LoginCubit(auth))
+          BlocProvider(create: (_) => LoginCubit(auth)),
+          BlocProvider(create: (_) => FilterBloc())
         ],
         child: const AppView(),
       ),

@@ -3,9 +3,8 @@
 Cars E-Commerce App to see all cars news 
 
 ## TODO
-
-favorites .
-recently viewed 
-all types view
+Filter 
+comparision
 
 save user data locally
+save favorites in server  

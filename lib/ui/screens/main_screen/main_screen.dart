@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shimmer/shimmer.dart';
 import 'widgets/card_grid_view.dart';
 
@@ -44,7 +45,11 @@ class MainScreen extends StatelessWidget {
                 // ),
                 BlocBuilder<DataStatusBloc, VehicleDataState>(
                     buildWhen: (prev, next) =>
-                        !listEquals(prev.vehicleData, next.vehicleData),
+                        !listEquals(prev.vehicleData, next.vehicleData) ||
+                        [
+                          VehicleDataStatus.loadingData,
+                          VehicleDataStatus.loadedData
+                        ].contains(next.status),
                     builder: (context, state) {
                       if (state.status == VehicleDataStatus.loadingData) {
                         return Expanded(
@@ -53,6 +58,27 @@ class MainScreen extends StatelessWidget {
                                 highlightColor: Colors.white,
                                 child: const LoadingView()));
                       } else {
+                        if (state.vehicleData.isEmpty) {
+                          return Expanded(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  FontAwesomeIcons.carBurst,
+                                  color: whiteColor,
+                                  size: 70.r,
+                                ),
+                                SizedBox(
+                                  height: 20.h,
+                                ),
+                                Text(
+                                  "No Vehicles",
+                                  style: Theme.of(context).textTheme.headline2,
+                                )
+                              ],
+                            ),
+                          );
+                        }
                         return Expanded(
                             child: CardGridViewer(
                                 vehicleList: state.vehicleData.cast()));

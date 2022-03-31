@@ -25,10 +25,12 @@ class ProductCard extends StatelessWidget {
     return InkWell(
       onTap: () {
         navigateAndPush(context, DetailsScreen(vehicle, index));
+        print(PreferenceRepository.getDataFromSharedPreference(
+                key: vehicle.typeVehicle.name) ??
+            []);
         List<String> viewedCars =
-            (PreferenceRepository.getDataFromSharedPreference(
-                    key: vehicle.typeVehicle.name) ??
-                []);
+            PreferenceRepository.pref.getStringList(vehicle.typeVehicle.name) ??
+                [];
         viewedCars.add(vehicle.id);
         viewedCars = viewedCars.toSet().toList();
         PreferenceRepository.putDataInSharedPreference(

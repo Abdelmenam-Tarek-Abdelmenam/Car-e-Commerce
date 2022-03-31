@@ -1,25 +1,30 @@
+import 'package:car_e_commerce/bloc/bloc/data_bloc/data_status_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:car_e_commerce/ui/screens/main_screen/widgets/bottom_sheet.dart';
 
 class SearchBar extends StatefulWidget {
+  const SearchBar({Key? key}) : super(key: key);
+
   @override
   State<SearchBar> createState() => _SearchBarState();
 }
 
 class _SearchBarState extends State<SearchBar> {
-  TextEditingController _searchedText = TextEditingController();
+  // final TextEditingController _searchedText = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: 305.w,
-      child: TextField(
+      child: TextFormField(
+        enableSuggestions: true,
         onChanged: (value) {
-          _searchedText.text = value;
+          context.read<DataStatusBloc>().add(SearchByName(value));
         },
-        controller: _searchedText,
+        // controller: _searchedText,
         decoration: InputDecoration(
           // ! we need here to remove the padding of the suffix icon
           suffixIcon: InkWell(

@@ -47,3 +47,11 @@ class EditVehicleType extends VehicleDataEvent {
   @override
   List<Object?> get props => [type];
 }
+
+class SearchByName extends VehicleDataEvent {
+  final String subName;
+  const SearchByName(this.subName);
+
+  @override
+  List<Object?> get props => [subName];
+}

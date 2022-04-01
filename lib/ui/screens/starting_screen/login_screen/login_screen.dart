@@ -10,6 +10,7 @@ import 'package:car_e_commerce/ui/screens/starting_screen/login_screen/widgtes/f
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../bloc/cubit/login_handler/login_cubit.dart';
@@ -41,6 +42,14 @@ class LoginScreen extends StatelessWidget {
         },
         child: LoginBackLayout(
           child: Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/background/right.png"),
+                fit: BoxFit.fitHeight,
+                alignment: Alignment.centerRight,
+                matchTextDirection: true,
+              ),
+            ),
             padding: EdgeInsets.symmetric(horizontal: 42.w),
             width: double.infinity,
             height: MediaQuery.of(context).size.height,
@@ -73,7 +82,7 @@ class LoginScreen extends StatelessWidget {
               children: [
                 DefaultFormField(
                   controller: emailController,
-                  fillHint: AutofillHints.email,
+                  fillHint: "Email",
                   title: "Email",
                   prefix: FontAwesomeIcons.user,
                   validator: (value) {
@@ -89,7 +98,7 @@ class LoginScreen extends StatelessWidget {
                 ),
                 DefaultFormField(
                   controller: passController,
-                  fillHint: AutofillHints.password,
+                  fillHint: "Password",
                   title: "Password",
                   prefix: Icons.lock_open,
                   isPass: !showPassText,

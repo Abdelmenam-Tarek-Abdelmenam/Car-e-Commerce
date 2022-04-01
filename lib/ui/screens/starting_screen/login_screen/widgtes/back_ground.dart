@@ -22,6 +22,7 @@ class LoginBackLayout extends StatelessWidget {
         }
       },
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         body: SafeArea(
           child: Container(
             width: double.infinity,
@@ -29,18 +30,6 @@ class LoginBackLayout extends StatelessWidget {
             child: Stack(
               alignment: reverse ? Alignment.centerRight : Alignment.centerLeft,
               children: [
-                Positioned(
-                  left: reverse ? null : -diameter / 7,
-                  right: reverse ? -diameter / 7 : null,
-                  child: CircleAvatar(
-                    backgroundColor: veryLightYellow,
-                    radius: diameter / 7,
-                  ),
-                ),
-                CustomPaint(
-                  painter: MyPainter(reverse),
-                  size: Size(diameter, diameter),
-                ),
                 child,
                 Visibility(
                   visible: !reverse,

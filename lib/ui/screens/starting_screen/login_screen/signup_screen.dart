@@ -31,6 +31,14 @@ class SignUpScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return LoginBackLayout(
       child: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/background/left.png"),
+            fit: BoxFit.fitHeight,
+            alignment: Alignment.centerLeft,
+            matchTextDirection: true,
+          ),
+        ),
         padding: EdgeInsets.symmetric(horizontal: 42.r),
         width: double.infinity,
         height: MediaQuery.of(context).size.height,
@@ -39,23 +47,24 @@ class SignUpScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: EdgeInsets.only(top: 118.h, bottom: 63.h),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.baseline,
-                  textBaseline: TextBaseline.alphabetic,
-                  children: [
-                    Text(
-                      "Let's ",
-                      style: Theme.of(context).textTheme.headline1,
-                    ),
-                    Text(
-                      "Sign Up",
-                      style: Theme.of(context).textTheme.headline3,
-                    ),
-                  ],
-                ),
+              SizedBox(
+                height: 110.h,
               ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.baseline,
+                textBaseline: TextBaseline.alphabetic,
+                children: [
+                  Text(
+                    "Let's ",
+                    style: Theme.of(context).textTheme.headline1,
+                  ),
+                  Text(
+                    "Sign Up",
+                    style: Theme.of(context).textTheme.headline3,
+                  ),
+                ],
+              ),
+              SizedBox(height: 40.h),
               Form(
                 key: signUpGlobalKey,
                 child: BlocBuilder<LoginCubit, LoginStates>(
@@ -108,7 +117,7 @@ class SignUpScreen extends StatelessWidget {
                         ),
                         DefaultFormField(
                           controller: passCheckerController,
-                          fillHint: AutofillHints.password,
+                          fillHint: "Confirm password",
                           title: "Confirm password",
                           prefix: Icons.lock_open,
                           isPass: showPassText2,
@@ -181,7 +190,7 @@ class SignUpScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: 30.h,
+                height: 15.h,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

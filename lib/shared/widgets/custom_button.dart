@@ -21,8 +21,8 @@ class CustomChooseButton extends StatelessWidget {
       onTap: onPressed,
       child: Container(
           key: UniqueKey(),
-          width: 65.w,
-          height: 65.h,
+          width: 60.r,
+          height: 58.r,
           decoration: BoxDecoration(
               color: active ? darkYellow : darkGrayColor,
               borderRadius: BorderRadius.all(Radius.circular(13.r))),

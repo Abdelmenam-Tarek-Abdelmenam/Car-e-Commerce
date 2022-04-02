@@ -1,6 +1,8 @@
 import 'package:car_e_commerce/bloc/bloc/data_bloc/data_status_bloc.dart';
+import 'package:car_e_commerce/constants/car_brands.dart';
 import 'package:car_e_commerce/constants/theme.dart';
 import 'package:car_e_commerce/ui/screens/main_screen/widgets/home_app_bar.dart';
+import 'package:car_e_commerce/ui/screens/main_screen/widgets/list_view_filter_buttons.dart';
 import 'package:car_e_commerce/ui/screens/main_screen/widgets/loading_card.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shimmer/shimmer.dart';
 import 'widgets/card_grid_view.dart';
+import 'widgets/filter_brand_button.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -43,6 +46,10 @@ class MainScreen extends StatelessWidget {
                 // SizedBox(
                 //   height: 40.h,
                 // ),
+                SizedBox(
+                  height: 55.h,
+                  child: ListViewFilterButtons(carBrands: carBrands),
+                ),
                 BlocBuilder<DataStatusBloc, VehicleDataState>(
                     buildWhen: (prev, next) =>
                         !listEquals(prev.vehicleData, next.vehicleData) ||

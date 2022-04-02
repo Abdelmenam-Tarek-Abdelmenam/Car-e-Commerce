@@ -123,4 +123,28 @@ class FireStoreRepository {
     saveDataLocal(subData: allVehicles, vehicleType: vehicleType);
     return allVehicles;
   }
+ 
+ // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  Future<List<Vehicle>> getFilteredVehiclesByBrand(
+      String brand,
+      VehicleType vehicleType) async {
+    String collectionName = _getCollectionName(vehicleType);
+
+    QuerySnapshot<Map<String, dynamic>> vehiclesSnapShot;
+    try {
+      vehiclesSnapShot = await _firebaseFirestoretore
+          .collection(collectionName)
+          .where("Brand")
+          .get();
+    } catch (err) {
+      return [];
+    }
+
+    List<QueryDocumentSnapshot<Map<String, dynamic>>> allVehiclesDocuments =
+        vehiclesSnapShot.docs;
+    List<Vehicle> allVehicles =
+        _docsToVehicle(allVehiclesDocuments, vehicleType);
+    saveDataLocal(subData: allVehicles, vehicleType: vehicleType);
+    return allVehicles;
+  }
 }

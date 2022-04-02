@@ -13,12 +13,14 @@ import '../../../../data/web/firestore_repository.dart';
 class Filter extends StatelessWidget {
   FireStoreRepository firebaseRep = FireStoreRepository();
   Future<void> test() async {
-    var vehicle = await firebaseRep.getFilteredVehicles(
-        [0, 10000000000], "Germany", VehicleType.car);
+    var vehicle =
+        await firebaseRep.getFilteredVehiclesByBrand("yassin", VehicleType.car);
     print('testBefore');
-    print(vehicle.map((e) => e.name).toList());
+    Set<String> allBrandsName = {};
+    var temp = vehicle.map((e) => e.brand).toList();
+    allBrandsName.addAll(temp);
+    print(allBrandsName);
     print('testAfter');
-
   }
 
   @override

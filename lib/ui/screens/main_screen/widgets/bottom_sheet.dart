@@ -225,7 +225,7 @@ class ChooseTransmissionTypeBtn extends StatefulWidget {
   ChooseTransmissionTypeBtn(this.text, this.indexBtn, this.selectedBtn,
       {Key? key})
       : super(key: key);
-  bool get _selected => indexBtn == selectedBtn;
+  // bool get _selected => indexBtn == selectedBtn;
 
   @override
   State<ChooseTransmissionTypeBtn> createState() =>

@@ -106,7 +106,7 @@ class CompareScreen extends StatelessWidget {
           ),
         ),
         Text(
-          (firstVehicle.properties[prob] ?? "-").trim(),
+          (secondVehicle.properties[prob] ?? "-").trim(),
           style: Theme.of(context).textTheme.caption,
         ),
       ],

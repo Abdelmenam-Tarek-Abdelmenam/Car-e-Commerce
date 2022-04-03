@@ -49,7 +49,7 @@ class CompareScreen extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 CarCard(firstVehicle),
-                                CarCard(secondVehicle),
+                                CarCard(secondVehicle, reverse: true),
                               ],
                             ),
                             vsBox(context),

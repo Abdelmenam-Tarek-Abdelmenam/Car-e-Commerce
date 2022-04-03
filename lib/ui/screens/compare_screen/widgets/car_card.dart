@@ -7,11 +7,13 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../constants/theme.dart';
 
+// ignore: must_be_immutable
 class CarCard extends StatelessWidget {
   final Vehicle vehicle;
   final NumberFormat formatter = NumberFormat.decimalPattern();
+  bool reverse;
 
-  CarCard(this.vehicle, {Key? key}) : super(key: key);
+  CarCard(this.vehicle, {this.reverse = false, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,6 @@ class CarCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
       ),
       child: Stack(
-        alignment: Alignment.topLeft,
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -80,7 +81,8 @@ class CarCard extends StatelessWidget {
           ),
           Positioned(
             top: -5.h,
-            left: -2.w,
+            left: reverse ? null : -2.w,
+            right: reverse ? -2.w : null,
             child: Visibility(
               visible: vehicle.video != "noVideo",
               child: IconButton(

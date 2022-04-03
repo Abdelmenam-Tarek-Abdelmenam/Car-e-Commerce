@@ -14,54 +14,51 @@ class SearchToCompare extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.all(Radius.circular(4.w))),
-        margin: EdgeInsets.symmetric(horizontal: 10.w, vertical: 15.h),
-        child: TypeAheadField<Vehicle>(
-            textFieldConfiguration: TextFieldConfiguration(
-              decoration: InputDecoration(
-                  labelText: 'Search for vehicle',
-                  labelStyle: TextStyle(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w300,
-                    color: Colors.grey[500],
-                  ),
-                  prefixIcon: Icon(
-                    Icons.search,
-                    size: 20.r,
-                  )),
-            ),
-            hideOnError: true,
-            suggestionsCallback: (pattern) async {
-              if (pattern.isEmpty) {
-                return [];
-              } else {
-                return context
-                    .read<DataStatusBloc>()
-                    .searchVehiclesByName(pattern);
-              }
-            },
-            itemBuilder: (context, suggestion) {
-              return ListTile(
-                  leading: Image.network(suggestion.imgUrl),
-                  title: Text(suggestion.name),
-                  subtitle: Text(
-                    ("${suggestion.price}"),
-                  ));
-            },
-            onSuggestionSelected: (suggestion) {
-              Navigator.of(context).pop();
-              navigateAndPush(
-                  context,
-                  CompareScreen(
-                    firstVehicle: vehicle,
-                    secondVehicle: suggestion,
-                  ));
-            }),
-      ),
+    return Container(
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(Radius.circular(4.w))),
+      margin: EdgeInsets.symmetric(horizontal: 10.w, vertical: 15.h),
+      child: TypeAheadField<Vehicle>(
+          textFieldConfiguration: TextFieldConfiguration(
+            decoration: InputDecoration(
+                labelText: 'Search for vehicle',
+                labelStyle: TextStyle(
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w300,
+                  color: Colors.grey[500],
+                ),
+                prefixIcon: Icon(
+                  Icons.search,
+                  size: 20.r,
+                )),
+          ),
+          // hideOnError: true,
+          suggestionsCallback: (pattern) async {
+            if (pattern.isEmpty) {
+              return [];
+            } else {
+              return context
+                  .read<DataStatusBloc>()
+                  .searchVehiclesByName(pattern);
+            }
+          },
+          itemBuilder: (context, suggestion) {
+            return ListTile(
+                leading: Image.network(suggestion.imgUrl),
+                title: Text(suggestion.name),
+                subtitle: Text(
+                  ("${suggestion.price}"),
+                ));
+          },
+          onSuggestionSelected: (suggestion) {
+            navigateAndPush(
+                context,
+                CompareScreen(
+                  firstVehicle: vehicle,
+                  secondVehicle: suggestion,
+                ));
+          }),
     );
   }
 }

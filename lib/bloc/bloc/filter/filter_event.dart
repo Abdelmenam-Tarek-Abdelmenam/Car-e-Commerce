@@ -16,7 +16,7 @@ class LoadFilter extends FilterEvent {
 class UpdatePrice extends FilterEvent {
   final List<int> priceRange;
 
-  UpdatePrice({required this.priceRange});
+  const UpdatePrice({required this.priceRange});
 
   @override
   List<Object> get props => [priceRange];

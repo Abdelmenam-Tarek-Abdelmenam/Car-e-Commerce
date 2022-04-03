@@ -109,7 +109,7 @@ class FireStoreRepository {
           .collection(collectionName)
           .where("Price", isGreaterThanOrEqualTo: price[0])
           .where("Price", isLessThanOrEqualTo: price[1])
-          .where("Proberties.Origin Country", isEqualTo: country )
+          .where("Proberties.Origin Country", isEqualTo: country)
           // .where("Proberties.Year",  )
           .get();
     } catch (err) {
@@ -123,18 +123,16 @@ class FireStoreRepository {
     saveDataLocal(subData: allVehicles, vehicleType: vehicleType);
     return allVehicles;
   }
- 
- // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  Future<List<Vehicle>> getFilteredVehiclesByBrand(
-      String brand,
-      VehicleType vehicleType) async {
-    String collectionName = _getCollectionName(vehicleType);
 
+  // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  Future<List<Vehicle>> getFilteredVehiclesByBrand(
+      String brand, VehicleType vehicleType) async {
+    String collectionName = _getCollectionName(vehicleType);
     QuerySnapshot<Map<String, dynamic>> vehiclesSnapShot;
     try {
       vehiclesSnapShot = await _firebaseFirestoretore
           .collection(collectionName)
-          .where("Brand")
+          .where("Brand", isEqualTo: brand)
           .get();
     } catch (err) {
       return [];

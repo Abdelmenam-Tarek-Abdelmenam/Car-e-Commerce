@@ -4,14 +4,14 @@ import 'package:car_e_commerce/constants/countries_list.dart';
 import 'package:car_e_commerce/constants/fonts.dart';
 import 'package:car_e_commerce/data/module/products/vehicle.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../bloc/bloc/filter/filter_bloc.dart';
 import '../../../../data/web/firestore_repository.dart';
 
 class Filter extends StatelessWidget {
   FireStoreRepository firebaseRep = FireStoreRepository();
+
+  Filter({Key? key}) : super(key: key);
   Future<void> test() async {
     var vehicle =
         await firebaseRep.getFilteredVehiclesByBrand("yassin", VehicleType.car);

@@ -11,7 +11,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shimmer/shimmer.dart';
 import 'widgets/card_grid_view.dart';
-import 'widgets/filter_brand_button.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -43,12 +42,9 @@ class MainScreen extends StatelessWidget {
             child: Column(
               children: [
                 const HomeAppBar(),
-                // SizedBox(
-                //   height: 40.h,
-                // ),
                 SizedBox(
                   height: 55.h,
-                  child: ListViewFilterButtons(carBrands: carBrands),
+                  child: const ListViewFilterButtons(carBrands: carBrands),
                 ),
                 BlocBuilder<DataStatusBloc, VehicleDataState>(
                     buildWhen: (prev, next) =>

@@ -13,7 +13,7 @@ class LoginBackLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double diameter = MediaQuery.of(context).size.height.r;
+    // double diameter = MediaQuery.of(context).size.height.r;
     return GestureDetector(
       onTap: () {
         FocusScopeNode currentFocus = FocusScope.of(context);

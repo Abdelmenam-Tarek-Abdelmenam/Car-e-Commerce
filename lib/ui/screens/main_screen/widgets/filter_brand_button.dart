@@ -4,19 +4,18 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../constants/fonts.dart';
 
-class FilterBrandButton extends StatefulWidget {
-  String brandName;
+// ignore: must_be_immutable
+class FilterBrandButton extends StatelessWidget {
+  final String brandName;
+  bool isSelected;
+  Function() onPressed;
 
   FilterBrandButton({
+    Key? key,
     this.brandName = "All",
-  });
-
-  @override
-  State<FilterBrandButton> createState() => _FilterBrandButtonState();
-}
-
-class _FilterBrandButtonState extends State<FilterBrandButton> {
-  bool isSelected = false;
+    required this.isSelected,
+    required this.onPressed,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,15 +29,11 @@ class _FilterBrandButtonState extends State<FilterBrandButton> {
       ),
       width: 55.r,
       height: 55.r,
-      child: widget.brandName == "All"
+      child: brandName == "All"
           ? TextButton(
-              onPressed: () {
-                setState(() {
-                  isSelected = !isSelected;
-                });
-              },
+              onPressed: onPressed,
               child: Text(
-                widget.brandName,
+                brandName,
                 style: textTheme.button
                     ?.copyWith(fontSize: 20.sp, color: Colors.white),
               ),
@@ -46,15 +41,11 @@ class _FilterBrandButtonState extends State<FilterBrandButton> {
           : IconButton(
               padding: EdgeInsets.zero,
               icon: SvgPicture.asset(
-                'assets/car brands/${widget.brandName}.svg',
+                'assets/car brands/$brandName.svg',
                 width: 35.w,
                 color: Colors.white,
               ),
-              onPressed: () {
-                setState(() {
-                  isSelected = !isSelected;
-                });
-              },
+              onPressed: onPressed,
               // iconSize: 50.r,
             ),
     );

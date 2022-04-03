@@ -38,7 +38,9 @@ class DataStatusBloc extends Bloc<VehicleDataEvent, VehicleDataState> {
       }
     }
     emit(state.copyWith(
-        status: VehicleDataStatus.loadedData, vehicleData: needData));
+        status: VehicleDataStatus.loadedData,
+        vehicleData: needData,
+        brand: "All"));
   }
 
   Future<void> _getAllBrandData(
@@ -57,7 +59,9 @@ class DataStatusBloc extends Bloc<VehicleDataEvent, VehicleDataState> {
       }
     }
     emit(state.copyWith(
-        status: VehicleDataStatus.loadedData, vehicleData: needData));
+        status: VehicleDataStatus.loadedData,
+        vehicleData: needData,
+        brand: event.brandName));
   }
 
   Future<void> _editVehicleData(

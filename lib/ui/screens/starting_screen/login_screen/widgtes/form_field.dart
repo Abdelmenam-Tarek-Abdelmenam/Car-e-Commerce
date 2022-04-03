@@ -53,7 +53,7 @@ class DefaultFormField extends StatelessWidget {
             size: 20.r,
           ),
           hintText: fillHint,
-          labelStyle: TextStyle(
+          hintStyle: TextStyle(
             fontSize: 16.sp,
             fontWeight: FontWeight.w300,
             color: Colors.grey[500],

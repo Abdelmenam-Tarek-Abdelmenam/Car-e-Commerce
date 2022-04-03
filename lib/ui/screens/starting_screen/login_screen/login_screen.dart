@@ -10,7 +10,6 @@ import 'package:car_e_commerce/ui/screens/starting_screen/login_screen/widgtes/f
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../bloc/cubit/login_handler/login_cubit.dart';

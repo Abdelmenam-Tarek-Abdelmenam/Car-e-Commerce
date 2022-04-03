@@ -13,18 +13,21 @@ class VehicleDataState {
   final List<Vehicle> favData;
   final VehicleType type;
   final VehicleDataStatus status;
+  final String brand;
 
   const VehicleDataState({
     required this.vehicleData,
     required this.favData,
     required this.status,
     required this.type,
+    required this.brand,
   });
 
   factory VehicleDataState.initial(VehicleType type) {
     return VehicleDataState(
         vehicleData: [],
         favData: [],
+        brand: "All",
         status: VehicleDataStatus.loadingData,
         type: type);
   }
@@ -32,11 +35,13 @@ class VehicleDataState {
   VehicleDataState copyWith(
       {List<Vehicle>? vehicleData,
       List<Vehicle>? favData,
+      String? brand,
       VehicleDataStatus? status,
       VehicleType? type}) {
     return VehicleDataState(
         vehicleData: vehicleData ?? this.vehicleData,
         favData: favData ?? this.favData,
+        brand: brand ?? this.brand,
         status: status ?? this.status,
         type: type ?? this.type);
   }
@@ -57,6 +62,7 @@ class VehicleDataState {
     return VehicleDataState(
         vehicleData: vehicleData,
         favData: favData,
+        brand: brand,
         status: VehicleDataStatus.changeSomeData,
         type: type);
   }

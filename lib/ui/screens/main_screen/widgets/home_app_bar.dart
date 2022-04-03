@@ -10,11 +10,6 @@ import 'search_bar.dart';
 class HomeAppBar extends StatelessWidget {
   const HomeAppBar({Key? key}) : super(key: key);
 
-  Function? treu() {
-    print('object');
-    return null;
-  }
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(

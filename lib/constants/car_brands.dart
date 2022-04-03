@@ -1,4 +1,4 @@
-List<String> carBrands = [
+const List<String> carBrands = [
   "All",
   "BMW",
   "Audi",

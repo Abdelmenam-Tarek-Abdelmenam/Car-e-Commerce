@@ -83,8 +83,8 @@ class MainScreen extends StatelessWidget {
                           );
                         }
                         return Expanded(
-                            child: CardGridViewer(
-                                vehicleList: state.vehicleData.cast()));
+                            child:
+                                CardGridViewer(vehicleList: state.vehicleData));
                       }
                     })
               ],

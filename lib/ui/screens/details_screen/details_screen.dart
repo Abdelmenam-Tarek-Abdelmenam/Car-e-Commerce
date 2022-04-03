@@ -1,6 +1,7 @@
 import 'package:car_e_commerce/data/module/products/vehicle.dart';
 import 'package:car_e_commerce/ui/screens/details_screen/widgets/car_spec.dart';
 import 'package:car_e_commerce/ui/screens/details_screen/widgets/details_photo.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,6 +12,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../bloc/bloc/data_bloc/data_status_bloc.dart';
 import '../../../constants/theme.dart';
 import '../../../shared/widgets/bar_icon_button.dart';
+import '../compare_screen/search_to_compare.dart';
 
 class DetailsScreen extends StatelessWidget {
   DetailsScreen(this.vehicle, this.index, {Key? key}) : super(key: key);
@@ -109,6 +111,16 @@ class DetailsScreen extends StatelessWidget {
               icon: Icons.arrow_back_rounded,
               onPressed: () {
                 Navigator.of(context).pop();
+              }),
+          BarIconButton(
+              icon: Icons.find_in_page_outlined,
+              onPressed: () {
+                showCupertinoDialog(
+                    context: context,
+                    builder: (_) => AlertDialog(
+                          title: const Text("Search to compare"),
+                          content: SearchToCompare(vehicle),
+                        ));
               }),
           BlocBuilder<DataStatusBloc, VehicleDataState>(
               buildWhen: (prev, next) =>

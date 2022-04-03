@@ -18,9 +18,9 @@ class CompareScreen extends StatelessWidget {
   CompareScreen(
       {required this.firstVehicle, required this.secondVehicle, Key? key})
       : super(key: key) {
-    probertiesInfo.addAll(firstVehicle.properties.keys);
-    probertiesInfo.addAll(secondVehicle.properties.keys);
-    probertiesInfo = probertiesInfo.toSet().toList();
+    probertiesInfo = firstVehicle.properties.keys.toList();
+    List<String> l2 = secondVehicle.properties.keys.toList();
+    probertiesInfo.removeWhere((item) => !l2.contains(item));
   }
 
   @override

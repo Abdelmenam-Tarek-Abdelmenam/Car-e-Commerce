@@ -19,6 +19,7 @@ class _SearchBarState extends State<SearchBar> {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 305.w,
+      height: 20.h,
       child: TextFormField(
         enableSuggestions: true,
         onChanged: (value) {
@@ -68,7 +69,7 @@ class _SearchBarState extends State<SearchBar> {
         ),
         isDismissible: true,
         builder: (BuildContext context) {
-          return  Filter();
+          return Filter();
         });
   }
 }

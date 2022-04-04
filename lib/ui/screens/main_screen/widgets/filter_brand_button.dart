@@ -27,13 +27,14 @@ class FilterBrandButton extends StatelessWidget {
             ? Theme.of(context).iconTheme.color
             : Theme.of(context).colorScheme.secondary,
       ),
-      width: 55.r,
+      width: 50.r,
       height: 55.r,
       child: brandName == "All"
           ? TextButton(
               onPressed: onPressed,
               child: Text(
                 brandName,
+                textAlign: TextAlign.center,
                 style: textTheme.button
                     ?.copyWith(fontSize: 20.sp, color: Colors.white),
               ),
@@ -42,7 +43,7 @@ class FilterBrandButton extends StatelessWidget {
               padding: EdgeInsets.zero,
               icon: SvgPicture.asset(
                 'assets/car brands/$brandName.svg',
-                width: 35.w,
+                width: 25.w,
                 color: Colors.white,
               ),
               onPressed: onPressed,

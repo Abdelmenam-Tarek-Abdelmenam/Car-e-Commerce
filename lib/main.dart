@@ -3,6 +3,8 @@ import 'package:car_e_commerce/data/local/pref_repository.dart';
 import 'package:car_e_commerce/data/local/sql_database.dart';
 import 'package:car_e_commerce/data/module/products/vehicle.dart';
 import 'package:car_e_commerce/ui/screens/main_screen/main_screen.dart';
+import 'package:car_e_commerce/ui/screens/main_screen/widgets/home_app_bar.dart';
+import 'package:car_e_commerce/ui/screens/starting_screen/login_screen/signup_screen.dart';
 import 'package:catcher/core/catcher.dart';
 import 'package:catcher/model/catcher_options.dart';
 import 'package:firebase_core/firebase_core.dart';

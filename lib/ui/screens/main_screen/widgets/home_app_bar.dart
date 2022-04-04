@@ -22,39 +22,7 @@ class HomeAppBar extends StatelessWidget {
           SizedBox(
             width: 10.w,
           ),
-          ProfileIcon(
-            profileHandler: () {
-              context.read<DataStatusBloc>().add(const LoadAllFavData());
-              navigateAndPush(context, const UserScreen());
-            },
-          ),
         ],
-      ),
-    );
-  }
-}
-
-class ProfileIcon extends StatelessWidget {
-  final Function() profileHandler;
-
-  const ProfileIcon({
-    Key? key,
-    required this.profileHandler,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return CircleAvatar(
-      backgroundColor: Colors.white,
-      radius: 20.r,
-      child: IconButton(
-        iconSize: 20.r,
-        color: Colors.white,
-        icon: const Icon(
-          Icons.person_outline_rounded,
-          color: Colors.black,
-        ),
-        onPressed: profileHandler,
       ),
     );
   }

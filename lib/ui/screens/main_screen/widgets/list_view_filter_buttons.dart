@@ -21,20 +21,21 @@ class ListViewFilterButtons extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       itemBuilder: (BuildContext context, int index) {
         return BlocBuilder<DataStatusBloc, VehicleDataState>(
-            builder: (_, VehicleDataState state) => FilterBrandButton(
-                brandName: carBrands[index],
-                isSelected: carBrands[index] == state.brand,
-                onPressed: () {
-                  if (index == 0 && carBrands[index] != state.brand) {
-                    context
-                        .read<DataStatusBloc>()
-                        .add(const LoadAllVehicleData());
-                  } else if (carBrands[index] != "All") {
-                    context
-                        .read<DataStatusBloc>()
-                        .add(LoadBrandVehicleData(brandName: carBrands[index]));
-                  }
-                }));
+          builder: (_, VehicleDataState state) => FilterBrandButton(
+              brandName: carBrands[index],
+              isSelected: carBrands[index] == state.brand,
+              onPressed: () {
+                if (index == 0 && carBrands[index] != state.brand) {
+                  context
+                      .read<DataStatusBloc>()
+                      .add(const LoadAllVehicleData());
+                } else if (carBrands[index] != "All") {
+                  context
+                      .read<DataStatusBloc>()
+                      .add(LoadBrandVehicleData(brandName: carBrands[index]));
+                }
+              }),
+        );
       },
     );
   }

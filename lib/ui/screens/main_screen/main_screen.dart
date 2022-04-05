@@ -37,55 +37,55 @@ class MainScreen extends StatelessWidget {
           body: Container(
             width: double.infinity,
             decoration: BoxDecoration(gradient: themeGradient),
-            padding: EdgeInsets.symmetric(
-              horizontal: 15.w,
-            ),
             child: CustomScrollView(
               slivers: [
                 MainSliverAppBar(),
                 SliverToBoxAdapter(
-                  child: BlocBuilder<DataStatusBloc, VehicleDataState>(
-                      buildWhen: (prev, next) =>
-                          !listEquals(prev.vehicleData, next.vehicleData) ||
-                          [
-                            VehicleDataStatus.loadingData,
-                            VehicleDataStatus.loadedData
-                          ].contains(next.status),
-                      builder: (context, state) {
-                        if (state.status == VehicleDataStatus.loadingData) {
-                          return Expanded(
-                              child: Shimmer.fromColors(
-                                  baseColor: Colors.grey.withOpacity(0.5),
-                                  highlightColor: Colors.white,
-                                  child: const LoadingView()));
-                        } else {
-                          if (state.vehicleData.isEmpty) {
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 15.w),
+                    child: BlocBuilder<DataStatusBloc, VehicleDataState>(
+                        buildWhen: (prev, next) =>
+                            !listEquals(prev.vehicleData, next.vehicleData) ||
+                            [
+                              VehicleDataStatus.loadingData,
+                              VehicleDataStatus.loadedData
+                            ].contains(next.status),
+                        builder: (context, state) {
+                          if (state.status == VehicleDataStatus.loadingData) {
                             return Expanded(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    FontAwesomeIcons.carBurst,
-                                    color: whiteColor,
-                                    size: 70.r,
-                                  ),
-                                  SizedBox(
-                                    height: 20.h,
-                                  ),
-                                  Text(
-                                    "No Vehicles",
-                                    style:
-                                        Theme.of(context).textTheme.headline2,
-                                  )
-                                ],
-                              ),
-                            );
+                                child: Shimmer.fromColors(
+                                    baseColor: Colors.grey.withOpacity(0.5),
+                                    highlightColor: Colors.white,
+                                    child: const LoadingView()));
+                          } else {
+                            if (state.vehicleData.isEmpty) {
+                              return Expanded(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      FontAwesomeIcons.carBurst,
+                                      color: whiteColor,
+                                      size: 70.r,
+                                    ),
+                                    SizedBox(
+                                      height: 20.h,
+                                    ),
+                                    Text(
+                                      "No Vehicles",
+                                      style:
+                                          Theme.of(context).textTheme.headline2,
+                                    )
+                                  ],
+                                ),
+                              );
+                            }
+                            return Expanded(
+                                child: CardGridViewer(
+                                    vehicleList: state.vehicleData));
                           }
-                          return Expanded(
-                              child: CardGridViewer(
-                                  vehicleList: state.vehicleData));
-                        }
-                      }),
+                        }),
+                  ),
                 )
               ],
             ),

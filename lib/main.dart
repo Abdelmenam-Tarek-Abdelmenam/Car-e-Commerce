@@ -20,6 +20,7 @@ import 'bloc/cubit/login_handler/login_cubit.dart';
 import 'bloc/my_bloc_observer.dart';
 import 'data/error_handler.dart';
 import 'data/repository/auth_repository.dart';
+import 'ui/screens/starting_screen/login_screen/login_screen.dart';
 
 Future<void> main() async {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -97,7 +98,7 @@ class AppView extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: lightThemeData,
 
-        home: const MainScreen(),
+        home: MainScreen(),
         // home: FlowBuilder<AuthStatus>(
         //   state: context.select((AuthStatusBloc bloc) => bloc.state.status),
         //   onGeneratePages: routes,

@@ -19,7 +19,6 @@ class _SearchBarState extends State<SearchBar> {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 305.w,
-      height: 20.h,
       child: TextFormField(
         enableSuggestions: true,
         onChanged: (value) {
@@ -37,10 +36,11 @@ class _SearchBarState extends State<SearchBar> {
               width: 5,
             ),
           ),
-          suffixIconConstraints: BoxConstraints.tight(const Size(40, 30)),
+          constraints: BoxConstraints(maxHeight: 35.h, maxWidth: 305.w),
+          // suffixIconConstraints: const BoxConstraints( max 40, 30),
           filled: true,
           isDense: true,
-          contentPadding: EdgeInsets.symmetric(vertical: 6.h, horizontal: 15.w),
+          contentPadding: EdgeInsets.fromLTRB(12.w, 2.h, 0, 0),
           fillColor: Colors.white,
           hintText: 'Search for the product here ',
           hintStyle: Theme.of(context)

@@ -11,26 +11,32 @@ import '../../../../constants/car_brands.dart';
 
 class MainSliverAppBar extends StatelessWidget {
   const MainSliverAppBar({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
       floating: true,
-      primary: true,
+      primary: false,
       centerTitle: true,
       backgroundColor: Colors.transparent,
-      expandedHeight: 135.h,
+      expandedHeight: 125.h,
+      title: const SearchBar(),
+      titleSpacing: 14.w,
       actions: [
-        SearchBar(),
+        SizedBox(
+          width: 15.w,
+        ),
         ProfileIcon(
           profileHandler: () {
             context.read<DataStatusBloc>().add(const LoadAllFavData());
             navigateAndPush(context, const UserScreen());
           },
         ),
+        SizedBox(
+          width: 15.w,
+        )
       ],
       flexibleSpace: FlexibleSpaceBar(
-        titlePadding: EdgeInsets.only(top: 94.h),
+        titlePadding: EdgeInsets.only(top: 85.h),
         centerTitle: true,
         title: const ListViewFilterButtons(
           carBrands: carBrands,
@@ -51,13 +57,15 @@ class ProfileIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CircleAvatar(
-      radius: 20.r,
+      radius: 16.r,
       backgroundColor: Colors.white,
       child: InkWell(
-        child: Icon(
-          Icons.person_outline_rounded,
-          color: Colors.black,
-          size: 25.r,
+        child: Center(
+          child: Icon(
+            Icons.person_outline_rounded,
+            color: Colors.black,
+            size: 18.r,
+          ),
         ),
         onTap: profileHandler,
       ),

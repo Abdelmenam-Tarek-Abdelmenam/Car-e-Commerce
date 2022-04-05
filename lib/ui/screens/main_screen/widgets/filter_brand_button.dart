@@ -27,7 +27,7 @@ class FilterBrandButton extends StatelessWidget {
             ? Theme.of(context).iconTheme.color
             : Theme.of(context).colorScheme.secondary,
       ),
-      width: 50.r,
+      width: 45.w,
       height: 55.r,
       child: brandName == "All"
           ? TextButton(
@@ -36,7 +36,7 @@ class FilterBrandButton extends StatelessWidget {
                 brandName,
                 textAlign: TextAlign.center,
                 style: textTheme.button
-                    ?.copyWith(fontSize: 20.sp, color: Colors.white),
+                    ?.copyWith(fontSize: 14.sp, color: Colors.white),
               ),
             )
           : IconButton(

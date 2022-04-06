@@ -1,8 +1,11 @@
+import 'package:car_e_commerce/data/local/pref_repository.dart';
+import 'package:car_e_commerce/data/local/sql_database.dart';
 import 'package:car_e_commerce/data/module/user/user.dart';
 import 'package:car_e_commerce/data/repository/auth_exception.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:sqflite/sqflite.dart';
 
 class AuthRepository {
   final FirebaseAuth auth;
@@ -80,7 +83,14 @@ class AuthRepository {
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
-      await auth.signInWithCredential(credential);
+      User? user = (await auth.signInWithCredential(credential)).user;
+      if (user != null) {
+        currUser = AppUser(
+            id: user.uid,
+            name: user.displayName,
+            email: user.email,
+            photoUrl: user.photoURL);
+      }
     } on firebase_auth.FirebaseAuthException catch (e) {
       throw LogInWithGoogleFailure.fromCode(e.code);
     } catch (e) {
@@ -89,6 +99,9 @@ class AuthRepository {
   }
 
   Future<void> signOut() async {
+    PreferenceRepository.clearAllSharedPreference();
+    deleteDatabase("data.db");
+    DataBaseRepository.database = null;
     await firebase_auth.FirebaseAuth.instance.signOut();
     _googleSignIn.signOut();
   }

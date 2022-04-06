@@ -12,6 +12,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../../../../bloc/bloc/auth_bloc/auth_status_bloc.dart';
 import '../../../../bloc/cubit/login_handler/login_cubit.dart';
 
 // ignore: must_be_immutable
@@ -36,6 +37,8 @@ class LoginScreen extends StatelessWidget {
     return BlocListener<LoginCubit, LoginStates>(
         listener: (context, state) {
           if (state.status == LoginStatus.success) {
+            context.read<AuthStatusBloc>().add(
+                UserChangedState(context.read<LoginCubit>().auth.currUser));
             navigateAndReplace(context, const MainScreen());
           }
         },

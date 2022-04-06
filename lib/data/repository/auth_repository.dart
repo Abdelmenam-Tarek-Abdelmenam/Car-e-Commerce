@@ -1,21 +1,22 @@
 import 'package:car_e_commerce/data/module/user/user.dart';
 import 'package:car_e_commerce/data/repository/auth_exception.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthRepository {
-  final firebase_auth.FirebaseAuth _auth;
+  final FirebaseAuth auth;
   final GoogleSignIn _googleSignIn;
   var currUser = AppUser.empty;
 
   AuthRepository({
     firebase_auth.FirebaseAuth? auth,
     GoogleSignIn? googleSignIn,
-  })  : _auth = auth ?? firebase_auth.FirebaseAuth.instance,
+  })  : auth = auth ?? firebase_auth.FirebaseAuth.instance,
         _googleSignIn = googleSignIn ?? GoogleSignIn.standard();
 
   Stream<AppUser> get user {
-    return _auth.authStateChanges().map((firebaseUser) {
+    return auth.authStateChanges().map((firebaseUser) {
       final user = firebaseUser == null ? AppUser.empty : firebaseUser.toUser;
       currUser = user;
       return user;
@@ -27,10 +28,18 @@ class AuthRepository {
     required String password,
   }) async {
     try {
-      await _auth.createUserWithEmailAndPassword(
+      User? user = (await auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
-      );
+      ))
+          .user;
+      if (user != null) {
+        currUser = AppUser(
+            id: user.uid,
+            name: user.displayName,
+            email: user.email,
+            photoUrl: user.photoURL);
+      }
     } on firebase_auth.FirebaseAuthException catch (e) {
       throw SignUpWithEmailAndPasswordFailure.fromCode(e.code);
     } catch (_) {
@@ -43,10 +52,18 @@ class AuthRepository {
     String password,
   ) async {
     try {
-      await _auth.signInWithEmailAndPassword(
+      User? user = (await auth.signInWithEmailAndPassword(
         email: email,
         password: password,
-      );
+      ))
+          .user;
+      if (user != null) {
+        currUser = AppUser(
+            id: user.uid,
+            name: user.displayName,
+            email: user.email,
+            photoUrl: user.photoURL);
+      }
     } on firebase_auth.FirebaseAuthException catch (e) {
       throw LogInWithEmailAndPasswordFailure.fromCode(e.code);
     } catch (_) {
@@ -63,7 +80,7 @@ class AuthRepository {
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
-      await _auth.signInWithCredential(credential);
+      await auth.signInWithCredential(credential);
     } on firebase_auth.FirebaseAuthException catch (e) {
       throw LogInWithGoogleFailure.fromCode(e.code);
     } catch (e) {
@@ -73,10 +90,11 @@ class AuthRepository {
 
   Future<void> signOut() async {
     await firebase_auth.FirebaseAuth.instance.signOut();
+    _googleSignIn.signOut();
   }
 
   bool isSignedIn() {
-    return _auth.currentUser != null;
+    return auth.currentUser != null;
   }
 }
 

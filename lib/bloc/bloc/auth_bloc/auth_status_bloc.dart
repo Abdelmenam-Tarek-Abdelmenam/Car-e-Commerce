@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
 import 'package:car_e_commerce/data/module/user/user.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../../data/repository/auth_repository.dart';
 
@@ -14,7 +15,7 @@ class AuthStatusBloc extends Bloc<AuthStatusEvent, AuthState> {
   final AuthRepository _authRepository;
 
   AuthStatusBloc(this._authRepository)
-      : super(const AuthState.unauthenticated()) {
+      : super(AuthState.initial(_authRepository.auth.currentUser)) {
     on<AuthLogoutEvent>(_authLogOutHandler);
     on<UserChangedState>(_userChangedState);
   }
@@ -24,8 +25,8 @@ class AuthStatusBloc extends Bloc<AuthStatusEvent, AuthState> {
     Emitter<AuthState> emit,
   ) {
     emit(event.userApp.isEmpty
-        ? AuthState.authenticated(event.userApp)
-        : const AuthState.unauthenticated());
+        ? AuthState.unauthenticated()
+        : AuthState.authenticated(event.userApp));
   }
 
   void _authLogOutHandler(

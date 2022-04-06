@@ -1,10 +1,13 @@
+import 'package:car_e_commerce/data/module/user/user.dart';
 import 'package:car_e_commerce/shared/widgets/bar_icon_button.dart';
 import 'package:car_e_commerce/ui/routes/navigation_functions.dart';
 import 'package:car_e_commerce/ui/screens/starting_screen/login_screen/login_screen.dart';
 import 'package:car_e_commerce/ui/screens/user_screen/widgets/main_layout.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../bloc/bloc/auth_bloc/auth_status_bloc.dart';
 import '../../../constants/theme.dart';
 
 class UserScreen extends StatelessWidget {
@@ -12,6 +15,8 @@ class UserScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppUser? user = context.read<AuthStatusBloc>().state.user;
+
     return Scaffold(
       body: SafeArea(
         child: Stack(
@@ -32,7 +37,7 @@ class UserScreen extends StatelessWidget {
                 child: CircleAvatar(
                   radius: 55.r,
                   backgroundColor: whiteColor,
-                  child: userPhoto(),
+                  child: userPhoto(url: user.photoUrl),
                 ),
               ),
             ),
@@ -40,7 +45,7 @@ class UserScreen extends StatelessWidget {
               padding: EdgeInsets.only(left: 20.0.w, top: 125.h),
               child: SizedBox(
                 width: 205.w,
-                child: Text("Abdelmenam Tarek Abdelmenam Elbahy",
+                child: Text(user.name ?? "App user",
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context)
@@ -53,7 +58,7 @@ class UserScreen extends StatelessWidget {
               padding: EdgeInsets.only(left: 20.w, top: 160.h),
               child: SizedBox(
                 width: 205.r,
-                child: Text("moneam.elbahy@gmail.com",
+                child: Text(user.email ?? "App user",
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.subtitle1),
@@ -78,6 +83,7 @@ class UserScreen extends StatelessWidget {
                     BarIconButton(
                         icon: Icons.logout,
                         onPressed: () {
+                          context.read<AuthStatusBloc>().add(AuthLogoutEvent());
                           navigateAndReplace(context, LoginScreen());
                         }),
                   ],

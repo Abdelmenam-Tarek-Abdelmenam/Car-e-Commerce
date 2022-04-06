@@ -9,7 +9,7 @@ class LoadingView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
       physics: const BouncingScrollPhysics(),
-      shrinkWrap: true,
+      // shrinkWrap: true,
       padding: EdgeInsets.only(top: count == 1 ? 20 : 60.h),
       itemCount: 10,
       itemBuilder: (BuildContext context, int index) {

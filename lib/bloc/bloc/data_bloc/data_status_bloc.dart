@@ -22,7 +22,6 @@ class DataStatusBloc extends Bloc<VehicleDataEvent, VehicleDataState> {
 
   Future<void> _getAllData(
       LoadAllVehicleData event, Emitter<VehicleDataState> emit) async {
-    print(state.type);
     emit(state.copyWith(status: VehicleDataStatus.loadingData));
     List<Vehicle> needData;
     if (DataBaseRepository.database == null) {
@@ -32,7 +31,6 @@ class DataStatusBloc extends Bloc<VehicleDataEvent, VehicleDataState> {
       needData =
           await _dataBaseRepository.getAllVehicleData(vehicleType: state.type);
       if (needData.isEmpty) {
-        print("get from firebase");
         needData = await _fireStoreRepository.getAllVehicleData(
             vehicleType: state.type);
       }
@@ -113,6 +111,7 @@ class DataStatusBloc extends Bloc<VehicleDataEvent, VehicleDataState> {
     }
     needData = await _dataBaseRepository.getVehicleByName(subName, null,
         vehicleType: state.type);
+
     return needData;
   }
 }

@@ -15,19 +15,16 @@ class Filter extends StatelessWidget {
   Future<void> test() async {
     var vehicle =
         await firebaseRep.getFilteredVehiclesByBrand("yassin", VehicleType.car);
-    print('testBefore');
     Set<String> allBrandsName = {};
     var temp = vehicle.map((e) => e.brand).toList();
     allBrandsName.addAll(temp);
-    print(allBrandsName);
-    print('testAfter');
   }
 
   @override
   Widget build(BuildContext context) {
     test();
     return Container(
-      height: 550.h,
+      height: 320.h,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(40.r),
       ),
@@ -253,7 +250,6 @@ class _ChooseTransmissionTypeBtnState extends State<ChooseTransmissionTypeBtn> {
         setState(() {
           _selected = select;
         });
-        print(_selected);
       },
     );
   }
@@ -278,7 +274,6 @@ class _ChooseTransmissionTypeBtnsViewState
       ChooseTransmissionTypeBtn('Manual', 1, selectedBtn),
       ChooseTransmissionTypeBtn('Automatic', 2, selectedBtn),
     ];
-    print('$selectedBtn in Radio State');
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [

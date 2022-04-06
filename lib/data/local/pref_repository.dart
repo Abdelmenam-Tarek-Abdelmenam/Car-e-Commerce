@@ -21,7 +21,6 @@ class PreferenceRepository {
     } else if (value is double) {
       pref.setDouble(key, value);
     } else if (value is List<String>) {
-      print("setList");
       pref.setStringList(key, value);
     } else if (value is Map) {
       pref.setString(key, json.encode(value));

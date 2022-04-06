@@ -15,7 +15,7 @@ class CardGridViewer extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
       physics: const BouncingScrollPhysics(),
-      shrinkWrap: true,
+      // shrinkWrap: true,
       padding: EdgeInsets.only(top: 30.h),
       itemCount: vehicleList.length,
       itemBuilder: (BuildContext context, int index) {

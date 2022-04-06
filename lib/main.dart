@@ -3,8 +3,7 @@ import 'package:car_e_commerce/data/local/pref_repository.dart';
 import 'package:car_e_commerce/data/local/sql_database.dart';
 import 'package:car_e_commerce/data/module/products/vehicle.dart';
 import 'package:car_e_commerce/ui/screens/main_screen/main_screen.dart';
-import 'package:car_e_commerce/ui/screens/main_screen/widgets/home_app_bar.dart';
-import 'package:car_e_commerce/ui/screens/starting_screen/login_screen/signup_screen.dart';
+import 'package:car_e_commerce/ui/screens/starting_screen/login_screen/login_screen.dart';
 import 'package:catcher/core/catcher.dart';
 import 'package:catcher/model/catcher_options.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -20,7 +19,6 @@ import 'bloc/cubit/login_handler/login_cubit.dart';
 import 'bloc/my_bloc_observer.dart';
 import 'data/error_handler.dart';
 import 'data/repository/auth_repository.dart';
-import 'ui/screens/starting_screen/login_screen/login_screen.dart';
 
 Future<void> main() async {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -94,16 +92,17 @@ class AppView extends StatelessWidget {
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       builder: () => MaterialApp(
-        title: 'Car E-Commerce',
-        debugShowCheckedModeBanner: false,
-        theme: lightThemeData,
-
-        home: MainScreen(),
-        // home: FlowBuilder<AuthStatus>(
-        //   state: context.select((AuthStatusBloc bloc) => bloc.state.status),
-        //   onGeneratePages: routes,
-        // ),
-      ),
+          title: 'Car E-Commerce',
+          debugShowCheckedModeBanner: false,
+          theme: lightThemeData,
+          home: context.read<AuthStatusBloc>().state.status == AuthStatus.authed
+              ? const MainScreen()
+              : LoginScreen()
+          // home: FlowBuilder<AuthStatus>(
+          //   state: context.select((AuthStatusBloc bloc) => bloc.state.status),
+          //   onGeneratePages: routes,
+          // ),
+          ),
     );
   }
 }

@@ -27,7 +27,6 @@ class UserScreenLayout extends StatelessWidget {
                 key: VehicleType.motorCycle.name) ??
             [])
         .length;
-    print(viewedMotorCycle);
   }
 
   late int viewedCars;

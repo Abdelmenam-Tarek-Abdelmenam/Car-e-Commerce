@@ -5,27 +5,44 @@ enum AuthStatus {
   unauthed,
 }
 
+// ignore: must_be_immutable
 class AuthState extends Equatable {
-  final AuthStatus status;
-  final AppUser? user;
+  late AuthStatus status;
+  AppUser user = AppUser.empty;
 
-  const AuthState({
+  AuthState({
     required this.status,
-    this.user,
+    this.user = AppUser.empty,
   });
 
   // when the user state is  signed in (authenticated)
-  const AuthState.authenticated(AppUser user)
+  AuthState.authenticated(AppUser user)
       : this(
           status: AuthStatus.authed,
           user: user,
         );
 
+  AuthState.initial(
+    User? user,
+  ) {
+    if (user == null) {
+      status = AuthStatus.unauthed;
+      user = null;
+    } else {
+      status = AuthStatus.authed;
+      this.user = AppUser(
+          id: user.uid,
+          name: user.displayName,
+          email: user.email,
+          photoUrl: user.photoURL);
+    }
+  }
+
   // when the user state isn't signed in (unauthenticated)
-  const AuthState.unauthenticated()
+  AuthState.unauthenticated()
       : this(
           status: AuthStatus.unauthed,
-          user: null,
+          user: AppUser.empty,
         );
 
   // comparing the state

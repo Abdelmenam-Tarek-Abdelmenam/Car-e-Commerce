@@ -123,7 +123,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: 25.h,
+                  height: 15.h,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -230,7 +230,7 @@ class LoginScreen extends StatelessWidget {
       );
 
   Widget upperText(BuildContext context) => Padding(
-        padding: EdgeInsets.only(top: 132.h, bottom: 85.h),
+        padding: EdgeInsets.only(top: 50.h, bottom: 60.h),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

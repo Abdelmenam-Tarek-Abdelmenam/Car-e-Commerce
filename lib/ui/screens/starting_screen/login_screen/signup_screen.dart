@@ -48,7 +48,7 @@ class SignUpScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                height: 110.h,
+                height: 80.h,
               ),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.baseline,
@@ -73,8 +73,8 @@ class SignUpScreen extends StatelessWidget {
                       children: [
                         DefaultFormField(
                           controller: emailController,
-                          fillHint: AutofillHints.email,
                           title: "Email",
+                          fillHint: "Email",
                           prefix: FontAwesomeIcons.user,
                           validator: (value) {
                             if (value!.isEmpty) {
@@ -85,11 +85,11 @@ class SignUpScreen extends StatelessWidget {
                           },
                         ),
                         SizedBox(
-                          height: 36.h,
+                          height: 25.h,
                         ),
                         DefaultFormField(
                           controller: passController,
-                          fillHint: AutofillHints.password,
+                          fillHint: "Password",
                           title: "Password",
                           prefix: Icons.lock_open,
                           isPass: showPassText1,
@@ -113,7 +113,7 @@ class SignUpScreen extends StatelessWidget {
                           ),
                         ),
                         SizedBox(
-                          height: 36.h,
+                          height: 25.h,
                         ),
                         DefaultFormField(
                           controller: passCheckerController,
@@ -143,7 +143,7 @@ class SignUpScreen extends StatelessWidget {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.only(top: 45.h, bottom: 60.h),
+                          padding: EdgeInsets.only(top: 25.h, bottom: 30.h),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [

@@ -26,40 +26,47 @@ class DefaultFormField extends StatelessWidget {
   Widget? suffix;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 45.h,
-      decoration: BoxDecoration(
-          color: whiteColor,
-          borderRadius: BorderRadius.all(Radius.circular(26.r))),
-      child: TextFormField(
-        controller: controller,
-        obscureText: isPass,
-        autofillHints: [fillHint],
-        keyboardType: keyboardType,
-        validator: validator,
-        style: TextStyle(color: darkGrayColor, fontSize: 14.sp),
-        decoration: InputDecoration(
-          // enabledBorder: InputBorder.none,
-          border: InputBorder.none,
-          fillColor: Colors.white,
-          suffixIcon: suffix,
-          errorStyle: TextStyle(
-            fontSize: 13.sp,
-            fontWeight: FontWeight.w300,
-            color: Colors.red[500],
-          ),
-          prefixIcon: Icon(
-            prefix,
-            size: 20.r,
-          ),
-          hintText: fillHint,
-          hintStyle: TextStyle(
-            fontSize: 16.sp,
-            fontWeight: FontWeight.w300,
-            color: Colors.grey[500],
+    return Stack(
+      children: [
+        Container(
+            height: 50.h,
+            decoration: BoxDecoration(
+              color: Colors.grey.shade200,
+              borderRadius: BorderRadius.circular(30),
+            )),
+        TextFormField(
+          controller: controller,
+          obscureText: isPass,
+          autofillHints: [fillHint],
+          keyboardType: keyboardType,
+          validator: validator,
+          style: TextStyle(color: darkGrayColor, fontSize: 14.sp),
+          decoration: InputDecoration(
+            // enabledBorder: InputBorder.none,
+            border: InputBorder.none,
+            // contentPadding: EdgeInsets.symmetric(vertical: 10),
+            fillColor: Colors.white,
+            suffixIcon: suffix,
+            alignLabelWithHint: true,
+            errorStyle: TextStyle(
+              fontSize: 13.sp,
+              fontWeight: FontWeight.w300,
+              color: Colors.red[500],
+            ),
+            prefixIcon: Icon(
+              prefix,
+              size: 20.r,
+            ),
+
+            hintText: fillHint,
+            hintStyle: TextStyle(
+              fontSize: 16.sp,
+              fontWeight: FontWeight.w300,
+              color: Colors.grey[500],
+            ),
           ),
         ),
-      ),
+      ],
     );
   }
 }

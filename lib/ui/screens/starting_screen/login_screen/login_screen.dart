@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:car_e_commerce/constants/theme.dart';
+import 'package:car_e_commerce/data/module/products/vehicle.dart';
 import 'package:car_e_commerce/ui/routes/navigation_functions.dart';
 import 'package:car_e_commerce/ui/screens/main_screen/main_screen.dart';
 import 'package:car_e_commerce/ui/screens/starting_screen/login_screen/signup_screen.dart';
@@ -14,6 +15,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../bloc/bloc/auth_bloc/auth_status_bloc.dart';
 import '../../../../bloc/cubit/login_handler/login_cubit.dart';
+import '../../../../data/local/sql_database.dart';
 
 // ignore: must_be_immutable
 class LoginScreen extends StatelessWidget {

@@ -67,6 +67,14 @@ class Vehicle extends Equatable {
       video = "noVideo";
     }
   }
+  @override
+  String toString() {
+    return '''
+         id = $id
+         name = $name
+         brand = $brand
+      ''';
+  }
 
   @override
   List<Object?> get props => [id, isFav];

@@ -70,6 +70,15 @@ class DataBaseRepository {
         where: "id = '${vehicle.id}'");
   }
 
+  Future<List<Vehicle>> getVehicleByPrice(
+      {required List<int> priceRange, required VehicleType vehicleType}) async {
+    String tableName = _getTableName(vehicleType);
+    List<Map<String, dynamic>> allVehiclesData = await database?.rawQuery(
+            'SELECT * FROM $tableName WHERE price BETWEEN ${priceRange[0]} AND ${priceRange[1]}') ??
+        [];
+    return _mapsToVehicle(allVehiclesData, vehicleType);
+  }
+
   String _getTableName(VehicleType vehicleType) {
     return {
       VehicleType.car: "cars",

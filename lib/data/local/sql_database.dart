@@ -1,6 +1,7 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:sqflite/sqflite.dart';
 
+import '../../constants/enums.dart';
 import '../module/products/vehicle.dart';
 
 class DataBaseRepository {
@@ -76,6 +77,47 @@ class DataBaseRepository {
     List<Map<String, dynamic>> allVehiclesData = await database?.rawQuery(
             'SELECT * FROM $tableName WHERE price BETWEEN ${priceRange[0]} AND ${priceRange[1]}') ??
         [];
+    return _mapsToVehicle(allVehiclesData, vehicleType);
+  }
+
+  Future<List<Vehicle>> getVehicleByTransmission(
+      {required CarTransmission carTransmission,
+      required VehicleType vehicleType}) async {
+    String tableName = _getTableName(vehicleType);
+    switch (carTransmission) {
+      case CarTransmission.all:
+        List<Map<String, dynamic>> allVehiclesData =
+            await database?.rawQuery('SELECT properties FROM $tableName') ?? [];
+        return _mapsToVehicle(allVehiclesData, vehicleType);
+
+      case CarTransmission.automatic:
+        List<Map<String, dynamic>> allVehiclesData = await database?.rawQuery(
+                'SELECT properties FROM $tableName WHERE properties LIKE "%${CarTransmission.automatic.name}%"') ??
+            [];
+
+        return _mapsToVehicle(allVehiclesData, vehicleType);
+
+      case CarTransmission.manual:
+        List<Map<String, dynamic>> allVehiclesData = await database?.rawQuery(
+                'SELECT properties FROM $tableName WHERE properties LIKE "%${CarTransmission.manual.name}%"') ??
+            [];
+
+        return _mapsToVehicle(allVehiclesData, vehicleType);
+
+      default:
+        List<Map<String, dynamic>> allVehiclesData =
+            await database?.rawQuery('SELECT properties FROM $tableName') ?? [];
+        return _mapsToVehicle(allVehiclesData, vehicleType);
+    }
+  }
+
+  Future<List<Vehicle>> getVehicleByProperities(
+      {required, required VehicleType vehicleType}) async {
+    String tableName = _getTableName(vehicleType);
+    List<Map<String, dynamic>> allVehiclesData = await database?.rawQuery(
+            'SELECT properties FROM $tableName WHERE properties LIKE "%DSG%"') ??
+        [];
+    print(allVehiclesData);
     return _mapsToVehicle(allVehiclesData, vehicleType);
   }
 

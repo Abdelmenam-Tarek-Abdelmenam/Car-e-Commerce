@@ -1,5 +1,6 @@
 import 'package:car_e_commerce/bloc/bloc/data_bloc/data_status_bloc.dart';
 import 'package:car_e_commerce/constants/car_brands.dart';
+import 'package:car_e_commerce/constants/enums.dart';
 import 'package:car_e_commerce/constants/theme.dart';
 import 'package:car_e_commerce/data/local/sql_database.dart';
 import 'package:car_e_commerce/data/module/products/vehicle.dart';
@@ -25,12 +26,6 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DataBaseRepository db = DataBaseRepository();
-    List<int> prices = [1, 2];
-    print('started');
-    db.getVehicleByPrice(
-        vehicleType: VehicleType.car, priceRange: [100000, 250000]);
-    print('finished');
     return GestureDetector(
       onTap: () {
         FocusScopeNode currentFocus = FocusScope.of(context);

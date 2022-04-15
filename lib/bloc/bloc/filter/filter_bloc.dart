@@ -1,31 +1,31 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
+import 'package:car_e_commerce/constants/enums.dart';
+import 'package:car_e_commerce/data/local/sql_database.dart';
 import 'package:car_e_commerce/data/module/products/vehicle.dart';
 import 'package:car_e_commerce/data/web/firestore_repository.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/rendering.dart';
 import '../../../data/module/filter/filtered_vehicle.dart';
 part 'filter_event.dart';
 part 'filter_state.dart';
 
 class FilterBloc extends Bloc<FilterEvent, FilterState> {
-  final FireStoreRepository _fireStoreRepository = FireStoreRepository();
+  final DataBaseRepository _dataBaseRepository = DataBaseRepository();
 
-  FilterBloc() : super(const FilterLoaded());
-
-  Stream<FilterState> mapEventToState(FilterEvent event) async* {
-    if (event is UpdatePrice) {
-      yield* _mapUpdatePrice(event, state);
-    }
+  FilterBloc() : super(const FilterLoaded()) {
+    on<FilterUpdatedFilter>(_getFilterData);
   }
 
-  Stream<FilterState> _mapUpdatePrice(
-      UpdatePrice event, FilterState state) async* {
-    if (state is FilterLoaded) {
-      final List<Vehicle> filteredByPrice = await _fireStoreRepository
-          .getFilteredVehicles(event.priceRange, "soa", VehicleType.car);
-      yield FilterLoaded(
-          filter: Filtered(
-        price: filteredByPrice,
-      ));
-    }
+  Future<void> _getFilterData(
+      FilterUpdatedFilter event, Emitter<FilterState> emit) async {
+    List<Vehicle>? needData = await _dataBaseRepository.getVehicleFiltered(
+      vehicleType: VehicleType.car,
+      carTransmission: event.transmissionType,
+      countryName: event.countryName,
+      priceRange: event.priceRange,
+    );
+    emit(FilterLoaded(filteredVehicles: needData!));
   }
 }

@@ -50,8 +50,10 @@ class DataStatusBloc extends Bloc<VehicleDataEvent, VehicleDataState> {
       needData = await _fireStoreRepository.getAllBrandData(event.brandName,
           vehicleType: state.type);
     } else {
-      needData = await _dataBaseRepository.getAllBrandData(event.brandName,
-          vehicleType: state.type);
+      needData = await _dataBaseRepository.getAllBrandData(
+        event.brandName,
+        vehicleType: state.type,
+      );
       if (needData.isEmpty) {
         needData = await _fireStoreRepository.getAllBrandData(event.brandName,
             vehicleType: state.type);
@@ -64,7 +66,9 @@ class DataStatusBloc extends Bloc<VehicleDataEvent, VehicleDataState> {
   }
 
   Future<void> _editVehicleData(
-      EditVehicleData event, Emitter<VehicleDataState> emit) async {
+    EditVehicleData event,
+    Emitter<VehicleDataState> emit,
+  ) async {
     await _dataBaseRepository.changeVehicleData(event.vehicle,
         vehicleType: state.type);
     emit(state.editEntry(vehicle: event.vehicle, index: event.indexInList));

@@ -95,9 +95,7 @@ class AppView extends StatelessWidget {
           title: 'Car E-Commerce',
           debugShowCheckedModeBanner: false,
           theme: lightThemeData,
-          home: context.read<AuthStatusBloc>().state.status == AuthStatus.authed
-              ? const MainScreen()
-              : LoginScreen()
+          home: MainScreen(),
           // home: FlowBuilder<AuthStatus>(
           //   state: context.select((AuthStatusBloc bloc) => bloc.state.status),
           //   onGeneratePages: routes,

@@ -26,6 +26,18 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // DataBaseRepository d1 = DataBaseRepository();
+    // var data = d1.getVehicleFiltered(
+    //   vehicleType: VehicleType.car,
+    //   countryName: 'Japan',
+    //   carTransmission: CarTransmission.manual,
+    // );
+    // data.then((value) {
+    //   print('here from main screen');
+    //   print(value!.length);
+    //   print(value);
+    // });
+
     return GestureDetector(
       onTap: () {
         FocusScopeNode currentFocus = FocusScope.of(context);

@@ -1,36 +1,31 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:car_e_commerce/bloc/bloc/filter/filter_bloc.dart';
 import 'package:car_e_commerce/constants/countries_list.dart';
+import 'package:car_e_commerce/constants/enums.dart';
 import 'package:car_e_commerce/constants/fonts.dart';
 import 'package:car_e_commerce/data/module/products/vehicle.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../data/web/firestore_repository.dart';
 
 class Filter extends StatelessWidget {
-  FireStoreRepository firebaseRep = FireStoreRepository();
-
   Filter({Key? key}) : super(key: key);
-  Future<void> test() async {
-    var vehicle =
-        await firebaseRep.getFilteredVehiclesByBrand("yassin", VehicleType.car);
-    Set<String> allBrandsName = {};
-    var temp = vehicle.map((e) => e.brand).toList();
-    allBrandsName.addAll(temp);
-  }
-
+  static List<dynamic> _filterParameters = List<dynamic>.filled(3, null);
   @override
   Widget build(BuildContext context) {
-    test();
+    print('filter parameters: ${Filter._filterParameters.toList().toString()}');
     return Container(
-      height: 320.h,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(40.r),
       ),
       padding: EdgeInsets.symmetric(horizontal: 25.w, vertical: 35.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.end,
+        mainAxisSize: MainAxisSize.min,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -92,6 +87,12 @@ class FliterShowBtn extends StatelessWidget {
         ),
         onPressed: () {
           Navigator.pop(context);
+          print(
+              'filter parameters: ${Filter._filterParameters.toList().toString()}');
+          context.read<FilterBloc>().add(FilterUpdatedFilter(
+              countryName: Filter._filterParameters[0],
+              priceRange: Filter._filterParameters[1],
+              transmissionType: Filter._filterParameters[2]));
         },
         child: Text('Show Results', style: textTheme.subtitle2),
       ),
@@ -149,6 +150,8 @@ class _SliderState extends State<Slider> {
       child: RangeSlider(
         onChanged: (RangeValues value) => setState(() {
           this.value = value;
+          List<double> temp = [value.start * 10000, value.end * 10000];
+          Filter._filterParameters[1] = temp;
         }),
         labels: RangeLabels(value.start.toString(), value.end.toString()),
         values: value,
@@ -162,6 +165,7 @@ class _SliderState extends State<Slider> {
 
 // todo:: change the style
 class ManfactureCountriesDropDownMenu extends StatefulWidget {
+  static String? value;
   const ManfactureCountriesDropDownMenu({Key? key}) : super(key: key);
 
   @override
@@ -172,8 +176,6 @@ class ManfactureCountriesDropDownMenu extends StatefulWidget {
 class _ManfactureCountriesDropDownMenuState
     extends State<ManfactureCountriesDropDownMenu> {
   var contriesList = countriesList;
-
-  String? value;
 
   @override
   Widget build(BuildContext context) {
@@ -191,12 +193,13 @@ class _ManfactureCountriesDropDownMenuState
         child: DropdownButton(
           underline: const SizedBox(),
           isExpanded: true,
-          value: value,
+          value: ManfactureCountriesDropDownMenu.value,
           hint: const Text('All'),
           items: contriesList.map((e) => buildMenu(e)).toList(),
           onChanged: (String? value) {
             setState(() {
-              this.value = value;
+              ManfactureCountriesDropDownMenu.value = value;
+              Filter._filterParameters[0] = value;
             });
           },
         ),
@@ -218,10 +221,14 @@ class ChooseTransmissionTypeBtn extends StatefulWidget {
   final String text;
   final int indexBtn;
   int selectedBtn;
+  CarTransmission type;
 
-  ChooseTransmissionTypeBtn(this.text, this.indexBtn, this.selectedBtn,
-      {Key? key})
-      : super(key: key);
+  ChooseTransmissionTypeBtn(
+    this.text,
+    this.indexBtn,
+    this.selectedBtn,
+    this.type,
+  );
   // bool get _selected => indexBtn == selectedBtn;
 
   @override
@@ -233,23 +240,34 @@ class _ChooseTransmissionTypeBtnState extends State<ChooseTransmissionTypeBtn> {
   bool _selected = false;
   @override
   Widget build(BuildContext context) {
-    return ChoiceChip(
-      label: SizedBox(
-        width: 70.w,
-        height: 25.h,
-        child: Align(
-          alignment: Alignment.center,
-          child: Text(widget.text,
-              style: textTheme.subtitle2!.copyWith(fontSize: 13.sp)),
-        ),
-      ),
-      backgroundColor: Theme.of(context).primaryColorDark,
-      selected: _selected,
-      selectedColor: Theme.of(context).primaryColor,
-      onSelected: (select) {
-        setState(() {
-          _selected = select;
-        });
+    return BlocBuilder<FilterBloc, FilterState>(
+      bloc: FilterBloc(),
+      builder: (context, state) {
+        return ChoiceChip(
+          label: SizedBox(
+            width: 70.w,
+            height: 25.h,
+            child: Align(
+              alignment: Alignment.center,
+              child: Text(widget.text,
+                  style: textTheme.subtitle2!.copyWith(fontSize: 13.sp)),
+            ),
+          ),
+          backgroundColor: Theme.of(context).primaryColorDark,
+          selected: _selected,
+          selectedColor: Theme.of(context).primaryColor,
+          onSelected: (select) {
+            setState(() {
+              _selected = select;
+              // context.read<FilterBloc>().add(
+              //       FilterUpdatedTransmissionType(
+              //         transmissionType: widget.type,
+              //       ),
+              //     );
+              Filter._filterParameters[2] = widget.type;
+            });
+          },
+        );
       },
     );
   }
@@ -270,9 +288,11 @@ class _ChooseTransmissionTypeBtnsViewState
   @override
   Widget build(BuildContext context) {
     List<ChooseTransmissionTypeBtn> btns = [
-      ChooseTransmissionTypeBtn('All', 0, selectedBtn),
-      ChooseTransmissionTypeBtn('Manual', 1, selectedBtn),
-      ChooseTransmissionTypeBtn('Automatic', 2, selectedBtn),
+      ChooseTransmissionTypeBtn('All', 0, selectedBtn, CarTransmission.all),
+      ChooseTransmissionTypeBtn(
+          'Manual', 1, selectedBtn, CarTransmission.manual),
+      ChooseTransmissionTypeBtn(
+          'Automatic', 2, selectedBtn, CarTransmission.automatic),
     ];
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,

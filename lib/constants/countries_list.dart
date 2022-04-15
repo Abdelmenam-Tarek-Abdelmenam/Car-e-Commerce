@@ -1,4 +1,5 @@
 const countriesList = [
+  'All',
   'Afghanistan',
   'Albania',
   'Algeria',

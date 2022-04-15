@@ -10,12 +10,12 @@ abstract class FilterState extends Equatable {
 class FilterLoading extends FilterState {}
 
 class FilterLoaded extends FilterState {
-  final Filtered filter;
+  final List<Vehicle> filteredVehicles;
 
   const FilterLoaded({
-    this.filter = const Filtered(),
+    this.filteredVehicles = const [], // default value
   });
 
   @override
-  List<Object> get props => [filter];
+  List<Object> get props => [filteredVehicles];
 }

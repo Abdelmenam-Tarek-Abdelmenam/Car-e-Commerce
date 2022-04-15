@@ -94,14 +94,14 @@ class DataBaseRepository {
         List<Map<String, dynamic>> allVehiclesData = await database?.rawQuery(
                 'SELECT properties FROM $tableName WHERE properties LIKE "%${CarTransmission.automatic.name}%"') ??
             [];
-
+        print("$allVehiclesData +  YASSIN");
         return _mapsToVehicle(allVehiclesData, vehicleType);
 
       case CarTransmission.manual:
         List<Map<String, dynamic>> allVehiclesData = await database?.rawQuery(
                 'SELECT properties FROM $tableName WHERE properties LIKE "%${CarTransmission.manual.name}%"') ??
             [];
-
+        print("$allVehiclesData +  YASSIN");
         return _mapsToVehicle(allVehiclesData, vehicleType);
 
       default:
@@ -112,27 +112,51 @@ class DataBaseRepository {
   }
 
   Future<List<Vehicle>> getVehicleByProperities(
-      {required, required VehicleType vehicleType}) async {
+      {required VehicleType vehicleType}) async {
     String tableName = _getTableName(vehicleType);
-    List<Map<String, dynamic>> allVehiclesData = await database?.rawQuery(
-            'SELECT properties FROM $tableName WHERE properties LIKE "%DSG%"') ??
-        [];
+    List<Map<String, dynamic>> allVehiclesData =
+        await database?.rawQuery('SELECT properties FROM $tableName') ?? [];
     print(allVehiclesData);
     return _mapsToVehicle(allVehiclesData, vehicleType);
   }
 
-  String _getTableName(VehicleType vehicleType) {
-    return {
-      VehicleType.car: "cars",
-      VehicleType.motorCycle: "motorCycle",
-      VehicleType.bike: "bikes"
-    }[vehicleType]!;
+  Future<List<Vehicle>> getVehicleByCountries(
+      {required String countryName, required VehicleType vehicleType}) async {
+    String tableName = _getTableName(vehicleType);
+    if (countryName == "All") {
+      List<Map<String, dynamic>> allVehiclesData =
+          await database?.rawQuery('SELECT * FROM $tableName ') ?? [];
+      return _mapsToVehicle(allVehiclesData, vehicleType);
+    } else {
+      List<Map<String, dynamic>> allVehiclesData = await database?.rawQuery(
+              'SELECT * FROM $tableName WHERE properties LIKE "%Assembly Country___$countryName%" ') ??
+          [];
+      return _mapsToVehicle(allVehiclesData, vehicleType);
+    }
   }
 
-  List<Vehicle> _mapsToVehicle(
-      List<Map<String, dynamic>> allVehiclesData, VehicleType vehicleType) {
-    return allVehiclesData
-        .map((e) => Vehicle.fromJson(e, vehicleType))
-        .toList();
+  Future<List<Vehicle>?> getVehicleFiltered(
+      {List<int>? priceRange,
+      CarTransmission? carTransmission,
+      String? countryName,
+      required VehicleType vehicleType}) async {
+    String tableName = _getTableName(vehicleType);
+    List<Map<String, dynamic>> allVehiclesData = await database?.rawQuery(
+            'SELECT * FROM $tableName WHERE properties LIKE "%Origin Country___${countryName == null || countryName == 'all' ? '%' : countryName}%" AND properties LIKE "%${carTransmission?.name ?? '%'}%" ${priceRange == null ? '' : 'AND price BETWEEN ${priceRange[0]} AND ${priceRange[1]}'}') ??
+        [];
+    return _mapsToVehicle(allVehiclesData, vehicleType);
   }
+}
+
+String _getTableName(VehicleType vehicleType) {
+  return {
+    VehicleType.car: "cars",
+    VehicleType.motorCycle: "motorCycle",
+    VehicleType.bike: "bikes"
+  }[vehicleType]!;
+}
+
+List<Vehicle> _mapsToVehicle(
+    List<Map<String, dynamic>> allVehiclesData, VehicleType vehicleType) {
+  return allVehiclesData.map((e) => Vehicle.fromJson(e, vehicleType)).toList();
 }

@@ -13,11 +13,11 @@ class LoadFilter extends FilterEvent {
   List<Object> get props => [];
 }
 
-class UpdatePrice extends FilterEvent {
-  final List<int> priceRange;
+class FilterUpdatedFilter extends FilterEvent {
+  final CarTransmission? transmissionType;
+  final String? countryName;
+  final List<int>? priceRange;
 
-  const UpdatePrice({required this.priceRange});
-
-  @override
-  List<Object> get props => [priceRange];
+  const FilterUpdatedFilter(
+      {this.countryName, this.priceRange, this.transmissionType});
 }

@@ -10,7 +10,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../../bloc/bloc/data_bloc/data_status_bloc.dart';
 import '../../../constants/theme.dart';
-import '../../../shared/widgets/bar_icon_button.dart';
+import '../../shared/widgets/bar_icon_button.dart';
 import '../compare_screen/search_to_compare.dart';
 
 // ignore: must_be_immutable

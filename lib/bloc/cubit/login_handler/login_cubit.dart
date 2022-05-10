@@ -1,9 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:car_e_commerce/data/repository/auth_exception.dart';
-import 'package:car_e_commerce/shared/widgets/toast_helper.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../../data/repository/auth_repository.dart';
+import '../../../ui/shared/widgets/toast_helper.dart';
 
 part 'login_state.dart';
 

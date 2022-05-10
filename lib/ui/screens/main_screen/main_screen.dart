@@ -1,9 +1,6 @@
 import 'package:car_e_commerce/bloc/bloc/data_bloc/data_status_bloc.dart';
 import 'package:car_e_commerce/constants/car_brands.dart';
-import 'package:car_e_commerce/constants/enums.dart';
 import 'package:car_e_commerce/constants/theme.dart';
-import 'package:car_e_commerce/data/local/sql_database.dart';
-import 'package:car_e_commerce/data/module/products/vehicle.dart';
 import 'package:car_e_commerce/ui/screens/main_screen/widgets/home_app_bar.dart';
 import 'package:car_e_commerce/ui/screens/main_screen/widgets/list_view_filter_buttons.dart';
 import 'package:car_e_commerce/ui/screens/main_screen/widgets/loading_card.dart';

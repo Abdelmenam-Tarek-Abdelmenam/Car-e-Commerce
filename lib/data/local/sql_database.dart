@@ -94,14 +94,12 @@ class DataBaseRepository {
         List<Map<String, dynamic>> allVehiclesData = await database?.rawQuery(
                 'SELECT properties FROM $tableName WHERE properties LIKE "%${CarTransmission.automatic.name}%"') ??
             [];
-        print("$allVehiclesData +  YASSIN");
         return _mapsToVehicle(allVehiclesData, vehicleType);
 
       case CarTransmission.manual:
         List<Map<String, dynamic>> allVehiclesData = await database?.rawQuery(
                 'SELECT properties FROM $tableName WHERE properties LIKE "%${CarTransmission.manual.name}%"') ??
             [];
-        print("$allVehiclesData +  YASSIN");
         return _mapsToVehicle(allVehiclesData, vehicleType);
 
       default:
@@ -116,7 +114,6 @@ class DataBaseRepository {
     String tableName = _getTableName(vehicleType);
     List<Map<String, dynamic>> allVehiclesData =
         await database?.rawQuery('SELECT properties FROM $tableName') ?? [];
-    print(allVehiclesData);
     return _mapsToVehicle(allVehiclesData, vehicleType);
   }
 

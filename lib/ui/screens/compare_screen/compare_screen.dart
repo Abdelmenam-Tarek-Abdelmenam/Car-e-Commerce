@@ -6,7 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 
 import '../../../constants/theme.dart';
-import '../../../shared/widgets/bar_icon_button.dart';
+import '../../shared/widgets/bar_icon_button.dart';
 
 // ignore: must_be_immutable
 class CompareScreen extends StatelessWidget {

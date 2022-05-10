@@ -1,5 +1,4 @@
 import 'package:car_e_commerce/data/module/products/vehicle.dart';
-import 'package:car_e_commerce/shared/widgets/toast_helper.dart';
 import 'package:car_e_commerce/ui/routes/navigation_functions.dart';
 import 'package:car_e_commerce/ui/screens/user_screen/widgets/fav_screen.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +11,8 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../../../bloc/bloc/data_bloc/data_status_bloc.dart';
 import '../../../../constants/theme.dart';
 import '../../../../data/local/pref_repository.dart';
-import '../../../../shared/widgets/custom_button.dart';
+import '../../../shared/widgets/custom_button.dart';
+import '../../../shared/widgets/toast_helper.dart';
 import '../../main_screen/widgets/loading_card.dart';
 import '../../main_screen/widgets/product_card.dart';
 

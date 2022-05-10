@@ -1,6 +1,4 @@
 import 'package:car_e_commerce/constants/theme.dart';
-import 'package:car_e_commerce/shared/widgets/custom_button.dart';
-import 'package:car_e_commerce/shared/widgets/toast_helper.dart';
 import 'package:car_e_commerce/ui/screens/starting_screen/login_screen/widgtes/back_ground.dart';
 import 'package:car_e_commerce/ui/screens/starting_screen/login_screen/widgtes/form_field.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +7,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../bloc/cubit/login_handler/login_cubit.dart';
+import '../../../shared/widgets/custom_button.dart';
+import '../../../shared/widgets/toast_helper.dart';
 
 // ignore: must_be_immutable
 class SignUpScreen extends StatelessWidget {

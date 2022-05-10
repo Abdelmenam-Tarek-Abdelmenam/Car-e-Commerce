@@ -1,5 +1,4 @@
 import 'package:car_e_commerce/data/module/user/user.dart';
-import 'package:car_e_commerce/shared/widgets/bar_icon_button.dart';
 import 'package:car_e_commerce/ui/routes/navigation_functions.dart';
 import 'package:car_e_commerce/ui/screens/starting_screen/login_screen/login_screen.dart';
 import 'package:car_e_commerce/ui/screens/user_screen/widgets/main_layout.dart';
@@ -9,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../bloc/bloc/auth_bloc/auth_status_bloc.dart';
 import '../../../constants/theme.dart';
+import '../../shared/widgets/bar_icon_button.dart';
 
 class UserScreen extends StatelessWidget {
   const UserScreen({Key? key}) : super(key: key);

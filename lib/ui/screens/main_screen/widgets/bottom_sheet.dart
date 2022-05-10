@@ -4,19 +4,15 @@ import 'package:car_e_commerce/bloc/bloc/filter/filter_bloc.dart';
 import 'package:car_e_commerce/constants/countries_list.dart';
 import 'package:car_e_commerce/constants/enums.dart';
 import 'package:car_e_commerce/constants/fonts.dart';
-import 'package:car_e_commerce/data/module/products/vehicle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../data/web/firestore_repository.dart';
-
 class Filter extends StatelessWidget {
-  Filter({Key? key}) : super(key: key);
-  static List<dynamic> _filterParameters = List<dynamic>.filled(3, null);
+  const Filter({Key? key}) : super(key: key);
+  static final List<dynamic> _filterParameters = List<dynamic>.filled(3, null);
   @override
   Widget build(BuildContext context) {
-    print('filter parameters: ${Filter._filterParameters.toList().toString()}');
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(40.r),
@@ -87,8 +83,6 @@ class FliterShowBtn extends StatelessWidget {
         ),
         onPressed: () {
           Navigator.pop(context);
-          print(
-              'filter parameters: ${Filter._filterParameters.toList().toString()}');
           context.read<FilterBloc>().add(FilterUpdatedFilter(
               countryName: Filter._filterParameters[0],
               priceRange: Filter._filterParameters[1],
@@ -224,11 +218,9 @@ class ChooseTransmissionTypeBtn extends StatefulWidget {
   CarTransmission type;
 
   ChooseTransmissionTypeBtn(
-    this.text,
-    this.indexBtn,
-    this.selectedBtn,
-    this.type,
-  );
+      this.text, this.indexBtn, this.selectedBtn, this.type,
+      {Key? key})
+      : super(key: key);
   // bool get _selected => indexBtn == selectedBtn;
 
   @override

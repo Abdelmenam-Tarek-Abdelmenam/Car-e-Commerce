@@ -4,10 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:car_e_commerce/constants/enums.dart';
 import 'package:car_e_commerce/data/local/sql_database.dart';
 import 'package:car_e_commerce/data/module/products/vehicle.dart';
-import 'package:car_e_commerce/data/web/firestore_repository.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/rendering.dart';
-import '../../../data/module/filter/filtered_vehicle.dart';
 part 'filter_event.dart';
 part 'filter_state.dart';
 

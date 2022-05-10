@@ -69,7 +69,7 @@ class _SearchBarState extends State<SearchBar> {
         ),
         isDismissible: true,
         builder: (BuildContext context) {
-          return Filter();
+          return const Filter();
         });
   }
 }

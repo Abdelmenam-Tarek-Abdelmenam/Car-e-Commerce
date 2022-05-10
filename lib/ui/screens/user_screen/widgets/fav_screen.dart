@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../constants/theme.dart';
-import '../../../../shared/widgets/bar_icon_button.dart';
+import '../../../shared/widgets/bar_icon_button.dart';
 import '../../main_screen/widgets/card_grid_view.dart';
 
 class FavScreen extends StatelessWidget {

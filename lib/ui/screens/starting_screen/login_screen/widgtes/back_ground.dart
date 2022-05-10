@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../constants/theme.dart';
-import '../../../../../shared/widgets/bar_icon_button.dart';
+import '../../../../shared/widgets/bar_icon_button.dart';
 
 class LoginBackLayout extends StatelessWidget {
   final Widget child;
@@ -54,35 +54,35 @@ class LoginBackLayout extends StatelessWidget {
   }
 }
 
-class MyPainter extends CustomPainter {
-  bool reverse;
-  MyPainter(this.reverse);
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    Paint paint = Paint()
-      ..color = veryLightYellow
-      ..strokeWidth = size.height < 600 ? 50 : 150
-      ..strokeCap = StrokeCap.round
-      ..style = PaintingStyle.stroke;
-
-    canvas.drawArc(
-      Rect.fromCenter(
-        center: Offset(
-            size.height < 600
-                ? size.width * 1.5
-                : (reverse ? 3 : -0.75) * size.height / 4.75,
-            size.height / 2),
-        height: size.height,
-        width: size.width * 2,
-      ),
-      3.14 * .5,
-      reverse ? 3.14 : -3.14,
-      true,
-      paint,
-    );
-  }
-
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) => false;
-}
+// class MyPainter extends CustomPainter {
+//   bool reverse;
+//   MyPainter(this.reverse);
+//
+//   @override
+//   void paint(Canvas canvas, Size size) {
+//     Paint paint = Paint()
+//       ..color = veryLightYellow
+//       ..strokeWidth = size.height < 600 ? 50 : 150
+//       ..strokeCap = StrokeCap.round
+//       ..style = PaintingStyle.stroke;
+//
+//     canvas.drawArc(
+//       Rect.fromCenter(
+//         center: Offset(
+//             size.height < 600
+//                 ? size.width * 1.5
+//                 : (reverse ? 3 : -0.75) * size.height / 4.75,
+//             size.height / 2),
+//         height: size.height,
+//         width: size.width * 2,
+//       ),
+//       3.14 * .5,
+//       reverse ? 3.14 : -3.14,
+//       true,
+//       paint,
+//     );
+//   }
+//
+//   @override
+//   bool shouldRepaint(CustomPainter oldDelegate) => false;
+// }
